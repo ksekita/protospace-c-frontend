@@ -45,6 +45,8 @@ docker network create shared-net
 
 バックエンドAPIと正しく通信するために、プロジェクトのルート直下（`package.json` と同じ階層）に `.env.local` ファイルを新規作成し、以下の内容を貼り付けて保存してください。
 
+※ この値は変わる可能性があるので留意してください。
+
 ```bash
 # ブラウザ（クライアント側）からバックエンドAPIを叩くときのURL
 NEXT_PUBLIC_API_URL=http://localhost:8080
