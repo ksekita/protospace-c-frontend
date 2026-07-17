@@ -1,0 +1,13 @@
+services:
+  frontend:
+    image: mcr.microsoft.com/devcontainers/typescript-node:4-24-trixie
+    volumes:
+      - ..:/workspaces:cached
+    command: sleep infinity
+    networks:
+      - shared-net
+
+networks:
+  shared-net:
+    name: shared-net
+    external: true
