@@ -43,17 +43,13 @@ docker network create shared-net
 
 ### 4. 環境変数の設定
 
-バックエンドAPIと正しく通信するために、プロジェクトのルート直下（package.json と同じ階層）に .env.local ファイルを新規作成し、以下の内容を貼り付けて保存してください。
-
-ブラウザ（クライアント側）からバックエンドAPIを叩くときのURL
+バックエンドAPIと正しく通信するために、プロジェクトのルート直下（`package.json` と同じ階層）に `.env.local` ファイルを新規作成し、以下の内容を貼り付けて保存してください。
 
 ```bash
+# ブラウザ（クライアント側）からバックエンドAPIを叩くときのURL
 NEXT_PUBLIC_API_URL=http://localhost:8080
-```
 
-Next.jsサーバー側（Server Components等）から直接叩くときのURL（Dockerネットワーク内通信）
-
-```bash
+# Next.jsサーバー側（Server Components等）から直接叩くときのURL（Dockerネットワーク内通信）
 SERVER_API_URL=http://app:8080
 ```
 
