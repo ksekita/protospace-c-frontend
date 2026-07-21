@@ -1,0 +1,11 @@
+import Login from "@/components/auth/Login";
+import styles from "./page.module.css";
+
+export default function LoginPage() {
+  return (
+    <div className="inner">
+      <h2 className={styles.page_heading}>ユーザーログイン</h2>
+      <Login />
+    </div>
+  );
+}
