@@ -17,10 +17,10 @@ export default function Header() {
           />
         </div>
         <div className={styles.margin_reset}>
-          <Link href={""} className={styles.nav_link}>
+          <Link href={"/auth/login"} className={styles.nav_link}>
             ログイン
           </Link>
-          <Link href={""} className={styles.nav_link}>
+          <Link href={"/auth/register"} className={styles.nav_link}>
             新規登録
           </Link>
         </div>
