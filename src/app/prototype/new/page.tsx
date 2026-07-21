@@ -1,12 +1,42 @@
-import Form from "next/form";
+"use client";
+
 import styles from "./page.module.css";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NewPrototypePage() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await fetch("/api/prototypes", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("送信失敗です");
+
+      alert("投稿が完了しました");
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      alert("エラー。再試行してください。");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className={styles.container}>
       <h2 className={styles.title}>新規プロトタイプ投稿</h2>
 
-      <Form action="/api/prototypes" encType="multipart/form-data">
+      <form action="/api/prototypes" encType="multipart/form-data">
         <div className={styles.form_group}>
           <label htmlFor="title" className={styles.label}>
             プロトタイプの名称
@@ -53,7 +83,7 @@ export default function NewPrototypePage() {
         <button type="submit" className={styles.submitBtn}>
           保存する
         </button>
-      </Form>
+      </form>
     </main>
   );
 }
