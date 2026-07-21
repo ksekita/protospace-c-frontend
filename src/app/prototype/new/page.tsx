@@ -1,3 +1,4 @@
+import Form from "next/form";
 import styles from "./page.module.css";
 
 export default function NewPrototypePage() {
@@ -5,19 +6,15 @@ export default function NewPrototypePage() {
     <main className={styles.container}>
       <h2 className={styles.title}>新規プロトタイプ投稿</h2>
 
-      <form
-        method="post"
-        action="/api/prototypes"
-        encType="multipart/form-data"
-      >
-        <div className={styles.formGroup}>
+      <Form action="/api/prototypes" encType="multipart/form-data">
+        <div className={styles.form_group}>
           <label htmlFor="title" className={styles.label}>
             プロトタイプの名称
           </label>
           <input type="text" id="title" name="title" className={styles.input} />
         </div>
 
-        <div className={styles.formGroup}>
+        <div className={styles.form_group}>
           <label htmlFor="catchphrase" className={styles.label}>
             キャッチコピー
           </label>
@@ -29,7 +26,7 @@ export default function NewPrototypePage() {
           />
         </div>
 
-        <div className={styles.formGroup}>
+        <div className={styles.form_group}>
           <label htmlFor="concept" className={styles.label}>
             コンセプト
           </label>
@@ -41,7 +38,7 @@ export default function NewPrototypePage() {
           />
         </div>
 
-        <div className={styles.formGroup}>
+        <div className={styles.form_group}>
           <label htmlFor="image" className={styles.label}>
             プロトタイプの画像
           </label>
@@ -56,7 +53,7 @@ export default function NewPrototypePage() {
         <button type="submit" className={styles.submitBtn}>
           保存する
         </button>
-      </form>
+      </Form>
     </main>
   );
 }
