@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { Prototype } from "@/types/prototype";
 
 export const useGetPrototypes = () => {
@@ -10,15 +11,8 @@ export const useGetPrototypes = () => {
     const fetchPrototypes = async () => {
       try {
         setIsLoading(true);
-        // Java側のAPIエンドポイントに合わせてURLは指定する
-        const response = await fetch("/api/prototypes");
-
-        if (!response.ok) {
-          throw new Error("プロトタイプ一覧の取得に失敗しました");
-        }
-
-        const data = await response.json();
-        setPrototypes(data);
+        const response = await axios.get<Prototype[]>("/api/prototypes");
+        setPrototypes(response.data);
       } catch (err) {
         console.error(err);
         setError("データの読み込みに失敗しました。再読み込みしてください。");
