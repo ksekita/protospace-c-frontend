@@ -97,11 +97,6 @@ export async function loginAction(
     console.log("error", error);
     return { email, error: "通信エラーが発生しました" };
   }
-
-  const cookieStore = await cookies();
-  cookieStore.set("jwt_token", "dummy-jwt-token-abc123", {
-    httpOnly: true,
-  });
   redirect("/");
 }
 
@@ -174,11 +169,6 @@ export async function registerAction(
       error: "登録できませんでした",
     };
   }
-
-  const cookieStore = await cookies();
-  cookieStore.set("jwt_token", "dummy-jwt-token-abc123", {
-    httpOnly: true,
-  });
   redirect("/");
 }
 
