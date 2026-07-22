@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "@/Greeting.module.css";
+import styles from "./Greeting.module.css";
 
 type GreetingProps = {
   userName: string;
