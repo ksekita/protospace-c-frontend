@@ -1,6 +1,6 @@
-import PostDetail from "@/components/detail/PostDetail"
-import ProfileDetail from "@/components/detail/ProfileDetail";
-import UserDetail from "@/components/detail/UserDetail";
+import UserPostsDetail from "@/components/detail/UserPostsDetail"
+import UserProfileDetail from "@/components/detail/UserProfileDetail";
+import Link from "next/link";
 import styles from "./page.module.css"
 
 
@@ -10,12 +10,10 @@ import styles from "./page.module.css"
 export default function UserDetailPage() {
   return (
     <main>
-      <h2 className={styles.titleProfile}>名前さんの情報</h2>
       {/* ユーザーのプロフィール情報 */}
-      <ProfileDetail />
-      <h2 className={styles.titlePrototypes}>名前さんのプロトタイプ</h2>
+      <UserProfileDetail />
       {/* ユーザーのprototypes */}
-      <UserDetail />
+      <UserPostsDetail />
     </main>
   );
 }

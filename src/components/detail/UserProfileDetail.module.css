@@ -1,0 +1,49 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.profileTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 各行 */
+.profileTable tr {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 左側の項目 (th) */
+.headerCell {
+  width: 30%;
+  background-color: #f9f9f9;
+  color: #333333;
+  font-weight: 700;
+  text-align: left;
+  padding: 16px 20px;
+  vertical-align: middle;
+}
+
+/* 右側の項目 */
+.dataCell {
+  width: 70%;
+  background-color: #ffffff;
+  color: #555555;
+  text-align: left;
+  padding: 16px 20px;
+  word-break: break-all;
+  vertical-align: middle;
+}
