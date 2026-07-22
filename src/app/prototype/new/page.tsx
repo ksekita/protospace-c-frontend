@@ -3,34 +3,35 @@
 import styles from "./page.module.css";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+// import mockPrototype from "@/types/MockPrototype";
 
 export default function NewPrototypePage() {
-  const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  //   const router = useRouter();
+  //   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  //   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  // e.preventDefault();
+  // setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
+  // const formData = new FormData(e.currentTarget);
 
-    try {
-      const response = await fetch("/api/prototypes", {
-        method: "POST",
-        body: formData,
-      });
+  //     try {
+  //       const response = await fetch("/api/prototypes", {
+  //         method: "POST",
+  //         body: formData,
+  //       });
 
-      if (!response.ok) throw new Error("送信失敗です");
+  //       if (!response.ok) throw new Error("送信失敗です");
 
-      alert("投稿が完了しました");
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      alert("エラー。再試行してください。");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  //       alert("投稿が完了しました");
+  //       router.push("/");
+  //       router.refresh();
+  //     } catch (error) {
+  //       alert("エラー。再試行してください。");
+  //     } finally {
+  //       setIsSubmitting(false);
+  //     }
+  //   };
 
   return (
     <main className={styles.container}>
