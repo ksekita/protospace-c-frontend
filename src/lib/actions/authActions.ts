@@ -33,12 +33,21 @@ import { cookies } from "next/headers";
  *  position
  */
 
-const mockData = {
+const mockLoginData = {
   email: "user@example.com",
   password: "password",
 };
 
-export async function loginAction(prevState: null, formData: FormData) {
+export type LoginActionState = {
+  email?: string;
+  error?: string;
+};
+
+// ログイン
+export async function loginAction(
+  prevState: LoginActionState | null,
+  formData: FormData,
+): Promise<LoginActionState> {
   //  emailとpasswordを取得
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -47,7 +56,7 @@ export async function loginAction(prevState: null, formData: FormData) {
     // const response = await api.post("/auth/login", { email, password });
     // await createSession
 
-    if (email === mockData.email && password === mockData.password) {
+    if (email === mockLoginData.email && password === mockLoginData.password) {
       const cookieStore = await cookies();
       cookieStore.set("session_token", "dummy-jwt-token-abc123", {
         httpOnly: true,
@@ -57,7 +66,7 @@ export async function loginAction(prevState: null, formData: FormData) {
     }
   } catch (error) {
     console.log("error", error);
-    return { error: "通信エラーが発生しました" };
+    return { email, error: "通信エラーが発生しました" };
   }
   redirect("/");
 }
