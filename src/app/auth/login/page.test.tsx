@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi, describe, test, expect, beforeEach } from "vitest";
+import { vi, describe, test, expect } from "vitest";
 import LoginPage from "./page";
 import { loginAction } from "@/lib/actions/authActions";
 
