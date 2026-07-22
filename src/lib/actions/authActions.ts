@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 // import api from "../api/apiClient";
 import { cookies } from "next/headers";
+import axios from "axios";
 
 /**
  * backendに送るもの
@@ -82,11 +83,15 @@ export async function loginAction(
   try {
     // const response = await api.post("/auth/login", { email, password });
     // await createSession
-
-    if (email !== mockLoginData.email || password !== mockLoginData.password) {
-      return { email, error: "メールアドレスまたはパスワードが違います" };
-    }
   } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        email,
+        error:
+          error.response.data.message ||
+          "メールアドレスまたはパスワードが違います",
+      };
+    }
     console.log("error", error);
     return { email, error: "通信エラーが発生しました" };
   }
