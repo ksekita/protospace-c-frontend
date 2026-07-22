@@ -50,13 +50,13 @@ export default function NewPrototypePage() {
             type="file"
             id="image"
             name="image"
-            className={styles.fileInput}
+            className={styles.file_input}
           />
         </div>
 
         <button
           type="submit"
-          className={styles.submitBtn}
+          className={styles.submit_btn}
           disabled={isSubmitting}
         >
           {isSubmitting ? "保存中..." : "保存する"}

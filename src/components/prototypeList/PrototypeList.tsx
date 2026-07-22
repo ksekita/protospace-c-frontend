@@ -1,12 +1,6 @@
 import Link from "next/link";
 import styles from "@/app/page.module.css";
-
-type Prototype = {
-  id: string;
-  title: string;
-  concept: string;
-  author: string;
-};
+import { Prototype } from "@/types/prototype";
 
 type PrototypeListProps = {
   prototypes: Prototype[];
@@ -29,9 +23,11 @@ export default function PrototypeList({ prototypes }: PrototypeListProps) {
             </h3>
             <p className={styles.cardConcept}>{proto.concept}</p>
             <div className={styles.cardAuthor}>
-              by{" "}
-              <Link href={`/users/${proto.id}`} className={styles.authorLink}>
-                {proto.author}
+              <Link
+                href={`/users/${proto.userId}`}
+                className={styles.authorLink}
+              >
+                {proto.user?.name}
               </Link>
             </div>
           </div>

@@ -4,18 +4,6 @@
   padding: 40px 20px;
 }
 
-.greeting {
-  font-size: 16px;
-  margin-bottom: 50px;
-  color: #333;
-  text-align: left;
-}
-
-.userLink {
-  color: #333;
-  text-decoration: underline;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

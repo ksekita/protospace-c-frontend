@@ -1,5 +1,6 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, test, expect, vi, beforeEach } from "vitest";
 import NewPrototypePage from "./page";
 
 import { useCreatePrototype } from "../../../lib/api/useCreatePrototype";
@@ -12,7 +13,7 @@ describe("新規投稿画面 (NewPrototypePage)", () => {
     vi.clearAllMocks();
   });
 
-  it("各入力項目と「保存する」ボタンが正しく表示されていること", () => {
+  test("各入力項目と「保存する」ボタンが正しく表示されていること", () => {
     vi.mocked(useCreatePrototype).mockReturnValue({
       isSubmitting: false,
       handleSubmit: mockHandleSubmit,
@@ -33,7 +34,7 @@ describe("新規投稿画面 (NewPrototypePage)", () => {
     expect(button).not.toBeDisabled();
   });
 
-  it("送信中（isSubmitting = true）のとき、ボタンが「保存中...」になり非活性化（押せない）こと", () => {
+  test("送信中（isSubmitting = true）のとき、ボタンが「保存中...」になり非活性化（押せない）こと", () => {
     vi.mocked(useCreatePrototype).mockReturnValue({
       isSubmitting: true,
       handleSubmit: mockHandleSubmit,
@@ -46,7 +47,9 @@ describe("新規投稿画面 (NewPrototypePage)", () => {
     expect(button).toBeDisabled();
   });
 
-  it("フォーム送信時に handleSubmit が呼び出されること", () => {
+  test("フォーム送信時に handleSubmit が呼び出されること", async () => {
+    const user = userEvent.setup();
+
     vi.mocked(useCreatePrototype).mockReturnValue({
       isSubmitting: false,
       handleSubmit: mockHandleSubmit,
@@ -55,7 +58,7 @@ describe("新規投稿画面 (NewPrototypePage)", () => {
     render(<NewPrototypePage />);
 
     const button = screen.getByRole("button", { name: "保存する" });
-    fireEvent.click(button);
+    await user.click(button);
 
     expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
   });

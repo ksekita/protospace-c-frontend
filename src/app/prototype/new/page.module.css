@@ -11,7 +11,7 @@
   margin-bottom: 30px;
 }
 
-.formGroup {
+.form_group {
   margin-bottom: 24px;
 }
 
@@ -41,7 +41,7 @@
   resize: vertical;
 }
 
-.fileInput {
+.file_input {
   font-size: 14px;
 }
 .submitBtn {
@@ -57,6 +57,6 @@
   transition: background-color 0.2s ease;
 }
 
-.submitBtn:hover {
+.submit_btn:hover {
   background-color: #70bee0;
 }
