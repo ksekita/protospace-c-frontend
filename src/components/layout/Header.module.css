@@ -1,1 +1,35 @@
-/* このファイルがないとなぜか画面がうつらないのでいったんこのままです */
+.flex {
+  display: flex;
+}
+
+.inner {
+  justify-content: space-between;
+  align-items: center;
+  width: 1024px;
+  margin: 0 auto;
+}
+
+.header {
+  height: 80px;
+  background-color: #f1f8fe;
+  padding: 20px 0;
+  margin-bottom: 48px;
+}
+
+.nav_link {
+  display: inline-block;
+  padding: 0.4em 1.6em;
+  font-size: 0.8em;
+  color: #87cefa;
+  text-decoration: none;
+  user-select: none;
+  border: 1px #87cefa solid;
+  border-radius: 3px;
+  transition: 0.4s ease;
+  margin: 2px;
+}
+
+.margin_reset {
+  margin: 0;
+  padding: 0;
+}
