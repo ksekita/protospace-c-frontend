@@ -121,9 +121,16 @@ export async function registerAction(
     await createSession(response.data.token);
   } catch (error) {
     console.log("error:", error);
+
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        ...currentState,
+        error: error.response.data.message || "登録できませんでした",
+      };
+    }
     return {
       ...currentState,
-      error: "登録できませんでした",
+      error: "通信エラーが発生しました",
     };
   }
   redirect("/");
