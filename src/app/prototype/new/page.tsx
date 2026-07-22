@@ -1,43 +1,16 @@
 "use client";
 
 import styles from "./page.module.css";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-// import mockPrototype from "@/types/MockPrototype";
+import { useCreatePrototype } from "@/hooks/useCreatePrototype";
 
 export default function NewPrototypePage() {
-  //   const router = useRouter();
-  //   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  //   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-  // e.preventDefault();
-  // setIsSubmitting(true);
-
-  // const formData = new FormData(e.currentTarget);
-
-  //     try {
-  //       const response = await fetch("/api/prototypes", {
-  //         method: "POST",
-  //         body: formData,
-  //       });
-
-  //       if (!response.ok) throw new Error("送信失敗です");
-
-  //       alert("投稿が完了しました");
-  //       router.push("/");
-  //       router.refresh();
-  //     } catch (error) {
-  //       alert("エラー。再試行してください。");
-  //     } finally {
-  //       setIsSubmitting(false);
-  //     }
-  //   };
+  const { isSubmitting, handleSubmit } = useCreatePrototype();
 
   return (
     <main className={styles.container}>
       <h2 className={styles.title}>新規プロトタイプ投稿</h2>
 
-      <form action="/api/prototypes" encType="multipart/form-data">
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className={styles.form_group}>
           <label htmlFor="title" className={styles.label}>
             プロトタイプの名称
@@ -81,8 +54,12 @@ export default function NewPrototypePage() {
           />
         </div>
 
-        <button type="submit" className={styles.submitBtn}>
-          保存する
+        <button
+          type="submit"
+          className={styles.submitBtn}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "保存中..." : "保存する"}
         </button>
       </form>
     </main>

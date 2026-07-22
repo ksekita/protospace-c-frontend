@@ -12,27 +12,6 @@ type Prototype = {
   imageUrl?: string;
 };
 
-// ② APIからデータ一覧を取得する関数
-// async function getPrototypes(): Promise<Prototype[]> {
-//   try {
-//     const res = await fetch("http://localhost:3000/api/prototypes", {
-//       cache: "no-store",
-//     });
-
-//     if (!res.ok) {
-//       console.warn(
-//         "APIからデータを取得できませんでした。空リストを表示します。",
-//       );
-//       return [];
-//     }
-
-//     return await res.json();
-//   } catch (error) {
-//     console.error("Fetchエラー:", error);
-//     return [];
-//   }
-// }
-
 //  ページ本体（asyncを付けて非同期処理に対応）
 export default async function Home() {
   const prototypes = await mockPrototypes;
