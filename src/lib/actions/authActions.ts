@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 // import api from "../api/apiClient";
 import { cookies } from "next/headers";
 import axios from "axios";
+import api from "../api/apiClient";
+import { createSession } from "./sessionActions";
 
 /**
  * backendに送るもの
@@ -81,8 +83,8 @@ export async function loginAction(
   const password = formData.get("password") as string;
 
   try {
-    // const response = await api.post("/auth/login", { email, password });
-    // await createSession
+    const response = await api.post("auth/login", { email, password });
+    await createSession(response.data);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
@@ -154,6 +156,17 @@ export async function registerAction(
         error: "パスワードが一致しません",
         fieldErrors: { password: "確認用パスワードと一致しません" },
       };
+    const passwordConfirm = password_confirmation;
+
+    const response = await api.post("auth/register", {
+      username,
+      email,
+      password,
+      passwordConfirm,
+      position,
+      affiliation,
+    });
+    await createSession(response.data);
   } catch (error) {
     console.log("error:", error);
     return {
