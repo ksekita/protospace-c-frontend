@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.css";
-import { useCreatePrototype } from "@/hooks/useCreatePrototype";
+import { useCreatePrototype } from "../../../lib/api/useCreatePrototype";
 
 export default function NewPrototypePage() {
   const { isSubmitting, handleSubmit } = useCreatePrototype();

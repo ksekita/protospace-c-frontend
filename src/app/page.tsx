@@ -1,21 +1,16 @@
+"use client";
+
 import styles from "./page.module.css";
 import Greeting from "@/components/greeting/Greeting";
 import PrototypeList from "@/components/prototypeList/PrototypeList";
-// import Prototype from "@/src/types/Prototype";
-import { mockPrototypes } from "@/types/MockPrototype";
-// ① 型定義
-type Prototype = {
-  id: string;
-  title: string;
-  concept: string;
-  author: string;
-  imageUrl?: string;
-};
+import { useGetPrototypes } from "@/lib/api/useGetPrototype";
 
-//  ページ本体（asyncを付けて非同期処理に対応）
-export default async function Home() {
-  const prototypes = await mockPrototypes;
+export default function Home() {
+  const { prototypes, isLoading, error } = useGetPrototypes();
   const userName = "テストユーザー";
+
+  if (isLoading) return <div className={styles.container}>読み込み中...</div>;
+  if (error) return <div className={styles.container}>{error}</div>;
 
   return (
     <div className={styles.container}>
