@@ -1,55 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
-// import api from "../api/apiClient";
 import { cookies } from "next/headers";
 import axios from "axios";
 import api from "../api/apiClient";
 import { createSession } from "./sessionActions";
-
-/**
- * backendに送るもの
- *
- * [login]
- *  email
- *  password
- *
- * [register]
- *  email
- *  password
- *  password_confirmation
- *  username
- *  profile
- *  affiliation
- *  position
- *
- * backendから返ってくるもの
- *
- * [login]
- *  email
- *
- * [register]
- *  email
- *  username
- *  profile
- *  affiliation
- *  position
- */
-
-const mockLoginData = {
-  email: "user@example.com",
-  password: "password",
-};
-
-const mockRegisterData = {
-  email: "user@example.com",
-  password: "password",
-  password_confirmation: "password",
-  username: "testuser",
-  profile: "ダミープロフィールデータ",
-  affiliation: "ダミー所属データ",
-  position: "ダミー役職データ",
-};
 
 export type LoginActionState = {
   email?: string;
@@ -84,7 +39,7 @@ export async function loginAction(
 
   try {
     const response = await api.post("auth/login", { email, password });
-    await createSession(response.data);
+    await createSession(response.data.token);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
@@ -121,36 +76,38 @@ export async function registerAction(
     position,
   };
 
+  // 入力内容チェック
+  if (
+    !username ||
+    !profile ||
+    !affiliation ||
+    !position ||
+    !email ||
+    !password
+  ) {
+    return {
+      ...currentState,
+      error: "入力内容に不備があります",
+      fieldErrors: {
+        username: !username ? "ユーザー名を入力してください" : undefined,
+        email: !email ? "メールアドレスを入力してください" : undefined,
+        password: !password ? "パスワードを入力してください" : undefined,
+        profile: !profile ? "プロフィールを入力してください" : undefined,
+        affiliation: !affiliation ? "所属を入力してください" : undefined,
+        position: !position ? "役職を入力してください" : undefined,
+      },
+    };
+  }
+
+  // パスワードチェック
+  if (password !== password_confirmation)
+    return {
+      ...currentState,
+      error: "パスワードが一致しません",
+      fieldErrors: { password: "確認用パスワードと一致しません" },
+    };
+
   try {
-    // 入力内容チェック
-    if (
-      !username ||
-      !profile ||
-      !affiliation ||
-      !position ||
-      !email ||
-      !password
-    ) {
-      return {
-        ...currentState,
-        error: "入力内容に不備があります",
-        fieldErrors: {
-          username: !username ? "ユーザー名を入力してください" : undefined,
-          email: !email ? "メールアドレスを入力してください" : undefined,
-          password: !password ? "パスワードを入力してください" : undefined,
-          profile: !profile ? "プロフィールを入力してください" : undefined,
-          affiliation: !affiliation ? "所属を入力してください" : undefined,
-          position: !position ? "役職を入力してください" : undefined,
-        },
-      };
-    }
-    // パスワードチェック
-    if (password !== password_confirmation)
-      return {
-        ...currentState,
-        error: "パスワードが一致しません",
-        fieldErrors: { password: "確認用パスワードと一致しません" },
-      };
     const passwordConfirm = password_confirmation;
 
     const response = await api.post("auth/register", {
@@ -161,7 +118,7 @@ export async function registerAction(
       position,
       affiliation,
     });
-    await createSession(response.data);
+    await createSession(response.data.token);
   } catch (error) {
     console.log("error:", error);
     return {
