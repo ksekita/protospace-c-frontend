@@ -20,7 +20,7 @@ export default function Login() {
   return (
     <form action={formAction}>
       {state?.error && (
-        <p role="alert" className="text-red-500">
+        <p role="alert" className={styles.error_alert}>
           {state.error}
         </p>
       )}
