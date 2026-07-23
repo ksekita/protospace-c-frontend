@@ -55,6 +55,7 @@ export async function loginAction(
   redirect("/");
 }
 
+// 登録
 export async function registerAction(
   prevState: RegisterActionState | null,
   formData: FormData,
