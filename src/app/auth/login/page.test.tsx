@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi, describe, test, expect } from "vitest";
+import { vi, describe, test, expect, beforeEach } from "vitest";
 import LoginPage from "./page";
 import { loginAction } from "@/lib/actions/authActions";
 
@@ -11,6 +11,10 @@ vi.mock("@/lib/actions/authActions", () => ({
 
 // テストと認識させる
 describe("ログイン画面のてすと", () => {
+  // 各テストが実行される前に、モックの呼び出し回数や履歴をリセット
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
   // 失敗したときのテスト
   test("ログインに失敗したとき、エラーメッセージが表示され、入力したメッセージが残ること", async () => {
     // testcase
@@ -63,7 +67,7 @@ describe("ログイン画面のてすと", () => {
     await userEvent.type(passwordInput, "password");
     await userEvent.click(submitButton);
 
-    expect(loginAction).toHaveBeenCalled();
+    expect(loginAction).toHaveBeenCalledWith(null, expect.any(FormData));
 
     // queryByRole画面に存在しないこと nullを返す
     const errorMsg = screen.queryByRole("alert");

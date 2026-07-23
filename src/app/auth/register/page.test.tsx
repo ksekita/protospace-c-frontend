@@ -1,6 +1,6 @@
 import { registerAction } from "@/lib/actions/authActions";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import RegisterPage from "./page";
 import userEvent from "@testing-library/user-event";
 
@@ -62,6 +62,10 @@ export async function submitButton() {
 }
 
 describe("ユーザー登録のてすと", () => {
+  // 各テストが実行される前に、モックの呼び出し回数や履歴をリセット
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
   test("ユーザー名が空のときにエラーメッセージが表示され、それぞれの入力欄に入力した値が残ること", async () => {
     // エラーを返すかどうか
     vi.mocked(registerAction).mockResolvedValueOnce({
@@ -181,10 +185,13 @@ describe("ユーザー登録のてすと", () => {
 
     await submitButton();
 
-    expect(registerAction).toHaveBeenCalled();
+    // registerActionにFormDataが渡されたかどうか
+    expect(registerAction).toHaveBeenCalledWith(expect.any(FormData));
 
     const errorMeg = screen.queryByRole("alert");
-
     expect(errorMeg).not.toBeInTheDocument();
+
+    const globalError = screen.queryByText("入力内容に不備があります");
+    expect(globalError).not.toBeInTheDocument();
   });
 });
