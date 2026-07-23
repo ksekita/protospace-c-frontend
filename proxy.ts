@@ -19,10 +19,10 @@ export function proxy(request: NextRequest) {
   const isPrototypeDetail =
     pathname.startsWith("/prototype/") &&
     pathname !== "/prototype/new" &&
-    !pathname.endsWith("/edit"); //
+    !pathname.endsWith("/\/edit(?:\/)?$/"); //
 
   const isUserPage =
-    pathname.startsWith("/user/") && !pathname.endsWith("/edit");
+    pathname.startsWith("/user/") && !pathname.endsWith("/\/edit(?:\/)?$/");
 
   // 未ログイン時リストに入ってたらクリア
   if (PUBLIC_ROUTES.includes(pathname) || isPrototypeDetail || isUserPage) {
@@ -32,7 +32,10 @@ export function proxy(request: NextRequest) {
   // トークンが無い（未ログイン）状態で、保護されたページにアクセスしようとした場合
   if (!token) {
     // 新規投稿ページは未ログイン時のuserはホーム画面に弾く
-    if (pathname === "/prototype/new" || pathname.endsWith("/edit")) {
+    if (
+      pathname === "/prototype/new" ||
+      pathname.endsWith("/\/edit(?:\/)?$/")
+    ) {
       return NextResponse.redirect(new URL("/", request.url));
     }
 
