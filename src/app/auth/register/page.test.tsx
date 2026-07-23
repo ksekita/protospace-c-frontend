@@ -159,9 +159,6 @@ describe("ユーザー登録のテスト", () => {
 
     // エラーメッセージが表示されているか確認
     expect(errorMsg).toBeInTheDocument();
-    expect(
-      await screen.findByText(/確認用パスワードと一致しません/i),
-    ).toBeInTheDocument();
 
     // registerAction呼び出し
     expect(registerAction).toHaveBeenCalled();

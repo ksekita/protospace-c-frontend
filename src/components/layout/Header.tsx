@@ -7,15 +7,16 @@ function verifyToken(token: string | undefined): boolean {
   if (!token) return false;
 
   try {
-    // トークンの真ん中をBase64デコードして有効期限をチェック
-    const payload = JSON.parse(
-      Buffer.from(token.split(".")[1], "base64").toString(),
-    );
+    const payloadPart = token.split(".")[1];
+    if (!payloadPart) return false;
 
-    // 有効期限が現在時刻より後ならOK
+    // Base64URL を Base64 に変換してデコード
+    const base64 = payloadPart.replace(/-/g, "+").replace(/_/g, "/");
+    const payload = JSON.parse(atob(base64));
+
     return Date.now() < payload.exp * 1000;
   } catch {
-    return false; // デコード失敗＝不正なトークン
+    return false;
   }
 }
 
