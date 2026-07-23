@@ -22,7 +22,7 @@ export default function Register() {
       <form action={formAction}>
         {/* 全体エラー */}
         {state?.error && (
-          <p role="alert" className={styles.formError}>
+          <p role="alert" className={styles.error_alert}>
             {state.error}
           </p>
         )}
