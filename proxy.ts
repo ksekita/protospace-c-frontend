@@ -1,4 +1,4 @@
-// middreware.ts
+// proxy.ts
 import { isTokenValid } from "@/lib/utils/auth";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
@@ -6,7 +6,7 @@ import { NextRequest } from "next/server";
 // 未ログイン時でも見れる画面のリスト
 const PUBLIC_ROUTES = ["/auth/login", "/auth/register", "/", "/prototype"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("jwt_token")?.value;
 
