@@ -13,19 +13,19 @@ export default function PrototypeList({ prototypes }: PrototypeListProps) {
         <div key={proto.id} className={styles.card}>
           <div className={styles.image_wrapper}>
             <Link href={`/prototypes/${proto.id}`}>
-              <div className={styles.imagePlaceholder} />
+              <div className={styles.image_placeholder} />
             </Link>
           </div>
 
-          <div className={styles.cardBody}>
-            <h3 className={styles.cardTitle}>
+          <div className={styles.card_body}>
+            <h3 className={styles.card_title}>
               <Link href={`/prototypes/${proto.id}`}>{proto.title}</Link>
             </h3>
-            <p className={styles.cardConcept}>{proto.concept}</p>
-            <div className={styles.cardAuthor}>
+            <p className={styles.card_concept}>{proto.concept}</p>
+            <div className={styles.card_author}>
               <Link
                 href={`/users/${proto.userId}`}
-                className={styles.authorLink}
+                className={styles.author_link}
               >
                 {proto.user?.name}
               </Link>
