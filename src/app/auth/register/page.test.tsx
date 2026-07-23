@@ -169,4 +169,22 @@ describe("ユーザー登録のてすと", () => {
     expect(inputs.affiliationInput).toHaveValue(baseInputState.affiliation);
     expect(inputs.positionInput).toHaveValue(baseInputState.position);
   });
+
+  // テスト成功バージョン
+  test("ユーザーが正しい情報を入力したとき、エラーが出ずにregisterActionが実行されること", async () => {
+    // エラーを返さないのでなにもなし
+    vi.mocked(registerAction).mockResolvedValueOnce({});
+
+    render(<RegisterPage />);
+
+    await fillRegisterForm();
+
+    await submitButton();
+
+    expect(registerAction).toHaveBeenCalled();
+
+    const errorMeg = screen.queryByRole("alert");
+
+    expect(errorMeg).not.toBeInTheDocument();
+  });
 });
