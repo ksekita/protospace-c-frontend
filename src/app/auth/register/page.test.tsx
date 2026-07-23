@@ -186,7 +186,7 @@ describe("ユーザー登録のてすと", () => {
     await submitButton();
 
     // registerActionにFormDataが渡されたかどうか
-    expect(registerAction).toHaveBeenCalledWith(expect.any(FormData));
+    expect(registerAction).toHaveBeenCalledWith(null, expect.any(FormData));
 
     const errorMeg = screen.queryByRole("alert");
     expect(errorMeg).not.toBeInTheDocument();
