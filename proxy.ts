@@ -1,28 +1,10 @@
 // proxy.ts
+import { isTokenValid } from "@/lib/utils/auth";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
 // 未ログイン時でも見れる画面のリスト
 const PUBLIC_ROUTES = ["/auth/login", "/auth/register", "/", "/prototype"];
-
-// トークンの有効期限をチェックするヘルパー関数 (Edge互換)
-function isTokenValid(token: string | undefined): boolean {
-  if (!token) return false;
-
-  try {
-    const payloadPart = token.split(".")[1];
-    if (!payloadPart) return false;
-
-    // Base64URL を Base64 に変換してデコード
-    const base64 = payloadPart.replace(/-/g, "+").replace(/_/g, "/");
-    const payload = JSON.parse(atob(base64));
-
-    // 有効期限が現在時刻より後なら有効
-    return Date.now() < payload.exp * 1000;
-  } catch {
-    return false; // デコード失敗時は無効扱い
-  }
-}
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

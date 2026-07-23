@@ -140,7 +140,7 @@ export default function Register() {
           )}
         </div>
 
-        <button className={styles.button} disabled={isPending}>
+        <button className={styles.button} disabled={isPending} type="submit">
           新規登録
         </button>
       </form>
