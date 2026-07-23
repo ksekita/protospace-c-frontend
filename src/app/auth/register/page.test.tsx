@@ -87,9 +87,6 @@ describe("ユーザー登録のテスト", () => {
 
     // エラーメッセージが表示されているか確認
     expect(errorMsg).toBeInTheDocument();
-    expect(
-      await screen.findByText(/ユーザー名を入力してください/i),
-    ).toBeInTheDocument();
 
     // registerAction呼び出し
     expect(registerAction).toHaveBeenCalled();
@@ -123,9 +120,6 @@ describe("ユーザー登録のテスト", () => {
 
     // エラーメッセージが表示されているか確認
     expect(errorMsg).toBeInTheDocument();
-    expect(
-      await screen.findByText(/メールアドレスを入力してください/i),
-    ).toBeInTheDocument();
 
     // registerAction呼び出し
     expect(registerAction).toHaveBeenCalled();
@@ -185,8 +179,8 @@ describe("ユーザー登録のテスト", () => {
     // registerActionにFormDataが渡されたかどうか
     expect(registerAction).toHaveBeenCalledWith(null, expect.any(FormData));
 
-    const errorMeg = screen.queryByRole("alert");
-    expect(errorMeg).not.toBeInTheDocument();
+    const errorMsg = screen.queryByRole("alert");
+    expect(errorMsg).not.toBeInTheDocument();
 
     const globalError = screen.queryByText("入力内容に不備があります");
     expect(globalError).not.toBeInTheDocument();

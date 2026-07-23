@@ -109,13 +109,11 @@ export async function registerAction(
     };
 
   try {
-    const passwordConfirm = password_confirmation;
-
     const response = await api.post("auth/register", {
       username,
       email,
       password,
-      passwordConfirm,
+      passwordConfirm: password_confirmation,
       position,
       affiliation,
     });
