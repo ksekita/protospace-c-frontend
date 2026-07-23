@@ -10,7 +10,7 @@ vi.mock("@/lib/actions/authActions", () => ({
 }));
 
 // テストと認識させる
-describe("ログイン画面のてすと", () => {
+describe("ログイン画面のテスト", () => {
   // 各テストが実行される前に、モックの呼び出し回数や履歴をリセット
   beforeEach(() => {
     vi.clearAllMocks();

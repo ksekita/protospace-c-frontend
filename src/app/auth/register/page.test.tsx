@@ -61,7 +61,7 @@ export async function submitButton() {
   await userEvent.click(submitButton);
 }
 
-describe("ユーザー登録のてすと", () => {
+describe("ユーザー登録のテスト", () => {
   // 各テストが実行される前に、モックの呼び出し回数や履歴をリセット
   beforeEach(() => {
     vi.clearAllMocks();
