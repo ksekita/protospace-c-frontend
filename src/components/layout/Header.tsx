@@ -1,8 +1,33 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
-import Link from "next/link";
+import AuthNav from "./AuthNav";
+import api from "@/lib/api/apiClient";
+import { cookies } from "next/headers";
 
-export default function Header() {
+async function verifyToken(token: string | undefined): Promise<boolean> {
+  if (!token) return false;
+
+  try {
+    // バックエンドにjwtトークンの問い合わせ
+    await api.get("auth/verify", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    // オッケーだったらtrue
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+export default async function Header() {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("jwt_token")?.value;
+
+  const isLoggedIn = await verifyToken(token);
+
   return (
     <header className={styles.header}>
       <div className={`${styles.flex} ${styles.inner}`}>
@@ -17,12 +42,7 @@ export default function Header() {
           />
         </div>
         <div className={styles.margin_reset}>
-          <Link href={"/auth/login"} className={styles.nav_link}>
-            ログイン
-          </Link>
-          <Link href={"/auth/register"} className={styles.nav_link}>
-            新規登録
-          </Link>
+          <AuthNav isLoggedIn={isLoggedIn} />
         </div>
       </div>
     </header>
