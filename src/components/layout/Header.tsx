@@ -1,23 +1,21 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
 import AuthNav from "./AuthNav";
-import api from "@/lib/api/apiClient";
 import { cookies } from "next/headers";
 
-async function verifyToken(token: string | undefined): Promise<boolean> {
+function verifyToken(token: string | undefined): boolean {
   if (!token) return false;
 
   try {
-    // バックエンドにjwtトークンの問い合わせ
-    await api.get("auth/verify", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    // オッケーだったらtrue
-    return true;
-  } catch (error) {
-    return false;
+    // トークンの真ん中をBase64デコードして有効期限をチェック
+    const payload = JSON.parse(
+      Buffer.from(token.split(".")[1], "base64").toString(),
+    );
+
+    // 有効期限が現在時刻より後ならOK
+    return Date.now() < payload.exp * 1000;
+  } catch {
+    return false; // デコード失敗＝不正なトークン
   }
 }
 
@@ -26,7 +24,7 @@ export default async function Header() {
 
   const token = cookieStore.get("jwt_token")?.value;
 
-  const isLoggedIn = await verifyToken(token);
+  const isLoggedIn = verifyToken(token);
 
   return (
     <header className={styles.header}>
