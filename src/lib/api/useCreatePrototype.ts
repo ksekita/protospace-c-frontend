@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 // 新規投稿画面の処理です
@@ -17,9 +17,12 @@ export const useCreatePrototype = () => {
     try {
       await axios.post("http://localhost:8080/post", formData, {
         headers: {
-          "Content-Type": "mul tipart/form-data",
+          "Content-Type": "multipart/form-data",
         },
       });
+
+      router.push("/");
+      router.refresh();
     } catch (error) {
       console.error(error);
       alert("エラーが発生しました。再試行してください。");
@@ -27,8 +30,6 @@ export const useCreatePrototype = () => {
       setIsSubmitting(false);
     }
   };
-
-  redirect("/");
 
   return {
     isSubmitting,
