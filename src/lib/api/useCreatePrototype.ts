@@ -15,7 +15,11 @@ export const useCreatePrototype = () => {
     const formData = new FormData(e.currentTarget);
 
     try {
-      await axios.post("/api/prototypes", formData);
+      await axios.post("http://localhost:8080/post", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       alert("投稿が完了しました");
       router.push("/");
