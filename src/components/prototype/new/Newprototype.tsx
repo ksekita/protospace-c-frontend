@@ -1,13 +1,13 @@
 "use client";
 
-import styles from "@/app/page.module.css";
+import styles from "@/app/prototype/new/page.module.css";
 import { useCreatePrototype } from "@/lib/api/useCreatePrototype";
 
 export default function Newprototype() {
   const { handleSubmit, isSubmitting } = useCreatePrototype();
 
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className={styles.form_group}>
           <label htmlFor="title" className={styles.label}>
@@ -60,6 +60,6 @@ export default function Newprototype() {
           {isSubmitting ? "保存中..." : "保存する"}
         </button>
       </form>
-    </main>
+    </div>
   );
 }
