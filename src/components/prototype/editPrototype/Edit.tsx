@@ -2,7 +2,7 @@
 
 import styles from "./Edit.module.css";
 
-export default function Register() {
+export default function Edit() {
   const { handleSubmit, isSubmitting } = upDatePrototype();
 
   return (
