@@ -1,10 +1,4 @@
-import { UserDetailType } from "@/types/UserDetailType";
-import { Prototype } from "@/types/prototype";
-// 1. APIから返ってくるレスポンス全体の型（必要であれば定義しておくと便利です）
-export interface UserDetailResponse {
-  userDetail: UserDetailType;
-  prototypeList: Prototype | Prototype[]; // 下記の補足を参照
-}
+import { UserDetailResponse } from "@/types/UserDetailResponse";
 
 // 2. コンポーネントやテストで使えるモックデータ
 export const mockUserDetailResponse: UserDetailResponse = {
