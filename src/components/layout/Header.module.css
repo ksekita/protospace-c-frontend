@@ -41,4 +41,7 @@
   color: #87cefa;
   text-decoration: none;
   user-select: none;
+  border: none;
+  background-color: none;
+  background: none;
 }
