@@ -17,3 +17,10 @@ export interface CreatePrototypeInput {
   concept: string;
   image?: File | null;
 }
+
+export interface UpdatePrototypeInput {
+  title: string;
+  catchCopy: string;
+  concept: string;
+  image?: File | null;
+}
