@@ -31,4 +31,5 @@
   border-collapse: collapse;
   width: 70%;
   padding: 16px 8px;
+  white-space: pre-wrap;
 }
