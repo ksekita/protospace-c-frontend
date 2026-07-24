@@ -48,7 +48,7 @@ export default function Edit({ id }: EditProps) {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>投稿編集ページ</h2>
+      <h2 className={styles.title}>投稿編集ぺージ</h2>
       <form onSubmit={onSubmit} encType="multipart/form-data">
         <div className={styles.form_group}>
           <label htmlFor="title" className={styles.label}>
@@ -100,7 +100,7 @@ export default function Edit({ id }: EditProps) {
 
         <div className={styles.form_group}>
           <label htmlFor="image" className={styles.label}>
-            プロトタイプの画像
+            プロトタイプ画像
           </label>
           <input
             type="file"

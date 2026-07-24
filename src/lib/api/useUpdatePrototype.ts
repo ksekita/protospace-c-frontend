@@ -34,7 +34,7 @@ export const useUpdatePrototype = () => {
       router.refresh();
     } catch (error) {
       console.error("更新エラー:", error);
-      alert("エラーが発生しました。再試行してください。");
+      alert("エラーが発生しました。再投稿してください。");
     } finally {
       setIsSubmitting(false);
     }
