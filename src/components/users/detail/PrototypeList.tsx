@@ -1,15 +1,19 @@
 import { Prototype } from "@/types/prototype";
-import styles from "./Detail.module.css";
+import styles from "./PrototypeList.module.css";
 import Link from "next/link";
 
 type PrototypeListProps = {
   prototypes: Prototype[];
+  username: string;
 };
 
-export default function PrototypeList({ prototypes }: PrototypeListProps) {
+export default function PrototypeList({
+  prototypes,
+  username,
+}: PrototypeListProps) {
   return (
     <>
-      <h2 className={styles.page_heading}>テストユーザーさんの情報</h2>
+      <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2>
       <div className={styles.grid}>
         {prototypes.map((proto) => (
           <div key={proto.id} className={styles.card}>

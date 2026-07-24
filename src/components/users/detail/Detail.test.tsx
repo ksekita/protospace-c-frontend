@@ -4,7 +4,7 @@ import Detail from "./Detail";
 import { UserDetailType } from "@/types/UserDetailType";
 
 // テスト用のモックデータ
-const mockUser: UserDetailType = {
+export const mockUser: UserDetailType = {
   name: "山田 太郎",
   profile: "フロントエンドエンジニアです。",
   affiliation: "株式会社テスト",
