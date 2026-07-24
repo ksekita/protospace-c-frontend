@@ -16,13 +16,13 @@ export default async function UserDetail({
     return notFound();
   }
 
-  // 後で消す
-  console.log("詳細データ:", response);
+  // バックエンドとつなげた際にログチェックするために残しておく
+  // console.log("詳細データ:", response);
 
   return (
     <div className="inner">
       <div className={styles.user_wrapper}>
-        {/* このrespomse.userDetailとprototypeListは、受け取る変数はbackendによって変化する */}
+        {/* このresponse.userDetailとprototypeListは、受け取る変数はbackendによって変化する */}
         <Detail user={response.userDetail} />
         <PrototypeList
           prototypes={response.prototypeList}
