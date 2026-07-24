@@ -7,9 +7,12 @@ import { notFound } from "next/navigation";
 export default async function UserDetail({
   params,
 }: {
-  params: Promise<{ id: number }>;
+  params: Promise<{ id: string }>;
 }) {
-  const userId = (await params).id;
+  const resolvedParams = await params;
+  const resultId = resolvedParams.id;
+  // 型変換
+  const userId = Number(resultId);
   const response = await userDetail(userId);
   // notfoudページ後日実装
   if ("error" in response) {

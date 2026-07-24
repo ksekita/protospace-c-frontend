@@ -36,7 +36,7 @@ describe("ユーザー詳細ページ (page.tsx)", () => {
     vi.mocked(userDetail).mockResolvedValue(mockUserDetailResponse);
 
     // paramsをPromiseとして作成（Next.jsの仕様に合わせる）
-    const mockParams = Promise.resolve({ id: 1 });
+    const mockParams = Promise.resolve({ id: "1" });
 
     const pageJsx = await UserDetail({ params: mockParams });
     render(pageJsx);
