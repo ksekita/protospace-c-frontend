@@ -12,7 +12,7 @@ export default function AuthNav({ isLoggedIn }: AuthNavProps) {
     return (
       <>
         <Link href={"/prototype/new"} className={styles.nav_link}>
-          新規投稿
+          New Proto
         </Link>
         <form action={logoutAction} style={{ display: "inline" }}>
           <button type="submit" className={styles.nav_link}>
