@@ -1,5 +1,0 @@
-# ブラウザ（クライアント側）からバックエンドAPIを叩くときのURL
-NEXT_PUBLIC_API_URL=http://localhost:8080
-
-# Next.jsサーバー側（Server Components等）から直接叩くときのURL（Dockerネットワーク内通信）
-SERVER_API_URL=http://protospace-c-backend-devcontainer-app-1:8080/api/
