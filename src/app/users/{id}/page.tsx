@@ -21,7 +21,7 @@ export default async function UserDetail({
       <div className={styles.user_wrapper}>
         {/* このrespomse.userDetailとprototypeListは、受け取る変数はbackendによって変化する */}
         <Detail user={response.userDetail} />
-        <PrototypeList prototypes={[response.prototypeList]} />
+        <PrototypeList prototypes={response.prototypeList} />
       </div>
     </div>
   );

@@ -14,18 +14,21 @@ export default function PrototypeList({ prototypes }: PrototypeListProps) {
         {prototypes.map((proto) => (
           <div key={proto.id} className={styles.card}>
             <div className={styles.image_wrapper}>
-              <Link href={`/prototypes/${proto.id}`}>
+              <Link role="link" href={`/prototypes/${proto.id}`}>
                 <div className={styles.image_placeholder} />
               </Link>
             </div>
 
             <div className={styles.card_body}>
               <h3 className={styles.card_title}>
-                <Link href={`/prototypes/${proto.id}`}>{proto.title}</Link>
+                <Link role="link" href={`/prototypes/${proto.id}`}>
+                  {proto.title}
+                </Link>
               </h3>
               <p className={styles.card_concept}>{proto.concept}</p>
               <div className={styles.card_author}>
                 <Link
+                  role="link"
                   href={`/users/${proto.userId}`}
                   className={styles.author_link}
                 >

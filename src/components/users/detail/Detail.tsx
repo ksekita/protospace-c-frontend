@@ -1,14 +1,14 @@
-import { UserDetail } from "@/types/UserDetail";
+import { UserDetailType } from "@/types/UserDetailType";
 import styles from "./Detail.module.css";
 
 type UserDetailProps = {
-  user: UserDetail;
+  user: UserDetailType;
 };
 
 export default function Detail(props: UserDetailProps) {
   return (
     <>
-      <h2 className={styles.page_heading}>テストユーザーさんの情報</h2>
+      <h2 className={styles.page_heading}>{props.user.name} さんの情報</h2>
       <table className={styles.table}>
         <tbody>
           <tr>

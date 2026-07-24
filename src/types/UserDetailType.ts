@@ -1,4 +1,4 @@
-export interface UserDetail {
+export interface UserDetailType {
   name: string;
   profile: string;
   affiliation: string;
