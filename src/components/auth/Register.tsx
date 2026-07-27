@@ -79,12 +79,12 @@ export default function Register() {
           <input
             id="username"
             type="text"
-            name="username"
-            defaultValue={state?.username || ""}
+            name="name"
+            defaultValue={state?.name || ""}
           />
-          {state?.fieldErrors?.username && (
+          {state?.fieldErrors?.name && (
             <p role="alert" className={styles.error}>
-              {state.fieldErrors.username}
+              {state.fieldErrors.name}
             </p>
           )}
         </div>
