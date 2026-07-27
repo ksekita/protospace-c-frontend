@@ -14,7 +14,7 @@ export async function proxy(request: NextRequest) {
   const isLoggedIn = await isTokenValid(token);
 
   // "/"にアクセスしようとしたらprototypeに飛ばす
-  if (pathname === "/") {
+  if (pathname === "/" || pathname === "") {
     return NextResponse.redirect(new URL("/prototype", request.url));
   }
 
