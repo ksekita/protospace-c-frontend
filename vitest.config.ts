@@ -1,9 +1,16 @@
 import { defineConfig } from "vitest/config";
+import path from 'path';
 
 export default defineConfig({
+  plugins: [],
   test: {
-    environment: "jsdom",
+    environment: 'jsdom',
     globals: true,
-    setupFiles: "./vitest.setup.ts", // テスト実行前に読み込むファイルを指定
+    setupFiles: './vitest.setup.ts', 
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
 });

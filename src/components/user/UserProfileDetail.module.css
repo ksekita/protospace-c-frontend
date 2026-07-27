@@ -21,12 +21,10 @@
   line-height: 1.6;
 }
 
-/* 各行 */
 .profileTable tr {
   border-bottom: 1px solid #f0f0f0;
 }
 
-/* 左側の項目 (th) */
 .headerCell {
   width: 30%;
   background-color: #f9f9f9;
@@ -37,7 +35,6 @@
   vertical-align: middle;
 }
 
-/* 右側の項目 */
 .dataCell {
   width: 70%;
   background-color: #ffffff;
