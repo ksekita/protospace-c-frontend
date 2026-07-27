@@ -45,3 +45,13 @@
   background-color: none;
   background: none;
 }
+
+.image_box {
+  width: 200px;
+  height: auto;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
