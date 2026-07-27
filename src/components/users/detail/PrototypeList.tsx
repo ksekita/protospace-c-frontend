@@ -1,15 +1,17 @@
-import { Prototype } from "@/types/prototype";
 import styles from "./PrototypeList.module.css";
 import Link from "next/link";
+import { ResponsePrototypeList } from "@/types/UserDetailType";
 
 type PrototypeListProps = {
-  prototypes: Prototype[];
+  prototypes: ResponsePrototypeList[];
   username: string;
+  userId: number;
 };
 
 export default function PrototypeList({
   prototypes,
   username,
+  userId,
 }: PrototypeListProps) {
   return (
     <>
@@ -25,15 +27,12 @@ export default function PrototypeList({
 
             <div className={styles.card_body}>
               <h3 className={styles.card_title}>
-                <Link href={`/prototypes/${proto.id}`}>{proto.title}</Link>
+                <Link href={`/prototypes/${userId}`}>{proto.title}</Link>
               </h3>
-              <p className={styles.card_concept}>{proto.concept}</p>
+              <p className={styles.card_concept}>{proto.catchCopy}</p>
               <div className={styles.card_author}>
-                <Link
-                  href={`/users/${proto.userId}`}
-                  className={styles.author_link}
-                >
-                  {proto.user?.name}
+                <Link href={`/users/${userId}`} className={styles.author_link}>
+                  {username}
                 </Link>
               </div>
             </div>

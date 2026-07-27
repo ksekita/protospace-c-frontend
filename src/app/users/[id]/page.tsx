@@ -14,22 +14,29 @@ export default async function UserDetail({
   // 型変換
   const userId = Number(resultId);
   const response = await userDetail(userId);
+
   // notfoudページ後日実装
-  if ("error" in response) {
+  if ("error" in userDetail) {
     return notFound();
   }
 
-  // バックエンドとつなげた際にログチェックするために残しておく
-  // console.log("詳細データ:", response);
-
+  if ("error" in response) {
+    return (
+      <div style={{ color: "red", padding: "20px" }}>
+        <h2>エラーが発生しました</h2>
+        <p>{response.error}</p>{" "}
+      </div>
+    );
+  }
   return (
     <div className="inner">
       <div className={styles.user_wrapper}>
         {/* このresponse.userDetailとprototypeListは、受け取る変数はbackendによって変化する */}
-        <Detail user={response.userDetail} />
+        <Detail user={response.responseUserInfo} />
         <PrototypeList
-          prototypes={response.prototypeList}
-          username={response.userDetail.name}
+          prototypes={response.responsePrototypeList}
+          username={response.responseUserInfo.username}
+          userId={response.responseUserInfo.id}
         />
       </div>
     </div>

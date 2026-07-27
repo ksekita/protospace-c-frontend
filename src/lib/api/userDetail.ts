@@ -1,14 +1,21 @@
 import axios from "axios";
 import api from "./apiClient";
-import { UserDetailResponse } from "@/types/UserDetailResponse";
+import { UserDetailType } from "@/types/UserDetailType";
 
 // ユーザー詳細
 export const userDetail = async (
-  userId: number,
-): Promise<UserDetailResponse | { error: string }> => {
+  id: number,
+): Promise<UserDetailType | { error: string }> => {
   try {
-    const response = await api.get(`users/${userId}`);
-    return response.data;
+    const responseUserInfo = await api.get(`users/${id}`);
+    const responsePrototypeList = await api.get(`prototype/users/${id}`);
+    console.log("response data : ", responseUserInfo.data);
+    console.log("responsePrototypeList : ", responsePrototypeList.data);
+    const response = {
+      responseUserInfo: responseUserInfo.data,
+      responsePrototypeList: responsePrototypeList.data,
+    };
+    return response;
   } catch (error) {
     console.log("error", error);
     if (axios.isAxiosError(error) && error.response) {
