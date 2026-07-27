@@ -1,28 +1,32 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
+import AuthNav from "./AuthNav";
+import { cookies } from "next/headers";
+import { isTokenValid } from "@/lib/utils/auth";
 import Link from "next/link";
 
-export default function Header() {
+export default async function Header() {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("jwt_token")?.value;
+
+  const isLoggedIn = await isTokenValid(token);
+
   return (
     <header className={styles.header}>
       <div className={`${styles.flex} ${styles.inner}`}>
-        <div>
+        <Link href={"/prototype"} className={styles.image_box}>
           <Image
             src={"/images/logo.png"}
             width={200}
-            height={50}
-            alt="Header logo"
+            height={40}
+            alt="logo"
             priority
-            style={{ width: "200px", height: "auto" }}
+            className={styles.image}
           />
-        </div>
+        </Link>
         <div className={styles.margin_reset}>
-          <Link href={"/auth/login"} className={styles.nav_link}>
-            ログイン
-          </Link>
-          <Link href={"/auth/register"} className={styles.nav_link}>
-            新規登録
-          </Link>
+          <AuthNav isLoggedIn={isLoggedIn} />
         </div>
       </div>
     </header>

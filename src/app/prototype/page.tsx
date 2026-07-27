@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 import Greeting from "@/components/greeting/Greeting";
 import PrototypeList from "@/components/prototypeList/PrototypeList";
 import { useGetPrototypes } from "@/lib/api/useGetPrototype";

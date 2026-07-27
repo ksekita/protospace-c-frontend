@@ -27,3 +27,12 @@
 .textarea {
   width: 50%;
 }
+
+.error,
+.error_alert {
+  color: rgba(255, 0, 0, 0.747);
+}
+
+.error {
+  font-size: smaller;
+}

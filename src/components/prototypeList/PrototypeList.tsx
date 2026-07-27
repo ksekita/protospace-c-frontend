@@ -1,0 +1,38 @@
+import Link from "next/link";
+import styles from "@/app/page.module.css";
+import { Prototype } from "@/types/prototype";
+
+type PrototypeListProps = {
+  prototypes: Prototype[];
+};
+
+export default function PrototypeList({ prototypes }: PrototypeListProps) {
+  return (
+    <div className={styles.grid}>
+      {prototypes.map((proto) => (
+        <div key={proto.id} className={styles.card}>
+          <div className={styles.image_wrapper}>
+            <Link href={`/prototypes/${proto.id}`}>
+              <div className={styles.image_placeholder} />
+            </Link>
+          </div>
+
+          <div className={styles.card_body}>
+            <h3 className={styles.card_title}>
+              <Link href={`/prototypes/${proto.id}`}>{proto.title}</Link>
+            </h3>
+            <p className={styles.card_concept}>{proto.concept}</p>
+            <div className={styles.card_author}>
+              <Link
+                href={`/users/${proto.userId}`}
+                className={styles.author_link}
+              >
+                {proto.user?.name}
+              </Link>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}

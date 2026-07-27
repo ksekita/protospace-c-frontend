@@ -33,3 +33,29 @@
   margin: 0;
   padding: 0;
 }
+
+.logout {
+  display: inline-block;
+  padding: 0.4em 1.6em;
+  font-size: 0.8em;
+  color: #87cefa;
+  text-decoration: none;
+  user-select: none;
+  border: none;
+  background-color: none;
+  background: none;
+}
+
+.logout:hover {
+  cursor: pointer;
+}
+
+.image_box {
+  width: 200px;
+  height: auto;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
