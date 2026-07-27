@@ -82,3 +82,16 @@ export async function fetchUserPrototypes(userId: number): Promise<Prototype[]> 
     }, 100);
   });
 }
+
+export async function fetchPrototypeDetail(id: number): Promise<Prototype> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const prototype = MOCK_PROTOTYPES_DB.find((item) => item.id === id);
+      if (prototype) {
+        resolve(prototype);
+      } else {
+        reject(new Error('プロトタイプが存在しません。'));
+      }
+    }, 100);
+  });
+}

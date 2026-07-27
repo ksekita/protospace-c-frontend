@@ -13,7 +13,7 @@ export default async function PrototypeDetailPage({
 
   return (
     <main className={styles.container}>
-      <PrototypeDetail  />
+      <PrototypeDetail id={id}  />
       <section className={styles.commentSection}>
         <CommentForm />
         <CommentList />
