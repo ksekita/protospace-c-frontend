@@ -7,6 +7,7 @@ import { NextRequest } from "next/server";
 const PUBLIC_ROUTES = ["/auth/login", "/auth/register", "/", "/prototype"];
 
 export function proxy(request: NextRequest) {
+  console.log("ここをっとる");
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("jwt_token")?.value;
 
@@ -30,6 +31,8 @@ export function proxy(request: NextRequest) {
 
   const isUserPage = pathname.startsWith("/user/") && !isEditPage;
 
+  console.log("ここを通るはず");
+
   // 未ログイン時リストに入ってたらクリア
   if (PUBLIC_ROUTES.includes(pathname) || isPrototypeDetail || isUserPage) {
     return NextResponse.next();
@@ -37,8 +40,13 @@ export function proxy(request: NextRequest) {
 
   // 未ログイン、またはトークンの期限が切れている場合
   if (!isLoggedIn) {
-    // 新規投稿や編集ページならホーム画面に弾く
-    if (pathname === "/prototype/new" || isEditPage) {
+    // 未ログイン時に /prototype/new にアクセスした場合は /prototype に遷移
+    if (pathname === "/prototype/new") {
+      return NextResponse.redirect(new URL("/prototype", request.url));
+    }
+
+    // 編集ページならホーム画面に弾く
+    if (isEditPage) {
       return NextResponse.redirect(new URL("/", request.url));
     }
 
