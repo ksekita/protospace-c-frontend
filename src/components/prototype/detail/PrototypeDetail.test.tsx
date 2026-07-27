@@ -19,6 +19,7 @@ describe('PrototypeDetailPage コンポーネントテスト', () => {
   it('2.  API通信が成功したら、prototypeを詳細内容を表示', async () => {
     vi.spyOn(detailsApi, 'fetchPrototypeDetail').mockResolvedValueOnce({
       id: 1,
+      userId:1,
       title: 'ウェブアプリ１',
       catchphrase: 'キャッチコピー１',
       concept: 'コンセプト１',
@@ -45,6 +46,7 @@ describe('PrototypeDetailPage コンポーネントテスト', () => {
   it('3. 作成者の名前をクリックすると該当ユーザーの詳細ページへ移動(/users/[userId])', async () => {
     vi.spyOn(detailsApi, 'fetchPrototypeDetail').mockResolvedValueOnce({
       id: 10,
+      userId:1,
       title: 'テストアップ',
       catchphrase: 'キャッチコピーです',
       concept: 'コンセプトです',
@@ -52,11 +54,11 @@ describe('PrototypeDetailPage コンポーネントテスト', () => {
       imageUrl: 'https://example.com/test.jpg',
     });
 
-    render(<PrototypeDetailPage id="10" />);
+    render(<PrototypeDetailPage id="1" />);
 
     await waitFor(() => {
       const userLink = screen.getByRole('link', { name: /by 砂糖/i });
-      expect(userLink).toHaveAttribute('href', '/users/10');
+      expect(userLink).toHaveAttribute('href', '/users/1');
     });
   });
 

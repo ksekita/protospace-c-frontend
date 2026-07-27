@@ -23,6 +23,7 @@ const MOCK_USERS_DB: Record<number, UserProfileData> = {
 const MOCK_PROTOTYPES_DB: Prototype[] = [
   {
     id: 1,
+    userId:1,
     email: 'user123@example.com',
     title: 'ウェブアプリ１',
     catchphrase: 'キャッチコピー１',
@@ -33,6 +34,7 @@ const MOCK_PROTOTYPES_DB: Prototype[] = [
   },
   {
     id: 2,
+    userId:1,
     email: 'user123@example.com',
     title: 'ウェブアプリ２',
     catchphrase: 'キャッチコピー２',
@@ -43,6 +45,7 @@ const MOCK_PROTOTYPES_DB: Prototype[] = [
   },
   {
     id: 3,
+    userId:2,
     email: 'user456@example.com',
     title: 'デザイン ツール',
     catchphrase: 'キャッチコピー３',

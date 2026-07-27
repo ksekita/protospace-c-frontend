@@ -21,6 +21,7 @@ describe('UserPrototypeDetail 非同期コンポーネントテスト', () => {
     vi.spyOn(prototypesApi, 'fetchUserPrototypes').mockResolvedValueOnce([
       {
         id: 1,
+        userId:1,
         email: 'user123@example.com',
         title: 'ウェブアプリ1',
         concept: 'コンセプト2',
@@ -31,6 +32,7 @@ describe('UserPrototypeDetail 非同期コンポーネントテスト', () => {
       },
       {
         id: 2,
+        userId:1,
         email: 'user123@example.com',
         title: 'ウェブアプリ2',
         concept: 'コンセプト2',
@@ -57,6 +59,7 @@ describe('UserPrototypeDetail 非同期コンポーネントテスト', () => {
     vi.spyOn(prototypesApi, 'fetchUserPrototypes').mockResolvedValueOnce([
       {
         id: 10,
+        userId:1,
         email: 'user123',
         title: 'リンクテスト',
         concept: 'コンセプト',
@@ -71,7 +74,7 @@ describe('UserPrototypeDetail 非同期コンポーネントテスト', () => {
     await waitFor(() => {
       // 詳細ページのリンク検証
       const detailLink = screen.getByRole('link', { name: /リンクテスト/i });
-      expect(detailLink).toHaveAttribute('href', '/prototypes/10');
+      expect(detailLink).toHaveAttribute('href', '/prototype/10');
 
       // ユーザーページのリンク検証
       const userLink = screen.getByRole('link', { name: /by ユーザー/i });

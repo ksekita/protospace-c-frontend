@@ -2,6 +2,7 @@ export interface Prototype {
   id: number;
   title: string;
   catchphrase: string;
+  userId:number;
   concept: string;
   imageUrl?: string;
   email?: string;

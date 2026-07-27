@@ -46,7 +46,7 @@ export default function PrototypeDetailPage({ id }: PrototypeDetailProps) {
 
   const authorName = prototype.name || 'ユーザー';
 
-  const userId = prototype.id;
+  const userId = prototype.userId;
 
   return (
     <article className={styles.prototypeContainer}>

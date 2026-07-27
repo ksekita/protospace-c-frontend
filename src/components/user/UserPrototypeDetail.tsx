@@ -47,7 +47,7 @@ export default function UserPrototypeDetail({ id }: UserPrototypeDetailProps) {
       <div className={styles.grid}>
         {prototypes.map((item) => (
           <article key={item.id} className={styles.card}>
-            <Link href={`/prototypes/${item.id}`} className={styles.cardLink}>
+            <Link href={`/prototype/${item.id}`} className={styles.cardLink}>
               <div className={styles.imageWrapper}>
                 <img
                   src={item.imageUrl}
