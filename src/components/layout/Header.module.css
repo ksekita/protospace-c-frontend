@@ -46,6 +46,10 @@
   background: none;
 }
 
+.logout:hover {
+  cursor: pointer;
+}
+
 .image_box {
   width: 200px;
   height: auto;

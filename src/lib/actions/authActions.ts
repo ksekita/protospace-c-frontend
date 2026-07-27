@@ -13,13 +13,13 @@ export type LoginActionState = {
 
 export type RegisterActionState = {
   email?: string;
-  username?: string;
+  name?: string;
   profile?: string;
   affiliation?: string;
   position?: string;
   error?: string;
   fieldErrors?: {
-    username?: string;
+    name?: string;
     email?: string;
     password?: string;
     profile?: string;
@@ -63,7 +63,7 @@ export async function registerAction(
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const password_confirmation = formData.get("password_confirmation") as string;
-  const username = formData.get("username") as string;
+  const name = formData.get("name") as string;
   const profile = formData.get("profile") as string;
   const affiliation = formData.get("affiliation") as string;
   const position = formData.get("position") as string;
@@ -71,26 +71,19 @@ export async function registerAction(
   // データを保存するもの
   const currentState: RegisterActionState = {
     email,
-    username,
+    name,
     profile,
     affiliation,
     position,
   };
 
   // 入力内容チェック
-  if (
-    !username ||
-    !profile ||
-    !affiliation ||
-    !position ||
-    !email ||
-    !password
-  ) {
+  if (!name || !profile || !affiliation || !position || !email || !password) {
     return {
       ...currentState,
       error: "入力内容に不備があります",
       fieldErrors: {
-        username: !username ? "ユーザー名を入力してください" : undefined,
+        name: !name ? "ユーザー名を入力してください" : undefined,
         email: !email ? "メールアドレスを入力してください" : undefined,
         password: !password ? "パスワードを入力してください" : undefined,
         profile: !profile ? "プロフィールを入力してください" : undefined,
@@ -110,7 +103,7 @@ export async function registerAction(
 
   try {
     const response = await api.post("auth/register", {
-      username,
+      name,
       email,
       password,
       passwordConfirm: password_confirmation,
