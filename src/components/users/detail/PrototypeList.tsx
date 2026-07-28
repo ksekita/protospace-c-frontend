@@ -33,7 +33,7 @@ export default function PrototypeList({
                   href={`/users/${proto.userId}`}
                   className={styles.author_link}
                 >
-                  {proto.user}
+                  {proto.user?.name}
                 </Link>
               </div>
             </div>
