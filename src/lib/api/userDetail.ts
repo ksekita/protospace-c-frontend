@@ -8,13 +8,14 @@ export const userDetail = async (
 ): Promise<UserDetailType | { error: string }> => {
   try {
     const responseUserInfo = await api.get(`users/${id}`);
-    const responsePrototypeList = await api.get(`prototype/users/${id}`);
-    console.log("response data : ", responseUserInfo.data);
+    const responsePrototypeList = await api.get(`prototypes/users/${id}`);
+    console.log("responseUserInfo data : ", responseUserInfo.data);
     console.log("responsePrototypeList : ", responsePrototypeList.data);
     const response = {
       responseUserInfo: responseUserInfo.data,
       responsePrototypeList: responsePrototypeList.data,
     };
+
     return response;
   } catch (error) {
     console.log("error", error);
