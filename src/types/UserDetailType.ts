@@ -12,7 +12,7 @@ export interface ResponsePrototypeList {
 
 export interface ResponseUserInfo {
   id: number;
-  username: string;
+  name: string;
   profile: string;
   affiliation: string;
   position: string;
