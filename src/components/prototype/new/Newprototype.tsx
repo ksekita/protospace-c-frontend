@@ -39,7 +39,7 @@ export default function Newprototype() {
           <input
             id="catchCopy"
             name="catchCopy"
-            type="type"
+            type="text"
             className={styles.textarea}
             defaultValue={state?.catchCopy || ""}
           />
