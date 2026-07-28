@@ -19,7 +19,7 @@ const mockUserDetailResponse = {
     {
       id: 1,
       title: "テストアプリ",
-      catchphrase: "テスト",
+      catchCopy: "テスト",
       concept: "テスト",
       userId: 1,
     },
