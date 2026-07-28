@@ -10,7 +10,7 @@ export type EditPrototypeState = {
   title?: string;
   catchCopy?: string;
   concept?: string;
-  image?: string;
+  image?: File;
   error?: string;
   fieldErrors?: {
     title?: string;
@@ -28,7 +28,7 @@ export async function EditPrototypeAction(
   const title = formData.get("title") as string;
   const catchCopy = formData.get("catchCopy") as string;
   const concept = formData.get("concept") as string;
-  const image = formData.get("image") as string;
+  const image = formData.get("image") as File;
 
   const currentState: EditPrototypeState = {
     id,

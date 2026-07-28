@@ -8,7 +8,7 @@ export type RegisterPrototypeState = {
   title?: string;
   catchCopy?: string;
   concept?: string;
-  image?: string;
+  image?: File;
   error?: string;
   fieldErrors?: {
     title?: string;
@@ -26,7 +26,7 @@ export async function CreatePrototypeAction(
   const title = formData.get("title") as string;
   const catchCopy = formData.get("catchCopy") as string;
   const concept = formData.get("concept") as string;
-  const image = formData.get("image") as string;
+  const image = formData.get("image") as File;
 
   const currentState: RegisterPrototypeState = {
     title,
@@ -49,22 +49,29 @@ export async function CreatePrototypeAction(
   }
 
   try {
-    await api.post("prototypes/new", {
-      title,
-      catchCopy,
-      concept,
-      image,
-    });
+    await api.post(
+      "prototypes/new",
+      {
+        title,
+        catchCopy,
+        concept,
+        image,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
-        title,
-        catchCopy,
-        concept: error.response.data.message || "未入力の欄があります",
+        ...currentState,
+        error: error.response.data.message || "投稿に失敗しました",
       };
     }
-    console.log("error", error);
-    return { title, catchCopy, concept };
+    console.error("error", error);
+    return { ...currentState, error: "通信エラーが発生しました" };
   }
   redirect("/");
 }

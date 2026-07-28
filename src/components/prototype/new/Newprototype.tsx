@@ -37,9 +37,9 @@ export default function Newprototype() {
             キャッチコピー
           </label>
           <input
-            id="catchphrase"
-            name="catchphrase"
-            type="catchphrase"
+            id="catchCopy"
+            name="catchCopy"
+            type="type"
             className={styles.textarea}
             defaultValue={state?.catchCopy || ""}
           />
