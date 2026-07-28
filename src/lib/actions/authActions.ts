@@ -107,6 +107,7 @@ export async function registerAction(
       email,
       password,
       passwordConfirm: password_confirmation,
+      profile,
       position,
       affiliation,
     });
