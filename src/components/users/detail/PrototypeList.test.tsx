@@ -12,7 +12,6 @@ vi.mock("next/image", () => ({
     // srcがStaticImport（オブジェクト）だった場合はテスト用に適当な文字列にする
     const imgSrc = typeof src === "string" ? src : "static-image-stub";
 
-    // eslint-disable-next-line @next/next/no-img-element
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
