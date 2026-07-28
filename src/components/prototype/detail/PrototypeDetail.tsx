@@ -51,7 +51,7 @@ export default function PrototypeDetailPage({ id }: PrototypeDetailProps) {
   return (
     <article className={styles.prototypeContainer}>
 
-      <h1 className={styles.titleprototype}>{prototype.title}</h1>
+      <h1 className={styles.titlePrototype}>{prototype.title}</h1>
 
       <div className={styles.nameWrapper}>
 
