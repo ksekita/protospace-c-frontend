@@ -1,5 +1,5 @@
 import api from "@/lib/api/apiClient";
-import styles from "./app/prototype/edit/page.module.css";
+import styles from "./page.module.css";
 import Editprototype from "@/components/prototype/editPrototype/Editprototype";
 
 type PageProps = {
@@ -7,7 +7,7 @@ type PageProps = {
 };
 
 export default async function editPrototypePage({ params }: PageProps) {
-  const response = await api.get("prototypes/${params.id}");
+  const response = await api.get(`prototypes/${params.id}`);
   const prototypeData = response.data;
 
   return (
