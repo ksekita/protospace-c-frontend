@@ -4,10 +4,8 @@ export interface Prototype {
   catchphrase: string;
   concept: string;
   imageUrl?: string;
-  userId?: number;
-  user?: {
-    name: string;
-  };
+  email?: string;
+  name?: string;
   createdAt?: string;
 }
 
