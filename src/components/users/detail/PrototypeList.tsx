@@ -14,7 +14,8 @@ export default function PrototypeList({
   username,
   userId,
 }: PrototypeListProps) {
-  const url = process.env.NEXT_PUBLIC_API_URL;
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+  const baseUrl = new URL(backendUrl).origin;
 
   return (
     <>
@@ -26,7 +27,7 @@ export default function PrototypeList({
               <Link href={`/prototypes/${proto.id}`}>
                 <div className={styles.image_placeholder}>
                   <Image
-                    src={`${url}images/${proto.image}`}
+                    src={`${baseUrl}/images/${proto.image}`}
                     width={300}
                     height={300}
                     alt="Picture of the author"
