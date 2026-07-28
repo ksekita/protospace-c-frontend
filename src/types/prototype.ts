@@ -5,7 +5,7 @@ export interface Prototype {
   };
   id: number;
   title: string;
-  catchphrase: string;
+  catchCopy: string;
   concept: string;
   imageUrl?: string;
   email?: string;
