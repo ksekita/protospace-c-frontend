@@ -16,6 +16,12 @@
   padding: 2px 6px;
 }
 
+.prototypeContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .nameLink:hover {
   opacity: 0.8;
 }
