@@ -40,10 +40,10 @@ export async function CreatePrototypeAction(
       ...currentState,
       error: "未入力の項目があります",
       fieldErrors: {
-        title: !title ? "タイトルを入力してくださいw" : undefined,
-        catchCopy: !catchCopy ? "キャッチコピーを入力してくださいw" : undefined,
-        concept: !concept ? "コンセプトを入力してくださいw" : undefined,
-        image: !image ? "画像を入力してくださいw" : undefined,
+        title: !title ? "タイトルを入力してください" : undefined,
+        catchCopy: !catchCopy ? "キャッチコピーを入力してください" : undefined,
+        concept: !concept ? "コンセプトを入力してください" : undefined,
+        image: !image ? "画像を入力してください" : undefined,
       },
     };
   }

@@ -1,5 +1,5 @@
 "use client";
-
+// 新規投稿画面
 import styles from "@/app/prototype/new/page.module.css";
 import { CreatePrototypeAction } from "@/lib/api/useCreatePrototype";
 import { useActionState } from "react";
@@ -41,7 +41,7 @@ export default function Newprototype() {
             name="catchphrase"
             type="catchphrase"
             className={styles.textarea}
-            defaultValue={state?.catchphrase || ""}
+            defaultValue={state?.catchCopy || ""}
           />
         </div>
 
