@@ -6,7 +6,7 @@ type PageProps = {
   params: { id: string };
 };
 
-export default async function editPrototypePage({ params }: PageProps) {
+export default async function EditPrototypePage({ params }: PageProps) {
   const response = await api.get(`prototypes/${params.id}`);
   const prototypeData = response.data;
 
