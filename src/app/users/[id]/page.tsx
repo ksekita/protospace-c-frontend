@@ -35,7 +35,7 @@ export default async function UserDetail({
         <Detail user={response.responseUserInfo} />
         <PrototypeList
           prototypes={response.responsePrototypeList}
-          username={response.responseUserInfo.username}
+          username={response.responseUserInfo.name}
           userId={response.responseUserInfo.id}
         />
       </div>

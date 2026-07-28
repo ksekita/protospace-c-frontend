@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import Detail from "./Detail";
-import { UserDetailType } from "@/types/UserDetailType";
+import { ResponseUserInfo } from "@/types/UserDetailType";
 
 // テスト用のモックデータ
-export const mockUser: UserDetailType = {
+export const mockUser: ResponseUserInfo = {
+  id: 1,
   name: "山田 太郎",
   profile: "フロントエンドエンジニアです。",
   affiliation: "株式会社テスト",

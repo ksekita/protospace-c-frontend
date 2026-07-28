@@ -1,45 +1,71 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import PrototypeList from "./PrototypeList";
-import { Prototype } from "@/types/prototype";
 import { mockUser } from "./Detail.test";
+import { ResponsePrototypeList } from "@/types/UserDetailType";
+import type { ImageProps } from "next/image";
 
-const mockPrototypes: Prototype[] = [
+vi.mock("next/image", () => ({
+  default: (props: ImageProps) => {
+    const { src, alt, width, height, className } = props;
+
+    // srcがStaticImport（オブジェクト）だった場合はテスト用に適当な文字列にする
+    const imgSrc = typeof src === "string" ? src : "static-image-stub";
+
+    // eslint-disable-next-line @next/next/no-img-element
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={imgSrc}
+        alt={alt || ""}
+        width={width}
+        height={height}
+        className={className}
+      />
+    );
+  },
+}));
+
+const mockPrototypes: ResponsePrototypeList[] = [
   {
     id: 1,
     title: "アプリA",
-    catchphrase: "キャッチA",
-    concept: "コンセプトA",
-    userId: 101,
-    user: { name: "山田 太郎" },
+    catchCopy: "キャッチコピー",
+    image: "/image.png",
   },
   {
     id: 2,
     title: "アプリB",
-    catchphrase: "キャッチB",
-    concept: "コンセプトB",
-    userId: 101,
-    user: { name: "山田 太郎" },
+    catchCopy: "catchCopu",
+    image: "/image.png2",
   },
 ];
 
 describe("PrototypeListコンポーネント", () => {
   test("プロトタイプの情報がリストとして表示されること", () => {
     render(
-      <PrototypeList username={mockUser.name} prototypes={mockPrototypes} />,
+      <PrototypeList
+        username={mockUser.name}
+        prototypes={mockPrototypes}
+        userId={mockUser.id}
+      />,
     );
 
     // アプリAとアプリBのタイトルが表示されているか
     expect(screen.getByText("アプリA")).toBeInTheDocument();
     expect(screen.getByText("アプリB")).toBeInTheDocument();
 
-    // コンセプトが表示されているか
-    expect(screen.getByText("コンセプトA")).toBeInTheDocument();
+    // キャッチコピーが表示されているか
+    expect(screen.getByText("キャッチコピー")).toBeInTheDocument();
   });
 
   test("正しいURLのリンクが生成されていること", () => {
     render(
-      <PrototypeList username={mockUser.name} prototypes={mockPrototypes} />,
+      <PrototypeList
+        username={mockUser.name}
+        prototypes={mockPrototypes}
+        userId={mockUser.id}
+      />,
     );
 
     // タイトルのリンクを取得して、href属性をチェック
@@ -52,7 +78,7 @@ describe("PrototypeListコンポーネント", () => {
     const authorLinks = screen.getAllByRole("link", { name: "山田 太郎" });
     // すべてのリンクが正しいhref属性を持っているかチェックする
     authorLinks.forEach((link) => {
-      expect(link).toHaveAttribute("href", "/users/101");
+      expect(link).toHaveAttribute("href", "/users/1");
     });
   });
 });
