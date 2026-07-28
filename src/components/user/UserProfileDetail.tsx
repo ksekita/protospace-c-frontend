@@ -51,7 +51,7 @@ export default function UserProfile({ id }: { id: string }) {
           </tr>
           <tr>
             <th scope="row" className={styles.headerCell}>役職</th>
-            <td className={styles.dataCell}>{user.role}</td>
+            <td className={styles.dataCell}>{user.position}</td>
           </tr>
         </tbody>
       </table>

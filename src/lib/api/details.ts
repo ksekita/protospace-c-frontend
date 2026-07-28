@@ -7,16 +7,14 @@ const MOCK_USERS_DB: Record<number, UserProfileData> = {
     name: '田中 太郎',
     profile: 'フロントエンド開発者です。ReactとNext.jsが好きです。',
     affiliation: '開発部',
-    email: 'user123@example.com',
-    role: 'エンジニア',
+    position: 'エンジニア',
   },
   2: {
     id: 2,
     name: '佐藤 花子',
     profile: 'UI/UXデザイナーです。',
     affiliation: 'デザイン部',
-    email: 'user456@example.com',
-    role: 'デザイナー',
+    position: 'デザイナー',
   },
 };
 
@@ -26,7 +24,7 @@ const MOCK_PROTOTYPES_DB: Prototype[] = [
     userId:1,
     email: 'user123@example.com',
     title: 'ウェブアプリ１',
-    catchphrase: 'キャッチコピー１',
+    catchCopy: 'キャッチコピー１',
     concept: 'テストコンセプト１',
     imageUrl: 'https://picsum.photos/400/300?random=1',
     name: '田中 太郎',
@@ -37,7 +35,7 @@ const MOCK_PROTOTYPES_DB: Prototype[] = [
     userId:1,
     email: 'user123@example.com',
     title: 'ウェブアプリ２',
-    catchphrase: 'キャッチコピー２',
+    catchCopy: 'キャッチコピー２',
     concept: 'テストコンセプト２',
     imageUrl: 'https://picsum.photos/400/300?random=2',
     name: '田中 太郎',
@@ -48,7 +46,7 @@ const MOCK_PROTOTYPES_DB: Prototype[] = [
     userId:2,
     email: 'user456@example.com',
     title: 'デザイン ツール',
-    catchphrase: 'キャッチコピー３',
+    catchCopy: 'キャッチコピー３',
     concept: 'UI/UXテストツール',
     imageUrl: 'https://picsum.photos/400/300?random=3',
     name: '佐藤 花子',
@@ -79,7 +77,7 @@ export async function fetchUserPrototypes(userId: number): Promise<Prototype[]> 
         return;
       }
       const userPrototypes = MOCK_PROTOTYPES_DB.filter(
-        (proto) => proto.email === user.email
+        (proto) => proto.userId === user.id
       );
       resolve(userPrototypes);
     }, 100);

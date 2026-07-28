@@ -80,7 +80,7 @@ export default function PrototypeDetailPage({ id }: PrototypeDetailProps) {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>キャッチコピー</h2>
 
-        <p className={styles.sectionContent}>{prototype.catchphrase}</p>
+        <p className={styles.sectionContent}>{prototype.catchCopy}</p>
       </section>
 
       <section className={styles.section}>
