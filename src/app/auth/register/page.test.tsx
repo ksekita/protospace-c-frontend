@@ -70,9 +70,9 @@ describe("ユーザー登録のテスト", () => {
     // エラーを返すかどうか
     vi.mocked(registerAction).mockResolvedValueOnce({
       ...baseInputState,
-      username: "",
+      name: "",
       error: "入力内容に不備があります",
-      fieldErrors: { username: "ユーザー名を入力してください" },
+      fieldErrors: { name: "ユーザー名を入力してください" },
     });
 
     render(<RegisterPage />);
