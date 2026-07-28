@@ -23,8 +23,8 @@ export default async function UserDetail({
   if ("error" in response) {
     return (
       <div style={{ color: "red", padding: "20px" }}>
-        <h2>エラーが発生しました</h2>
-        <p>{response.error}</p>{" "}
+        <p>エラーが発生しました</p>
+        <p>{response.error}</p>
       </div>
     );
   }
