@@ -1,4 +1,6 @@
 export interface Prototype {
+  userId: number;
+  user: string;
   id: number;
   title: string;
   catchphrase: string;
