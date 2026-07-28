@@ -26,7 +26,7 @@ export default function PrototypeList({
               <Link href={`/prototypes/${proto.id}`}>
                 <div className={styles.image_placeholder}>
                   <Image
-                    src={`${url}${proto.image}`}
+                    src={`${url}images/${proto.image}`}
                     width={300}
                     height={300}
                     alt="Picture of the author"
