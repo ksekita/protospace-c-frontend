@@ -13,7 +13,7 @@ export const mockUserDetailResponse: UserDetailResponse = {
     {
       id: 1,
       title: "タスク管理アプリ TaskSync",
-      catchphrase: "チームのタスクをひと目で把握",
+      catchCopy: "チームのタスクをひと目で把握",
       concept:
         "リアルタイムで同期されるタスク管理ツールです。直感的な操作を目指しました。",
       imageUrl: "https://example.com/images/prototype1.jpg",
@@ -26,7 +26,7 @@ export const mockUserDetailResponse: UserDetailResponse = {
     {
       id: 2,
       title: "レシピ共有サービス Yummy",
-      catchphrase: "毎日の献立にもう迷わない",
+      catchCopy: "毎日の献立にもう迷わない",
       concept: "冷蔵庫の余り物から最適なレシピを提案するサービスです。",
       userId: 1,
       user: {
