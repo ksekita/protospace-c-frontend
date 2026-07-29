@@ -1,4 +1,5 @@
 export interface Prototype {
+  image: string;
   userId: number;
   user?: {
     name: string;
