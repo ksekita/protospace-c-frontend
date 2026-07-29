@@ -1,7 +1,7 @@
 export interface Prototype {
   id: number;
   title: string;
-  catchphrase: string;
+  catchCopy: string;
   userId:number;
   concept: string;
   imageUrl?: string;

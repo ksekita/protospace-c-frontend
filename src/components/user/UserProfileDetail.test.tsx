@@ -20,10 +20,9 @@ describe('UserProfileDetail コンポーネントテスト', () => {
     vi.spyOn(detailsApi, 'fetchUserProfile').mockResolvedValueOnce({
       id: 1,
       name: '田中 太郎',
-      email: 'user123@example.com',
       profile: 'フロントエンド開発者です。',
       affiliation: '開発部',
-      role: 'エンジニア',
+      position: 'エンジニア',
     });
 
     render(<UserProfile id="1" />);

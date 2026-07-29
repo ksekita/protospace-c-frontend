@@ -44,3 +44,15 @@
   word-break: break-all;
   vertical-align: middle;
 }
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.authorName {
+  font-size: 14px;
+}
