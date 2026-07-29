@@ -102,6 +102,7 @@ export async function registerAction(
     };
 
   try {
+    console.log("送るデータ : ", currentState);
     const response = await api.post("auth/register", {
       name,
       email,
