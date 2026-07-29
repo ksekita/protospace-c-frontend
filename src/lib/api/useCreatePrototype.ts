@@ -1,38 +1,77 @@
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+"use server";
+
+import { redirect } from "next/navigation";
 import axios from "axios";
+import api from "./apiClient";
 
-// 新規投稿画面の処理です
-export const useCreatePrototype = () => {
-  const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export type RegisterPrototypeState = {
+  title?: string;
+  catchCopy?: string;
+  concept?: string;
+  image?: File;
+  error?: string;
+  fieldErrors?: {
+    title?: string;
+    catchCopy?: string;
+    concept?: string;
+    image?: string;
+  };
+};
+// 新規投稿
+export async function CreatePrototypeAction(
+  prevState: RegisterPrototypeState | null,
+  formData: FormData,
+): Promise<RegisterPrototypeState> {
+  // フォームに入力されたデータを取得↓
+  const title = formData.get("title") as string;
+  const catchCopy = formData.get("catchCopy") as string;
+  const concept = formData.get("concept") as string;
+  const image = formData.get("image") as File;
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const currentState: RegisterPrototypeState = {
+    title,
+    catchCopy,
+    concept,
+    image,
+  };
 
-    // フォームの内容（入力テキストやファイル）をFormDataとして取得
-    const formData = new FormData(e.currentTarget);
+  if (!title || !catchCopy || !concept || !image) {
+    return {
+      ...currentState,
+      error: "未入力の項目があります",
+      fieldErrors: {
+        title: !title ? "タイトルを入力してください" : undefined,
+        catchCopy: !catchCopy ? "キャッチコピーを入力してください" : undefined,
+        concept: !concept ? "コンセプトを入力してください" : undefined,
+        image: !image ? "画像を入力してください" : undefined,
+      },
+    };
+  }
 
-    try {
-      await axios.post("http://localhost:8080/post", formData, {
+  try {
+    await api.post(
+      "prototypes/new",
+      {
+        title,
+        catchCopy,
+        concept,
+        image,
+      },
+      {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      });
-
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      alert("エラーが発生しました。再試行してください。");
-    } finally {
-      setIsSubmitting(false);
+      },
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return {
+        ...currentState,
+        error: error.response.data.message || "投稿に失敗しました",
+      };
     }
-  };
-
-  return {
-    isSubmitting,
-    handleSubmit,
-  };
-};
+    console.error("error", error);
+    return { ...currentState, error: "通信エラーが発生しました" };
+  }
+  redirect("/");
+}

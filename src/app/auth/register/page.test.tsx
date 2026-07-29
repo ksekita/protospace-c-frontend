@@ -11,7 +11,7 @@ vi.mock("@/lib/actions/authActions", () => ({
 // ベースデータ
 export const baseInputState = {
   email: "user@example.com",
-  username: "testuser",
+  name: "testuser",
   profile: "自己紹介です",
   affiliation: "開発部",
   position: "エンジニア",
@@ -40,7 +40,7 @@ async function fillRegisterForm(customValues: Record<string, string> = {}) {
   if (data.password) await userEvent.type(passwordInput, data.password);
   if (data.password_confirmation)
     await userEvent.type(passwordConfirmInput, data.password_confirmation);
-  if (data.username) await userEvent.type(usernameInput, data.username);
+  if (data.name) await userEvent.type(usernameInput, data.name);
   if (data.profile) await userEvent.type(profileInput, data.profile);
   if (data.affiliation)
     await userEvent.type(affiliationInput, data.affiliation);
@@ -70,9 +70,9 @@ describe("ユーザー登録のテスト", () => {
     // エラーを返すかどうか
     vi.mocked(registerAction).mockResolvedValueOnce({
       ...baseInputState,
-      username: "",
+      name: "",
       error: "入力内容に不備があります",
-      fieldErrors: { username: "ユーザー名を入力してください" },
+      fieldErrors: { name: "ユーザー名を入力してください" },
     });
 
     render(<RegisterPage />);
@@ -125,7 +125,7 @@ describe("ユーザー登録のテスト", () => {
     expect(registerAction).toHaveBeenCalled();
 
     // 入力した値が残っている確認
-    expect(inputs.usernameInput).toHaveValue(baseInputState.username);
+    expect(inputs.usernameInput).toHaveValue(baseInputState.name);
     expect(inputs.profileInput).toHaveValue(baseInputState.profile);
     expect(inputs.affiliationInput).toHaveValue(baseInputState.affiliation);
     expect(inputs.positionInput).toHaveValue(baseInputState.position);
@@ -159,7 +159,7 @@ describe("ユーザー登録のテスト", () => {
 
     // 入力した値が残っている確認
     expect(inputs.emailInput).toHaveValue(baseInputState.email);
-    expect(inputs.usernameInput).toHaveValue(baseInputState.username);
+    expect(inputs.usernameInput).toHaveValue(baseInputState.name);
     expect(inputs.profileInput).toHaveValue(baseInputState.profile);
     expect(inputs.affiliationInput).toHaveValue(baseInputState.affiliation);
     expect(inputs.positionInput).toHaveValue(baseInputState.position);

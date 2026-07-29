@@ -8,18 +8,18 @@ const mockPrototypes: Prototype[] = [
   {
     id: 1,
     title: "アプリA",
-    catchphrase: "キャッチA",
+    catchCopy: "キャッチA",
     concept: "コンセプトA",
     userId: 101,
-    user: { name: "山田 太郎" },
+    user: "山田 太郎",
   },
   {
     id: 2,
     title: "アプリB",
-    catchphrase: "キャッチB",
+    catchCopy: "キャッチB",
     concept: "コンセプトB",
     userId: 101,
-    user: { name: "山田 太郎" },
+    user: "山田 太郎",
   },
 ];
 
