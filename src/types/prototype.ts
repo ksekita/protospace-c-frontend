@@ -1,13 +1,15 @@
 export interface Prototype {
-  id: number;
-  title: string;
-  catchphrase: string;
-  concept: string;
-  imageUrl?: string;
-  userId?: number;
+  userId: number;
   user?: {
     name: string;
   };
+  id: number;
+  title: string;
+  catchCopy: string;
+  concept: string;
+  imageUrl?: string;
+  email?: string;
+  name?: string;
   createdAt?: string;
 }
 

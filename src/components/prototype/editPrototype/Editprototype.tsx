@@ -1,18 +1,29 @@
 "use client";
-// 新規投稿画面
+// h編集画面
 import styles from "@/app/prototype/new/page.module.css";
-import { CreatePrototypeAction } from "@/lib/api/useCreatePrototype";
+import { EditPrototypeAction } from "@/lib/api/useUpdatePrototype";
 import { useActionState } from "react";
 
-export default function Newprototype() {
+export type EditPrototypeProps = {
+  initialData: {
+    id: number;
+    title: string;
+    catchCopy: string;
+    concept: string;
+    image?: string;
+  };
+};
+
+export default function Editprototype({ initialData }: EditPrototypeProps) {
   const [state, formAction, isPending] = useActionState(
-    CreatePrototypeAction,
+    EditPrototypeAction,
     null,
   );
 
   return (
     <div className={styles.container}>
       <form action={formAction} encType="multipart/form-data">
+        <input type="hidden" name="id" value={initialData.id} />
         {/* {全体エラー} */}
         {state?.error && (
           <p role="alert" className={styles.error_alert}>
@@ -28,12 +39,12 @@ export default function Newprototype() {
             type="text"
             name="title"
             className={styles.input}
-            defaultValue={state?.title || ""}
+            defaultValue={state?.title || initialData.title}
           />
         </div>
 
         <div className={styles.form_group}>
-          <label htmlFor="catchphrase" className={styles.label}>
+          <label htmlFor="catchCopy" className={styles.label}>
             キャッチコピー
           </label>
           <input
@@ -41,7 +52,7 @@ export default function Newprototype() {
             name="catchCopy"
             type="text"
             className={styles.textarea}
-            defaultValue={state?.catchCopy || ""}
+            defaultValue={state?.catchCopy || initialData.catchCopy}
           />
         </div>
 
@@ -54,7 +65,7 @@ export default function Newprototype() {
             name="concept"
             rows={4}
             className={styles.textarea}
-            defaultValue={state?.concept || ""}
+            defaultValue={state?.concept || initialData.concept}
           />
         </div>
 

@@ -33,7 +33,7 @@ export async function proxy(request: NextRequest) {
     pathname !== "/prototype/new" &&
     !isEditPage;
 
-  const isUserPage = pathname.startsWith("/user/") && !isEditPage;
+  const isUserPage = pathname.startsWith("/users/") && !isEditPage;
 
   // 未ログイン時リストに入ってたらクリア
   if (PUBLIC_ROUTES.includes(pathname) || isPrototypeDetail || isUserPage) {
