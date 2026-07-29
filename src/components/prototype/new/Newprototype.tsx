@@ -12,7 +12,7 @@ export default function Newprototype() {
 
   return (
     <div className={styles.container}>
-      <form action={formAction} encType="multipart/form-data">
+      <form action={formAction}>
         {/* {全体エラー} */}
         {state?.error && (
           <p role="alert" className={styles.error_alert}>
