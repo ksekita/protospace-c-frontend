@@ -5,8 +5,8 @@ import { Prototype } from "@/types/prototype";
 
 type PrototypeListProps = {
   prototypes: Prototype[];
-  username: string;
-  userId: number;
+  username?: string;
+  userId?: number;
 };
 
 export default function PrototypeList({
