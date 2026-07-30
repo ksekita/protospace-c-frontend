@@ -44,7 +44,7 @@ export default function PrototypeList({
               <p className={styles.card_concept}>{proto.catchCopy}</p>
               <div className={styles.card_author}>
                 <Link href={`/users/${userId}`} className={styles.author_link}>
-                  {username}
+                  by {username}
                 </Link>
               </div>
             </div>
