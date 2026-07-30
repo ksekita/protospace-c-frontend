@@ -31,7 +31,7 @@ async function fillRegisterForm(customValues: Record<string, string> = {}) {
   const emailInput = screen.getByLabelText(/メールアドレス/i);
   const passwordInput = screen.getByLabelText("パスワード (6文字以上)");
   const passwordConfirmInput = screen.getByLabelText(/パスワード再入力/i);
-  const usernameInput = screen.getByLabelText(/ユーザー名/i);
+  const nameInput = screen.getByLabelText(/ユーザー名/i);
   const profileInput = screen.getByLabelText(/プロフィール/i);
   const affiliationInput = screen.getByLabelText(/所属/i);
   const positionInput = screen.getByLabelText(/役職/i);
@@ -40,7 +40,7 @@ async function fillRegisterForm(customValues: Record<string, string> = {}) {
   if (data.password) await userEvent.type(passwordInput, data.password);
   if (data.password_confirmation)
     await userEvent.type(passwordConfirmInput, data.password_confirmation);
-  if (data.name) await userEvent.type(usernameInput, data.name);
+  if (data.name) await userEvent.type(nameInput, data.name);
   if (data.profile) await userEvent.type(profileInput, data.profile);
   if (data.affiliation)
     await userEvent.type(affiliationInput, data.affiliation);
@@ -48,7 +48,7 @@ async function fillRegisterForm(customValues: Record<string, string> = {}) {
 
   return {
     emailInput,
-    usernameInput,
+    nameInput,
     profileInput,
     affiliationInput,
     positionInput,
@@ -78,7 +78,7 @@ describe("ユーザー登録のテスト", () => {
     render(<RegisterPage />);
 
     // 入力する項目をあてはめる
-    const inputs = await fillRegisterForm({ username: "" });
+    const inputs = await fillRegisterForm({ name: "" });
 
     await submitButton();
 
@@ -125,7 +125,7 @@ describe("ユーザー登録のテスト", () => {
     expect(registerAction).toHaveBeenCalled();
 
     // 入力した値が残っている確認
-    expect(inputs.usernameInput).toHaveValue(baseInputState.name);
+    expect(inputs.nameInput).toHaveValue(baseInputState.name);
     expect(inputs.profileInput).toHaveValue(baseInputState.profile);
     expect(inputs.affiliationInput).toHaveValue(baseInputState.affiliation);
     expect(inputs.positionInput).toHaveValue(baseInputState.position);
@@ -159,7 +159,7 @@ describe("ユーザー登録のテスト", () => {
 
     // 入力した値が残っている確認
     expect(inputs.emailInput).toHaveValue(baseInputState.email);
-    expect(inputs.usernameInput).toHaveValue(baseInputState.name);
+    expect(inputs.nameInput).toHaveValue(baseInputState.name);
     expect(inputs.profileInput).toHaveValue(baseInputState.profile);
     expect(inputs.affiliationInput).toHaveValue(baseInputState.affiliation);
     expect(inputs.positionInput).toHaveValue(baseInputState.position);

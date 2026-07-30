@@ -21,12 +21,7 @@ export default async function UserDetail({
   }
 
   if ("error" in response) {
-    return (
-      <div style={{ color: "red", padding: "20px" }}>
-        <p>エラーが発生しました</p>
-        <p>{response.error}</p>
-      </div>
-    );
+    return;
   }
   return (
     <div className="inner">
