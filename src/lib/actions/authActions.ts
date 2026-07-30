@@ -102,7 +102,6 @@ export async function registerAction(
     };
 
   try {
-    console.log("送るデータ : ", currentState);
     const response = await api.post("auth/register", {
       name,
       email,
@@ -114,8 +113,6 @@ export async function registerAction(
     });
     await createSession(response.data.token);
   } catch (error) {
-    console.log("error:", error);
-
     if (axios.isAxiosError(error) && error.response) {
       return {
         ...currentState,

@@ -30,7 +30,7 @@ export default function PrototypeList({
                     src={`${baseUrl}/images/${proto.image}`}
                     width={300}
                     height={300}
-                    alt="Picture of the author"
+                    alt={proto.title}
                     className={styles.image}
                   />
                 </div>
