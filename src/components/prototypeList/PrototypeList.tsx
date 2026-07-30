@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./page.module.css";
+import styles from "./PrototypeList.module.css";
 import { Prototype } from "@/types/prototype";
 
 type PrototypeListProps = {
@@ -49,7 +49,7 @@ export default function PrototypeList({
                     href={`/users/${userId}`}
                     className={styles.author_link}
                   >
-                    {username}
+                    by {proto.name}
                   </Link>
                 </div>
               </div>
