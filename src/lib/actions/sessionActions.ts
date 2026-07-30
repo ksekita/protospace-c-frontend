@@ -9,6 +9,5 @@ export async function createSession(token: string) {
     secure: process.env.NODE_ENV === "production", // 本番(https)ならtrueになる
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24, // 1日有効（公式のDate型じゃなく、秒数で指定する）
   });
 }

@@ -113,8 +113,6 @@ export async function registerAction(
     });
     await createSession(response.data.token);
   } catch (error) {
-    console.log("error:", error);
-
     if (axios.isAxiosError(error) && error.response) {
       return {
         ...currentState,

@@ -1,22 +1,34 @@
-import UserPrototypeDetail from "@/components/user/UserPrototypeDetail"
-import UserProfileDetail from "@/components/user/UserProfileDetail";
-import Link from "next/link";
-import styles from "./page.module.css"
+import PrototypeList from "@/components/users/detail/PrototypeList";
+import Detail from "@/components/users/detail/Detail";
+import styles from "./UserDetail.module.css";
+import { userDetailInfo } from "@/lib/api/userDetail";
+import { notFound } from "next/navigation";
 
-
-//全体のレイアウト、余白の配置
-//住所パラメータ（Params）やAPIでデータを読み込み（Fetch）、Detailコンポーネントへ転送
-//ページの専用スタイルを持つ（page.module.css）
-export default async function UserDetailPage({
+export default async function UserDetail({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const resolvedParams = await params;
+  const resultId = resolvedParams.id;
+  // 型変換
+  const userId = Number(resultId);
+  const response = await userDetailInfo(userId);
+
+  if ("error" in response) {
+    return notFound();
+  }
   return (
-    <main>
-      <UserProfileDetail id={id} />
-      <UserPrototypeDetail id={id} />
-    </main>
+    <div className="inner">
+      <div className={styles.user_wrapper}>
+        {/* このresponse.userDetailとprototypeListは、受け取る変数はbackendによって変化する */}
+        <Detail user={response.responseUserInfo} />
+        <PrototypeList
+          prototypes={response.responsePrototypeList}
+          username={response.responseUserInfo.name}
+          userId={response.responseUserInfo.id}
+        />
+      </div>
+    </div>
   );
 }
