@@ -1,7 +1,7 @@
 import PrototypeList from "@/components/users/detail/PrototypeList";
 import Detail from "@/components/users/detail/Detail";
 import styles from "./UserDetail.module.css";
-import { userDetail } from "@/lib/api/userDetail";
+import { userDetailInfo } from "@/lib/api/userDetail";
 import { notFound } from "next/navigation";
 
 export default async function UserDetail({
@@ -13,15 +13,10 @@ export default async function UserDetail({
   const resultId = resolvedParams.id;
   // 型変換
   const userId = Number(resultId);
-  const response = await userDetail(userId);
-
-  // notfoudページ後日実装
-  if ("error" in userDetail) {
-    return notFound();
-  }
+  const response = await userDetailInfo(userId);
 
   if ("error" in response) {
-    return;
+    return notFound();
   }
   return (
     <div className="inner">

@@ -3,14 +3,14 @@ import api from "./apiClient";
 import { UserDetailType } from "@/types/UserDetailType";
 
 // ユーザー詳細
-export const userDetail = async (
+export const userDetailInfo = async (
   id: number,
 ): Promise<UserDetailType | { error: string }> => {
   try {
-    const responseUserInfo = await api.get(`users/${id}`);
-    const responsePrototypeList = await api.get(`prototypes/users/${id}`);
-    console.log("responseUserInfo data : ", responseUserInfo.data);
-    console.log("responsePrototypeList : ", responsePrototypeList.data);
+    const [responseUserInfo, responsePrototypeList] = await Promise.all([
+      api.get(`users/${id}`),
+      api.get(`prototypes/users/${id}`),
+    ]);
     const response = {
       responseUserInfo: responseUserInfo.data,
       responsePrototypeList: responsePrototypeList.data,
