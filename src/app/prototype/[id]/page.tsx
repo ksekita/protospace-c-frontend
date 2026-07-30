@@ -12,9 +12,8 @@ export default async function PrototypeDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const resolvedParams = await params;
-  const resultId = resolvedParams.id;
-  const prototypeId = Number(resultId);
+  const { id } = await params;
+  const prototypeId = Number(id);
 
   // コメントフォーム表示
   const cookieStore = await cookies();
