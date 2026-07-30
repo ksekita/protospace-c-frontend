@@ -7,11 +7,11 @@ export type GreetingProps = {
 };
 
 export default function Greeting({ userName, userId }: GreetingProps) {
-  if (userId === null) {
+  if (userId === null || userId === undefined) {
     return (
       <div className={styles.greeting}>
         こんにちは、
-        <Link href="#" className={styles.user_link}>
+        <Link href="/" className={styles.user_link}>
           テストユーザーさん
         </Link>
       </div>
