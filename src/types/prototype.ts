@@ -1,17 +1,11 @@
 export interface Prototype {
-  image: string;
-  userId: number;
-  user?: {
-    name: string;
-  };
   id: number;
   title: string;
   catchCopy: string;
   concept: string;
-  imageUrl?: string;
-  email?: string;
+  image?: string;
+  userId?: number;
   name?: string;
-  createdAt?: string;
 }
 
 export interface CreatePrototypeInput {

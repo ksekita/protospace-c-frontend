@@ -1,35 +1,51 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { Prototype } from "@/types/prototype";
+"use server";
 
-export const useGetPrototypes = () => {
-  const [prototypes, setPrototypes] = useState<Prototype[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+import { cookies } from "next/headers";
+import api from "./apiClient";
 
-  useEffect(() => {
-    const fetchPrototypes = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get<Prototype[]>(
-          "http://localhost:8080/api/prototypes",
-        );
-
-        setPrototypes(response.data);
-      } catch (err) {
-        console.error(err);
-        setError("データの読み込みに失敗しました。再読み込みしてください。");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPrototypes();
-  }, []);
-
-  return {
-    prototypes,
-    isLoading,
-    error,
-  };
+export type Prototype = {
+  id: number;
+  title: string;
+  catchCopy: string;
+  concept: string;
+  image?: string;
+  userId?: number;
+  name?: string;
 };
+
+export type UserInfo = {
+  id?: number;
+  name?: string;
+};
+
+export async function useGetPrototypes(): Promise<Prototype[]> {
+  try {
+    const response = await api.get<Prototype[]>("/prototypes/");
+
+    return response.data;
+  } catch (error) {
+    console.error("一覧情報の取得に失敗しました:", error);
+    return [];
+  }
+}
+
+export async function userInfo(): Promise<UserInfo> {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("jwt_token")?.value;
+
+    const response = await api.get<UserInfo>("/auth/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(
+      "data:===========================================================\n",
+      response,
+    );
+    return response.data;
+  } catch (error) {
+    console.log("error:", error);
+    return {};
+  }
+}
