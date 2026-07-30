@@ -1,24 +1,13 @@
-"use server";
-
 import { cookies } from "next/headers";
 import api from "./apiClient";
-
-export type Prototype = {
-  id: number;
-  title: string;
-  catchCopy: string;
-  concept: string;
-  image?: string;
-  userId?: number;
-  name?: string;
-};
+import { Prototype } from "@/types/prototype";
 
 export type UserInfo = {
   id?: number;
   name?: string;
 };
 
-export async function useGetPrototypes(): Promise<Prototype[]> {
+export async function prototypeList(): Promise<Prototype[]> {
   try {
     const response = await api.get<Prototype[]>("/prototypes/");
 
