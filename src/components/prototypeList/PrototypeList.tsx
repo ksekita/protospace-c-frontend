@@ -34,6 +34,7 @@ export default function PrototypeList({
                       width={300}
                       height={300}
                       alt="Picture of the author"
+                      className={styles.image}
                     />
                   </div>
                 </Link>
