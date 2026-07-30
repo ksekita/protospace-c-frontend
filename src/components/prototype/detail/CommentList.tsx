@@ -8,7 +8,7 @@ interface Props {
 
 export default function CommentList(props: Props) {
   if (props.commentList === null) {
-    return;
+    return null;
   }
 
   return (

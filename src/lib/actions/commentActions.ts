@@ -17,7 +17,6 @@ export async function commentAction(
   formData: FormData, // 第3引数に formData を持ってくる
 ): Promise<CommentActionState> {
   const content = formData.get("content") as string;
-  console.log("送信データ : \n id : ", id + "\n コメント", content);
 
   try {
     const cookieStore = await cookies();
@@ -35,8 +34,6 @@ export async function commentAction(
       },
     );
 
-    console.log("コメント内容 : ", content);
-
     revalidatePath(`/prototype/${id}`);
 
     return response.data;
@@ -48,7 +45,6 @@ export async function commentAction(
         error: error.response.data.message || "コメントできませんでした",
       };
     }
-    console.log("error", error);
     return { id, content, error: "通信エラーが発生しました" };
   }
 }
