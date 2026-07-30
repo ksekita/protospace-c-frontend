@@ -28,10 +28,6 @@ export async function userInfo(): Promise<UserInfo> {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(
-      "data:===========================================================\n",
-      response,
-    );
     return response.data;
   } catch (error) {
     console.log("error:", error);
