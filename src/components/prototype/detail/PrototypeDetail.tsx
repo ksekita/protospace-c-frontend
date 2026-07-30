@@ -1,92 +1,47 @@
-'use client';
+import Link from "next/link";
+import styles from "./PrototypeDetail.module.css";
+import Image from "next/image";
+import { Prototype } from "@/types/prototype";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Prototype } from '@/types/prototypes';
-import { fetchPrototypeDetail } from '@/lib/api/details';
-import styles from './PrototypeDetail.module.css';
-
-interface PrototypeDetailProps {
-  id: string;
+interface Props {
+  prototypeDetail: Prototype;
 }
 
-export default function PrototypeDetailPage({ id }: PrototypeDetailProps) {
-  const [prototype, setPrototype] = useState<Prototype | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function loadData() {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const data = await fetchPrototypeDetail(Number(id));
-        setPrototype(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'エラーが発生しました');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadData();
-  }, [id]);
-
-  if (loading) {
-    return <div className={styles.prototypeContainer}>データを読み込み中...</div>;
-  }
-
-  if (error) {
-    return <div className={styles.prototypeContainer} role="alert">{error}</div>;
-  }
-
-  if (!prototype) return null;
-
-
-  const authorName = prototype.name || 'ユーザー';
-
-  const userId = prototype.userId;
-
+export default function PrototypeDetail(props: Props) {
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+  const baseUrl = new URL(backendUrl).origin;
   return (
-    <article className={styles.prototypeContainer}>
-
-      <h1 className={styles.titlePrototype}>{prototype.title}</h1>
-
-      <div className={styles.nameWrapper}>
-
-        <Link href={`/users/${userId}`} className={styles.nameLink}>
-          by {authorName}
-        </Link>
-      </div>
-
-      <div className={styles.buttonGroup}>
-        <button type="button" className={styles.editBtn}>
-          編集
-        </button>
-        <button type="button" className={styles.deleteBtn}>
-          削除
-        </button>
-      </div>
-
-      <div className={styles.prototypeImageWrapper}>
-        <img
-          src={prototype.imageUrl || 'https://picsum.photos/600/300'}
-          alt={prototype.title}
-          className={styles.prototypeImage}
+    <>
+      {/* タイトル */}
+      <p className={styles.title}>{props.prototypeDetail.title}</p>
+      {/* ユーザー名 */}
+      <Link
+        href={`/users/${props.prototypeDetail.userId}`}
+        className={styles.prototype_user}
+      >
+        by {props.prototypeDetail.name}
+      </Link>
+      {/* 画像 */}
+      <div className={styles.prototype_image}>
+        <Image
+          src={`${baseUrl}/images/${props.prototypeDetail.image}`}
+          width={300}
+          height={300}
+          alt={props.prototypeDetail.title}
         />
       </div>
-
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>キャッチコピー</h2>
-
-        <p className={styles.sectionContent}>{prototype.catchCopy}</p>
-      </section>
-
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>コンセプト</h2>
-        <p className={styles.sectionContent}>{prototype.concept}</p>
-      </section>
-    </article>
+      <div>
+        <div className={styles.prototype_detail}>
+          <p className={styles.detail_title}>キャッチコピー</p>
+          {/* キャッチコピー */}
+          <p>{props.prototypeDetail.catchCopy}</p>
+        </div>
+        <div className={styles.prototype_detail}>
+          <p className={styles.detail_title}>コンセプト</p>
+          {/* コンセプト */}
+          <p>{props.prototypeDetail.concept}</p>
+        </div>
+      </div>
+    </>
   );
 }

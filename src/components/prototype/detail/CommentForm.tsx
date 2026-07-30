@@ -1,61 +1,46 @@
-'use client';
-import styles from './CommentForm.module.css';
-import { useState } from 'react';
+"use client";
 
-interface Comment {
-  id: number;
-  text: string;
-  createdAt: string;
-}
+import { useActionState, useEffect, useRef } from "react";
+import styles from "./CommentForm.module.css";
+import { commentAction } from "@/lib/actions/commentActions";
 
-export default function CommentForm(){
+type Props = {
+  isLoggedIn: boolean;
+  prototypeId: number;
+};
 
-  const [comments, setComments] = useState<Comment[]>([
-    { id: 1, text: 'first text', createdAt: '14:20' },
-    { id: 2, text: 'second text', createdAt: '14:22' },
-  ]);
+export default function CommentForm(props: Props) {
+  const formRef = useRef<HTMLFormElement>(null);
+  const commentActionWithId = commentAction.bind(null, props.prototypeId);
 
-  const [inputText, setInputText] = useState('');
+  const [state, formAction, isPending] = useActionState(
+    commentActionWithId,
+    null,
+  );
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputText.trim()) return; // NOT NULL
+  useEffect(() => {
+    if (state && !state.error) {
+      formRef.current?.reset();
+    }
+  }, [state]);
 
-    const newComment: Comment = {
-      id: Date.now(),
-      text: inputText,
-      createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    };
+  if (!props.isLoggedIn) {
+    return null;
+  }
 
-    setComments([...comments, newComment]); // add comments
-    setInputText(''); // initialize form
-  };
-  return(
-    <section className={styles.commentContainer}>
-      <h3 className={styles.title}>コメント ({comments.length})</h3>
-
-      <form onSubmit={handleSubmit} className={styles.inputWrapper}>
-        <input
-          type="text"
-          placeholder="コメントを入力してください..."
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          className={styles.input}
-        />
-        <button type="submit" className={styles.submitBtn}>
-          送信
+  return (
+    <form action={formAction} ref={formRef}>
+      <div className={styles.field}>
+        {state?.error && <p>{state.error}</p>}
+        <label htmlFor="comment_content">コメント</label>
+        <br />
+        <input type="text" name="content" id="comment_content" />
+      </div>
+      <div className={styles.actions}>
+        <button type="submit" className={styles.form_btn} disabled={isPending}>
+          コメントする
         </button>
-      </form>
-{/* commentlist、後でcommentListコンポーネントに切り替える */}
-      <ul className={styles.commentList}>
-        {comments.map((comment) => (
-          <li key={comment.id} className={styles.commentItem}>
-            <span className={styles.commentText}>{comment.text}</span>
-            <span className={styles.commentTime}>{comment.createdAt}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-
+      </div>
+    </form>
   );
 }
