@@ -16,7 +16,6 @@ export default function PrototypeList({
 }: PrototypeListProps) {
   const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
   const baseUrl = new URL(backendUrl).origin;
-  console.log(baseUrl);
 
   return (
     <>
