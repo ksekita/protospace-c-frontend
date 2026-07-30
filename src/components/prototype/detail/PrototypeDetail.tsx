@@ -5,7 +5,7 @@ import { Prototype } from "@/types/prototype";
 import Button from "./Button";
 
 interface Props {
-  prototypeDetial: Prototype;
+  prototypeDetail: Prototype;
   userId?: number;
 }
 
@@ -16,36 +16,36 @@ export default function PrototypeDetail(props: Props) {
   return (
     <>
       {/* タイトル */}
-      <p className={styles.title}>{props.prototypeDetial.title}</p>
+      <p className={styles.title}>{props.prototypeDetail.title}</p>
       {/* ユーザー名 */}
       <Link
-        href={`/users/${props.prototypeDetial.userId}`}
+        href={`/users/${props.prototypeDetail.userId}`}
         className={styles.prototype_user}
       >
-        by {props.prototypeDetial.name}
+        by {props.prototypeDetail.name}
       </Link>
-      {props.userId === props.prototypeDetial.userId && (
-        <Button prototypeDetial={props.prototypeDetial} />
+      {props.userId === props.prototypeDetail.userId && (
+        <Button prototypeDetail={props.prototypeDetail} />
       )}
       {/* 画像 */}
       <div className={styles.prototype_image}>
         <Image
-          src={`${baseUrl}/images/${props.prototypeDetial.image}`}
+          src={`${baseUrl}/images/${props.prototypeDetail.image}`}
           width={300}
           height={300}
-          alt={props.prototypeDetial.title}
+          alt={props.prototypeDetail.title}
         />
       </div>
       <div>
         <div className={styles.prototype_detail}>
           <p className={styles.detail_title}>キャッチコピー</p>
           {/* キャッチコピー */}
-          <p>{props.prototypeDetial.catchCopy}</p>
+          <p>{props.prototypeDetail.catchCopy}</p>
         </div>
         <div className={styles.prototype_detail}>
           <p className={styles.detail_title}>コンセプト</p>
           {/* コンセプト */}
-          <p>{props.prototypeDetial.concept}</p>
+          <p>{props.prototypeDetail.concept}</p>
         </div>
       </div>
     </>

@@ -6,14 +6,14 @@ import { prototypeDelete } from "@/lib/actions/prototypeDelete";
 import { Prototype } from "@/types/prototype";
 
 interface Props {
-  prototypeDetial: Prototype;
+  prototypeDetail: Prototype;
 }
 
 export default function Button(props: Props) {
   return (
     <div className={styles.prototype_manage}>
       <Link
-        href={`/prototypes/${props.prototypeDetial.id}/edit`}
+        href={`/prototypes/${props.prototypeDetail.id}/edit`}
         className={styles.prototype_btn}
       >
         編集
@@ -21,7 +21,7 @@ export default function Button(props: Props) {
       <div>
         <button
           className={styles.prototype_btn}
-          onClick={() => prototypeDelete(props.prototypeDetial.id)}
+          onClick={() => prototypeDelete(props.prototypeDetail.id)}
         >
           削除
         </button>
