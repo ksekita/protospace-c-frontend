@@ -28,7 +28,7 @@ export default async function PrototypeDetailPage({
 
   return (
     <div className="inner">
-      <PrototypeDetail prototypeDetial={detail} />
+      <PrototypeDetail prototypeDetail={detail} />
       <div className={styles.prototype_comments}>
         <CommentForm isLoggedIn={isLoggedIn} prototypeId={prototypeId} />
         <CommentList commentList={comment} />
