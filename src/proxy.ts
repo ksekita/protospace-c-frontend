@@ -4,7 +4,12 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
 // 未ログイン時でも見れる画面のリスト
-const PUBLIC_ROUTES = ["/auth/login", "/auth/register", "/prototype"];
+const PUBLIC_ROUTES = [
+  "/auth/login",
+  "/auth/register",
+  "/prototypes",
+  "/prototype",
+];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -13,9 +18,9 @@ export async function proxy(request: NextRequest) {
   // トークンが存在し、かつ有効かどうかを判定
   const isLoggedIn = await isTokenValid(token);
 
-  // "/"にアクセスしようとしたらprototypeに飛ばす
-  if (pathname === "/" || pathname === "") {
-    return NextResponse.redirect(new URL("/prototype", request.url));
+  // "/"にアクセスしようとしたらprototypesに飛ばす
+  if (pathname === "/" || pathname === "" || pathname === "/prototype") {
+    return NextResponse.redirect(new URL("/prototypes", request.url));
   }
 
   // ログイン済みならログイン・登録画面からはホームにリダイレクト
@@ -23,7 +28,7 @@ export async function proxy(request: NextRequest) {
     isLoggedIn &&
     (pathname === "/auth/login" || pathname === "/auth/register")
   ) {
-    return NextResponse.redirect(new URL("/prototype", request.url));
+    return NextResponse.redirect(new URL("/prototypes", request.url));
   }
 
   const isEditPage = /\/edit\/?$/.test(pathname);
@@ -44,12 +49,13 @@ export async function proxy(request: NextRequest) {
   if (!isLoggedIn) {
     // 未ログイン時に /prototype/new にアクセスした場合は /prototype に遷移
     if (pathname === "/prototype/new") {
-      return NextResponse.redirect(new URL("/prototype", request.url));
+      return NextResponse.redirect(new URL("/prototypes", request.url));
     }
 
     // 編集ページならホーム画面に弾く
     if (isEditPage) {
-      return NextResponse.redirect(new URL("/prototype", request.url));
+      const num = pathname.replace(/\D/g, "");
+      return NextResponse.redirect(new URL(`/prototype/${num}`, request.url));
     }
 
     // それ以外はログイン画面へ強制リダイレクト
