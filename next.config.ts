@@ -26,6 +26,8 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "10mb",
     },
   },
+  // cache の導入
+  cacheComponents: true,
 };
 
 export default nextConfig;
