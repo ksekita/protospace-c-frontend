@@ -26,7 +26,7 @@ export default function PrototypeList({
           prototypes.map((proto) => (
             <div key={proto.id} className={styles.card}>
               <div className={styles.image_wrapper}>
-                <Link href={`/prototype/${proto.id}`}>
+                <Link href={`/prototypes/${proto.id}`}>
                   <div className={styles.image_placeholder}>
                     <Image
                       src={`${baseUrl}/images/${(proto as Prototype & { image?: string }).image ?? ""}`}

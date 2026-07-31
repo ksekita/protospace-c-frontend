@@ -22,7 +22,7 @@ export default function Editprototype({ initialData }: EditPrototypeProps) {
 
   return (
     <div className={styles.container}>
-      <form action={formAction} encType="multipart/form-data">
+      <form action={formAction}>
         <input type="hidden" name="id" value={initialData.id} />
         {/* {全体エラー} */}
         {state?.error && (
