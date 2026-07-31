@@ -1,5 +1,6 @@
 import { ResponseUserInfo } from "@/types/UserDetailType";
 import styles from "./Detail.module.css";
+import Link from "next/link";
 
 type UserDetailProps = {
   user: ResponseUserInfo;
@@ -8,7 +9,16 @@ type UserDetailProps = {
 export default function Detail(props: UserDetailProps) {
   return (
     <>
-      <h2 className={styles.page_heading}>{props.user.name} さんの情報</h2>
+      <div className={styles.header_wrapper}>
+        <h2 className={styles.page_heading}>{props.user.name} さんの情報</h2>
+        <Link
+          href={`/users/${props.user.id}/edit`}
+          className={styles.edit_button}
+        >
+          ユーザー編集
+        </Link>
+      </div>
+
       <table className={styles.table}>
         <tbody>
           <tr>
