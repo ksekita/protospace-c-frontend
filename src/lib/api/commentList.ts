@@ -8,7 +8,6 @@ export async function allCommentList(
     const response = await api.get<CommentListType[]>(
       `prototypes/${id}/comments`,
     );
-    console.log("コメントデータ : ", response.data);
     return response.data;
   } catch (error) {
     console.error("一覧情報の取得に失敗しました:", error);

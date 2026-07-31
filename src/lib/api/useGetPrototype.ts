@@ -30,7 +30,6 @@ export async function userInfo(): Promise<UserInfo> {
     });
     return response.data;
   } catch (error) {
-    console.log("error:", error);
     return {};
   }
 }

@@ -50,16 +50,14 @@ export async function CreatePrototypeAction(
   }
 
   try {
-    console.log("送信データ : ", currentState);
     const cookieStore = await cookies();
     const token = cookieStore.get("jwt_token")?.value;
-    const response = await api.post("prototypes/", formData, {
+    await api.post("prototypes/", formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log("帰ってきたデータ : ", response);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {

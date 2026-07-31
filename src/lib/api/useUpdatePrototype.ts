@@ -64,7 +64,6 @@ export async function EditPrototypeAction(
         error: error.response.data.message || "更新に失敗しました",
       };
     }
-    console.log("error", error);
     return { ...currentState, error: "通信エラーが発生しました" };
   }
   redirect("/");
