@@ -4,7 +4,6 @@ import CommentForm from "@/components/prototype/detail/CommentForm";
 import CommentList from "@/components/prototype/detail/CommentList";
 import { prototypeDetail } from "@/lib/api/prototypeDetail";
 import { allCommentList } from "@/lib/api/commentList";
-import { notFound, redirect } from "next/navigation";
 
 export default async function PrototypeDetailPage({
   params,
