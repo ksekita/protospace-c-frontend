@@ -70,5 +70,5 @@ export async function EditPrototypeAction(
     }
     return { ...currentState, error: "通信エラーが発生しました" };
   }
-  redirect("/");
+  redirect(`/prototype/${id}`);
 }

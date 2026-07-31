@@ -13,7 +13,7 @@ export default function Button(props: Props) {
   return (
     <div className={styles.prototype_manage}>
       <Link
-        href={`/prototypes/${props.prototypeDetail.id}/edit`}
+        href={`/prototype/${props.prototypeDetail.id}/edit`}
         className={styles.prototype_btn}
       >
         編集

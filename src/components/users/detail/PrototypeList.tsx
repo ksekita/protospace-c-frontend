@@ -39,7 +39,7 @@ export default function PrototypeList({
 
             <div className={styles.card_body}>
               <h3 className={styles.card_title}>
-                <Link href={`/prototypes/${proto.id}`}>{proto.title}</Link>
+                <Link href={`/prototype/${proto.id}`}>{proto.title}</Link>
               </h3>
               <p className={styles.card_concept}>{proto.catchCopy}</p>
               <div className={styles.card_author}>
