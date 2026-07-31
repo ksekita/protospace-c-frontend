@@ -3,10 +3,18 @@ import styles from "./Header.module.css";
 import AuthNav from "./AuthNav";
 import { isTokenValid } from "@/lib/utils/auth";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default async function Header() {
+export async function HeaderAuthAction() {
   const isLoggedIn = await isTokenValid();
+  return (
+    <div className={styles.margin_reset}>
+      <AuthNav isLoggedIn={isLoggedIn} />
+    </div>
+  );
+}
 
+export async function Header() {
   return (
     <header className={styles.header}>
       <div className={`${styles.flex} ${styles.inner}`}>
@@ -20,9 +28,9 @@ export default async function Header() {
             className={styles.image}
           />
         </Link>
-        <div className={styles.margin_reset}>
-          <AuthNav isLoggedIn={isLoggedIn} />
-        </div>
+        <Suspense fallback={<div className={styles.margin_reset}></div>}>
+          <HeaderAuthAction />
+        </Suspense>
       </div>
     </header>
   );
