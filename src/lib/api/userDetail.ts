@@ -18,7 +18,6 @@ export const userDetailInfo = async (
 
     return response;
   } catch (error) {
-    console.log("error", error);
     if (axios.isAxiosError(error) && error.response) {
       return {
         error: "表示できませんでした",

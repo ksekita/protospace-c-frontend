@@ -49,7 +49,6 @@ export async function loginAction(
           "メールアドレスまたはパスワードが違います",
       };
     }
-    console.log("error", error);
     return { email, error: "通信エラーが発生しました" };
   }
   redirect("/");
