@@ -11,6 +11,14 @@ export default function PrototypeList({ prototypes }: PrototypeListProps) {
   const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
   const baseUrl = new URL(backendUrl).origin;
 
+  if (
+    prototypes === null ||
+    prototypes === undefined ||
+    prototypes.length === 0
+  ) {
+    return <div>投稿された記事がありません</div>;
+  }
+
   return (
     <>
       {/* <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2> */}
