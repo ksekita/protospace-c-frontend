@@ -2,6 +2,7 @@ import styles from "./PrototypeList.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { ResponsePrototypeList } from "@/types/UserDetailType";
+import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
 
 type PrototypeListProps = {
   prototypes: ResponsePrototypeList[];
@@ -14,9 +15,6 @@ export default function PrototypeList({
   username,
   userId,
 }: PrototypeListProps) {
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-  const baseUrl = new URL(backendUrl).origin;
-
   return (
     <>
       <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2>
@@ -27,7 +25,7 @@ export default function PrototypeList({
               <Link href={`/prototype/${proto.id}`}>
                 <div className={styles.image_placeholder}>
                   <Image
-                    src={`${baseUrl}/images/${proto.image}`}
+                    src={`${imageBaseUrl}/images/${proto.image}`}
                     width={300}
                     height={300}
                     alt={proto.title}

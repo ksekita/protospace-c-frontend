@@ -3,6 +3,7 @@ import styles from "./PrototypeDetail.module.css";
 import Image from "next/image";
 import { Prototype } from "@/types/prototype";
 import Button from "./Button";
+import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
 
 interface Props {
   prototypeDetail: Prototype;
@@ -10,9 +11,6 @@ interface Props {
 }
 
 export default function PrototypeDetail(props: Props) {
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-  const baseUrl = new URL(backendUrl).origin;
-
   return (
     <>
       {/* タイトル */}
@@ -30,7 +28,7 @@ export default function PrototypeDetail(props: Props) {
       {/* 画像 */}
       <div className={styles.prototype_image}>
         <Image
-          src={`${baseUrl}/images/${props.prototypeDetail.image}`}
+          src={`${imageBaseUrl}/images/${props.prototypeDetail.image}`}
           width={300}
           height={300}
           alt={props.prototypeDetail.title}

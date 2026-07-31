@@ -2,15 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./PrototypeList.module.css";
 import { Prototype } from "@/types/prototype";
+import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
 
 type PrototypeListProps = {
   prototypes: Prototype[];
 };
 
 export default function PrototypeList({ prototypes }: PrototypeListProps) {
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-  const baseUrl = new URL(backendUrl).origin;
-
   if (
     prototypes === null ||
     prototypes === undefined ||
@@ -31,7 +29,7 @@ export default function PrototypeList({ prototypes }: PrototypeListProps) {
                 <Link href={`/prototype/${proto.id}`}>
                   <div className={styles.image_placeholder}>
                     <Image
-                      src={`${baseUrl}/images/${(proto as Prototype & { image?: string }).image ?? ""}`}
+                      src={`${imageBaseUrl}/images/${(proto as Prototype & { image?: string }).image ?? ""}`}
                       width={300}
                       height={300}
                       alt="Picture of the author"
