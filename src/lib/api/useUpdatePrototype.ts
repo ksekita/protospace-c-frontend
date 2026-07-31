@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import axios from "axios";
 import api from "./apiClient";
+import { cookies } from "next/headers";
 
 // エラー時に、入力した内容をそのまま画面に返すための記述
 export type EditPrototypeState = {
@@ -51,11 +52,14 @@ export async function EditPrototypeAction(
   }
 
   try {
-    await api.post(`prototypes/${id}/edit`, {
-      title,
-      catchCopy,
-      concept,
-      image,
+    const cookieStore = await cookies();
+    const token = cookieStore.get("jwt_token")?.value;
+    console.log(formData);
+    await api.put(`prototypes/${id}`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -66,5 +70,5 @@ export async function EditPrototypeAction(
     }
     return { ...currentState, error: "通信エラーが発生しました" };
   }
-  redirect("/");
+  redirect(`/prototype/${id}`);
 }

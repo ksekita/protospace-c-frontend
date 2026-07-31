@@ -10,7 +10,7 @@ export default async function Header() {
   return (
     <header className={styles.header}>
       <div className={`${styles.flex} ${styles.inner}`}>
-        <Link href={"/prototype"} className={styles.image_box}>
+        <Link href={"/prototypes"} className={styles.image_box}>
           <Image
             src={"/images/logo.png"}
             width={200}
