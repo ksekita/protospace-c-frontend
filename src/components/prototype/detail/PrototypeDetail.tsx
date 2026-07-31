@@ -2,14 +2,17 @@ import Link from "next/link";
 import styles from "./PrototypeDetail.module.css";
 import Image from "next/image";
 import { Prototype } from "@/types/prototype";
+import Button from "./Button";
 
 interface Props {
   prototypeDetail: Prototype;
+  userId?: number;
 }
 
 export default function PrototypeDetail(props: Props) {
   const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
   const baseUrl = new URL(backendUrl).origin;
+
   return (
     <>
       {/* タイトル */}
@@ -21,6 +24,9 @@ export default function PrototypeDetail(props: Props) {
       >
         by {props.prototypeDetail.name}
       </Link>
+      {props.userId === props.prototypeDetail.userId && (
+        <Button prototypeDetail={props.prototypeDetail} />
+      )}
       {/* 画像 */}
       <div className={styles.prototype_image}>
         <Image
