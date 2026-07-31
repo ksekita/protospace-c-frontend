@@ -1,11 +1,8 @@
 import api from "@/lib/api/apiClient";
 import styles from "./edit.module.css";
 import Editprototype from "@/components/prototype/editPrototype/Editprototype";
-import { withCoalescedInvoke } from "next/dist/lib/coalesced-function";
-
-type PageProps = {
-  params: { id: string };
-};
+import { userInfo } from "@/lib/api/useGetPrototype";
+import { redirect } from "next/navigation";
 
 export default async function EditPrototypePage({
   params,
@@ -15,7 +12,12 @@ export default async function EditPrototypePage({
   const { id } = await params;
   const prototypeId = Number(id);
   const response = await api.get(`prototypes/${prototypeId}`);
+  const user = await userInfo();
   const prototypeData = response.data;
+
+  if (user.id !== prototypeId) {
+    redirect(`/prototype/${prototypeId}`);
+  }
 
   return (
     <main className={styles.container}>
