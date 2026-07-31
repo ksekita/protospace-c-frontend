@@ -1,6 +1,11 @@
 import api from "@/lib/api/apiClient";
-import styles from "./page.module.css";
+import styles from "./edit.module.css";
 import Editprototype from "@/components/prototype/editPrototype/Editprototype";
+import { withCoalescedInvoke } from "next/dist/lib/coalesced-function";
+
+type PageProps = {
+  params: { id: string };
+};
 
 export default async function EditPrototypePage({
   params,

@@ -62,6 +62,8 @@ export async function CreatePrototypeAction(
     console.log("帰ってきたデータ : ", response);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
+      console.error("🔥 バックエンドからのエラー詳細:", error.response.data);
+      console.error("🔥 ステータスコード:", error.response.status);
       return {
         ...currentState,
         error: error.response.data.message || "投稿に失敗しました",
