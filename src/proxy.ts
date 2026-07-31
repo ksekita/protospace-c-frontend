@@ -54,7 +54,8 @@ export async function proxy(request: NextRequest) {
 
     // 編集ページならホーム画面に弾く
     if (isEditPage) {
-      return NextResponse.redirect(new URL("/prototypes", request.url));
+      const num = pathname.replace(/\D/g, "");
+      return NextResponse.redirect(new URL(`/prototype/${num}`, request.url));
     }
 
     // それ以外はログイン画面へ強制リダイレクト
