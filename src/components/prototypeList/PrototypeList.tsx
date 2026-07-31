@@ -5,15 +5,9 @@ import { Prototype } from "@/types/prototype";
 
 type PrototypeListProps = {
   prototypes: Prototype[];
-  username?: string;
-  userId?: number;
 };
 
-export default function PrototypeList({
-  prototypes,
-  userId,
-  username,
-}: PrototypeListProps) {
+export default function PrototypeList({ prototypes }: PrototypeListProps) {
   const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
   const baseUrl = new URL(backendUrl).origin;
 
