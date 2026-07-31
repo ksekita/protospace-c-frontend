@@ -12,7 +12,7 @@ export async function prototypeDetail(
   // コメントフォーム表示
   const cookieStore = await cookies();
   const token = cookieStore.get("jwt_token")?.value;
-  const isLoggedIn = await isTokenValid(token);
+  const isLoggedIn = await isTokenValid();
 
   try {
     const [responsePrototypeDetail, responseUserInfo, isLoginCheck] =

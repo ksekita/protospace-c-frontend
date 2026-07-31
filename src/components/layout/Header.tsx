@@ -1,16 +1,11 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
 import AuthNav from "./AuthNav";
-import { cookies } from "next/headers";
 import { isTokenValid } from "@/lib/utils/auth";
 import Link from "next/link";
 
 export default async function Header() {
-  const cookieStore = await cookies();
-
-  const token = cookieStore.get("jwt_token")?.value;
-
-  const isLoggedIn = await isTokenValid(token);
+  const isLoggedIn = await isTokenValid();
 
   return (
     <header className={styles.header}>

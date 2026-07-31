@@ -1,9 +1,12 @@
 import { jwtVerify } from "jose";
+import { cookies } from "next/headers";
 
 // verifyTokenの共通化
-export async function isTokenValid(
-  token: string | undefined,
-): Promise<boolean> {
+export async function isTokenValid(): Promise<boolean> {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("jwt_token")?.value;
+
   if (!token) return false;
   const secretKey = process.env.JWT_SECRET;
   if (!secretKey) {
