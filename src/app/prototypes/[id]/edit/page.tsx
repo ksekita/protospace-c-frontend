@@ -1,5 +1,5 @@
 import api from "@/lib/api/apiClient";
-import styles from "./page.module.css";
+import styles from "./edit.module.css";
 import Editprototype from "@/components/prototype/editPrototype/Editprototype";
 
 export default async function EditPrototypePage({
