@@ -35,7 +35,7 @@ export async function proxy(request: NextRequest) {
 
   const isPrototypeDetail =
     pathname.startsWith("/prototype/") &&
-    pathname !== "/prototypes/new" &&
+    pathname !== "/prototype/new" &&
     !isEditPage;
 
   const isUserPage = pathname.startsWith("/users/") && !isEditPage;
