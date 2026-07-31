@@ -15,7 +15,6 @@ export async function prototypeDetail(
   const isLoggedIn = await isTokenValid(token);
 
   try {
-    // const response = await api.get<Prototype>(`prototypes/${id}`);
     const [responsePrototypeDetail, responseUserInfo, isLoginCheck] =
       await Promise.all([
         // 投稿詳細
