@@ -1,12 +1,26 @@
 // ユーザー編集ページの親です
 import Useredit from "@/components/users/[id]/edit/page";
 import style from "./page.module.css";
+import api from "@/lib/api/apiClient";
 
-export default function EdituserInfo() {
+export type PageProps = {
+  params: { id: string };
+};
+
+export default async function EdituserInfo({
+  //ここに編集前の内容を取得する処理を記述
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const response = await api.get(`/users/${id}`);
+  const userData = response.data;
+
   return (
     <>
       <h1 className={style.title}>ユーザー情報編集ページ✍</h1>
-      <Useredit />
+      <Useredit userData={userData} userId={id} />
     </>
   );
 }

@@ -1,14 +1,43 @@
+// 子です　親で呼び出して使います
 "use client";
 import { useActionState } from "react";
 import styles from "./page.module.css";
-import { registerAction } from "@/lib/actions/authActions";
+import { editUser } from "@/lib/api/editUser";
 
-export default function Useredit() {
-  const [state, formAction, isPending] = useActionState(registerAction, null);
+export type FormState = {
+  error?: string;
+  fieldErrors?: {
+    password?: string;
+    name?: string;
+    profile?: string;
+    affiliation?: string;
+    position?: string;
+  };
+} | null;
+
+export default function Useredit({
+  userData,
+  userId,
+}: {
+  // 親から渡されるデータの受け皿を定義
+  userData: {
+    profile?: string;
+    affiliation?: string;
+    position?: string;
+    name?: string;
+  };
+  userId: string;
+}) {
+  // ここからはユーザー新規登録画面の使いまわしです
+  const [state, formAction, isPending] = useActionState<FormState, FormData>(
+    editUser,
+    null,
+  );
 
   return (
     <>
       <form action={formAction}>
+        <input type="hidden" name="userId" value={userId} />
         {/* 全体エラー */}
         {state?.error && (
           <p role="alert" className={styles.error_alert}>
@@ -52,7 +81,8 @@ export default function Useredit() {
             id="username"
             type="text"
             name="name"
-            defaultValue={state?.name || ""}
+            defaultValue={userData?.name || ""}
+            // 親から渡されたデータをdefaultValueに格納　以下同じ
           />
           {state?.fieldErrors?.name && (
             <p role="alert" className={styles.error}>
@@ -69,7 +99,7 @@ export default function Useredit() {
             id="profile"
             className={styles.textarea}
             name="profile"
-            defaultValue={state?.profile || ""}
+            defaultValue={userData?.profile || ""}
           />
           {state?.fieldErrors?.profile && (
             <p role="alert" className={styles.error}>
@@ -86,7 +116,7 @@ export default function Useredit() {
             id="affiliation"
             className={styles.textarea}
             name="affiliation"
-            defaultValue={state?.affiliation || ""}
+            defaultValue={userData?.affiliation || ""}
           />
           {state?.fieldErrors?.affiliation && (
             <p role="alert" className={styles.error}>
@@ -103,7 +133,7 @@ export default function Useredit() {
             id="position"
             className={styles.textarea}
             name="position"
-            defaultValue={state?.position || ""}
+            defaultValue={userData?.position || ""}
           />
           {state?.fieldErrors?.position && (
             <p role="alert" className={styles.error}>
