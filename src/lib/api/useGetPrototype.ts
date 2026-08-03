@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import api from "./apiClient";
 import { Prototype } from "@/types/prototype";
+import { cacheLife } from "next/cache";
 
 export type UserInfo = {
   id?: number;
@@ -9,6 +10,7 @@ export type UserInfo = {
 
 export async function prototypeList(): Promise<Prototype[]> {
   "use cache";
+  cacheLife("seconds");
   try {
     const response = await api.get<Prototype[]>("/prototypes/");
     return response.data;
