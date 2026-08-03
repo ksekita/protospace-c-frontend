@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import axios from "axios";
 import api from "../api/apiClient";
-import { revalidatePath, updateTag } from "next/cache";
+import { cacheLife, revalidatePath, updateTag } from "next/cache";
 
 export type CommentActionState = {
   id: number;
@@ -16,10 +16,7 @@ export async function commentAction(
   prevState: CommentActionState | null, // 第2引数を prevState にする
   formData: FormData, // 第3引数に formData を持ってくる
 ): Promise<CommentActionState> {
-  "use cache";
-
   const content = formData.get("content") as string;
-
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("jwt_token")?.value;
@@ -36,12 +33,13 @@ export async function commentAction(
       },
     );
 
-    // キャッシュをアップデート
     updateTag("prototype");
+    // キャッシュをアップデート
     revalidatePath(`/prototype/${id}`);
 
-    return response.data;
+    return { id, content: response.data.content || content, error: undefined };
   } catch (error) {
+    console.log(error);
     if (axios.isAxiosError(error) && error.response) {
       return {
         id,
