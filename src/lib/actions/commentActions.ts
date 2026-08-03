@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import axios from "axios";
 import api from "../api/apiClient";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 
 export type CommentActionState = {
   id: number;
@@ -16,6 +16,8 @@ export async function commentAction(
   prevState: CommentActionState | null, // 第2引数を prevState にする
   formData: FormData, // 第3引数に formData を持ってくる
 ): Promise<CommentActionState> {
+  "use cache";
+
   const content = formData.get("content") as string;
 
   try {
@@ -34,6 +36,8 @@ export async function commentAction(
       },
     );
 
+    // キャッシュをアップデート
+    updateTag("prototype");
     revalidatePath(`/prototype/${id}`);
 
     return response.data;
