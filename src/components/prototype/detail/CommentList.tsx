@@ -1,13 +1,14 @@
-import { CommentListType } from "@/types/CommentListType";
 import styles from "./CommentList.module.css";
 import Link from "next/link";
+import { allCommentList } from "@/lib/api/comment";
 
 interface Props {
-  commentList: CommentListType[] | null;
+  prototypeId: number;
 }
 
-export default function CommentList(props: Props) {
-  if (props.commentList === null) {
+export default async function CommentList(props: Props) {
+  const commentList = await allCommentList(props.prototypeId);
+  if (commentList === null) {
     return null;
   }
 
@@ -15,7 +16,7 @@ export default function CommentList(props: Props) {
     <>
       {/* コメント一覧 propsを配列で取ってきてmapで回す*/}
       <ul className={styles.comments_lists}>
-        {props.commentList.map((comment) => (
+        {commentList.map((comment) => (
           <li key={comment.id} className={styles.comments_list}>
             {comment.content}
             <Link
