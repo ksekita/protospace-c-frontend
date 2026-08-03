@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 import axios from "axios";
 import api from "../api/apiClient";
 import { createSession } from "./sessionActions";
-import { title } from "process";
 
 export type LoginActionState = {
   email?: string;
