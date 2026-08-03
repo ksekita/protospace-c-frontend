@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import styles from "./Detail.module.css";
 import { userDetailInfo } from "@/lib/api/userDetail";
 
@@ -10,6 +11,10 @@ export default async function Detail(props: Props) {
   const userId = Number(id);
 
   const response = await userDetailInfo(userId);
+
+  if (response.error || !response.name) {
+    return notFound();
+  }
 
   return (
     <>
