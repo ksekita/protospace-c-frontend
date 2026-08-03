@@ -1,15 +1,21 @@
 import { cookies } from "next/headers";
 import api from "./apiClient";
 import { Prototype } from "@/types/prototype";
+import { keyboard } from "@testing-library/user-event/dist/cjs/keyboard/index.js";
 
 export type UserInfo = {
   id?: number;
   name?: string;
 };
 
-export async function prototypeList(): Promise<Prototype[]> {
+export async function prototypeList(keyword?: string): Promise<Prototype[]> {
   try {
-    const response = await api.get<Prototype[]>("/prototypes/");
+    // APIからプロトタイプの一覧情報を取得する
+    const response = await api.get<Prototype[]>("/prototypes/", {
+      params: {
+        keyword: keyword || undefined,
+      },
+    });
 
     return response.data;
   } catch (error) {

@@ -17,13 +17,15 @@ export default function PrototypeList({
   const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
   const baseUrl = new URL(backendUrl).origin;
 
-  return (
-    <>
-      {/* <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2> */}
-      <div className={styles.grid}>
-        {/* prototypesが配列かどうかをチェックしてからmapを回す */}
-        {Array.isArray(prototypes) ? (
-          prototypes.map((proto) => (
+  if (prototypes.length == 0) {
+    return <p>投稿がありません。</p>;
+  } else {
+    return (
+      <>
+        {/* <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2> */}
+        <div className={styles.grid}>
+          {/* prototypesが配列かどうかをチェックしてからmapを回す */}
+          {prototypes.map((proto) => (
             <div key={proto.id} className={styles.card}>
               <div className={styles.image_wrapper}>
                 <Link href={`/prototype/${proto.id}`}>
@@ -53,12 +55,9 @@ export default function PrototypeList({
                 </div>
               </div>
             </div>
-          ))
-        ) : (
-          /* データが取得できなかった（配列ではない）場合の表示 */
-          <p>プロトタイプを読み込めませんでした。</p>
-        )}
-      </div>
-    </>
-  );
+          ))}
+        </div>
+      </>
+    );
+  }
 }
