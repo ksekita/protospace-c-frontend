@@ -3,13 +3,15 @@ import Greeting from "@/components/greeting/Greeting";
 import PrototypeList from "@/components/prototypeList/PrototypeList";
 import { Suspense } from "react";
 
-export default async function Home() {
+export default function Home() {
   return (
     <div className={styles.container}>
       <Suspense>
         <Greeting />
       </Suspense>
-      <PrototypeList />
+      <Suspense>
+        <PrototypeList />
+      </Suspense>
     </div>
   );
 }
