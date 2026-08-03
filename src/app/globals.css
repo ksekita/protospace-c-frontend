@@ -52,3 +52,8 @@ a {
   width: 1024px;
   margin: 0 auto;
 }
+
+.margin_reset {
+  margin: 0;
+  padding: 0;
+}
