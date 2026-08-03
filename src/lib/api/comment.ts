@@ -1,9 +1,13 @@
 import { CommentListType } from "@/types/CommentListType";
 import api from "./apiClient";
+import { cacheLife } from "next/cache";
 
+// コメント一覧
 export async function allCommentList(
   id: number,
 ): Promise<CommentListType[] | null> {
+  "use cache";
+  cacheLife("seconds");
   try {
     const response = await api.get<CommentListType[]>(
       `prototypes/${id}/comments`,
