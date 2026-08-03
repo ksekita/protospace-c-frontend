@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import axios from "axios";
 import api from "../api/apiClient";
-import { cacheLife, revalidatePath, updateTag } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 
 export type CommentActionState = {
   id: number;
