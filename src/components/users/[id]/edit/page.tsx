@@ -16,25 +16,8 @@ export default function Useredit() {
           </p>
         )}
         <div className={styles.field}>
-          <label htmlFor="email" className={styles.label}>
-            メールアドレス
-          </label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            defaultValue={state?.email || ""}
-          />
-          {state?.fieldErrors?.email && (
-            <p role="alert" className={styles.error}>
-              {state.fieldErrors.email}
-            </p>
-          )}
-        </div>
-
-        <div className={styles.field}>
           <label htmlFor="password" className={styles.label}>
-            パスワード (6文字以上)
+            現在のパスワード (6文字以上)
           </label>
           <input
             id="password"
@@ -51,7 +34,7 @@ export default function Useredit() {
 
         <div className={styles.field}>
           <label htmlFor="password-conf" className={styles.label}>
-            パスワード再入力
+            新しいパスワード
           </label>
           <input
             id="password-conf"
