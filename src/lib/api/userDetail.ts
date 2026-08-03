@@ -1,22 +1,19 @@
 import axios from "axios";
 import api from "./apiClient";
-import { UserDetailType } from "@/types/UserDetailType";
+import {
+  ResponseUserInfo,
+  ResponsePrototypeList,
+} from "@/types/UserDetailType";
+import { cacheLife } from "next/cache";
 
 // ユーザー詳細
-export const userDetailInfo = async (
-  id: number,
-): Promise<UserDetailType | { error: string }> => {
-  try {
-    const [responseUserInfo, responsePrototypeList] = await Promise.all([
-      api.get(`users/${id}`),
-      api.get(`prototypes/users/${id}`),
-    ]);
-    const response = {
-      responseUserInfo: responseUserInfo.data,
-      responsePrototypeList: responsePrototypeList.data,
-    };
+export async function userDetailInfo(id: number): Promise<ResponseUserInfo> {
+  "use cache";
 
-    return response;
+  try {
+    const response = await api.get(`users/${id}`);
+
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       return {
@@ -25,4 +22,21 @@ export const userDetailInfo = async (
     }
     return { error: "通信エラーが発生しました" };
   }
-};
+}
+
+// ユーザー詳細投稿詳細
+export async function userDetailProto(
+  id: number,
+): Promise<ResponsePrototypeList[]> {
+  "use cache";
+  cacheLife("seconds");
+  try {
+    const response = await api.get(`prototypes/users/${id}`);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return [error || "表示できませんでした"];
+    }
+    return [error || "通信エラーが発生しました"];
+  }
+}

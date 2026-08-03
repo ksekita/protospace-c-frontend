@@ -1,33 +1,22 @@
 import PrototypeList from "@/components/users/detail/PrototypeList";
 import Detail from "@/components/users/detail/Detail";
 import styles from "./UserDetail.module.css";
-import { userDetailInfo } from "@/lib/api/userDetail";
-import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
-export default async function UserDetail({
+export default function UserDetail({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const resolvedParams = await params;
-  const resultId = resolvedParams.id;
-  // 型変換
-  const userId = Number(resultId);
-  const response = await userDetailInfo(userId);
-
-  if ("error" in response) {
-    return notFound();
-  }
   return (
     <div className="inner">
       <div className={styles.user_wrapper}>
-        {/* このresponse.userDetailとprototypeListは、受け取る変数はbackendによって変化する */}
-        <Detail user={response.responseUserInfo} />
-        <PrototypeList
-          prototypes={response.responsePrototypeList}
-          username={response.responseUserInfo.name}
-          userId={response.responseUserInfo.id}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Detail userId={params} />
+        </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+          <PrototypeList userId={params} />
+        </Suspense>
       </div>
     </div>
   );
