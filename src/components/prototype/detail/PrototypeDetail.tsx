@@ -34,6 +34,7 @@ export default function PrototypeDetail(props: Props) {
           width={300}
           height={300}
           alt={props.prototypeDetail.title}
+          className={styles.image_content}
         />
       </div>
       <div>
