@@ -3,12 +3,15 @@ import Link from "next/link";
 import styles from "./PrototypeList.module.css";
 import { Prototype } from "@/types/prototype";
 import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
+import { prototypeList } from "@/lib/api/useGetPrototype";
 
-type PrototypeListProps = {
-  prototypes: Prototype[];
-};
+// type PrototypeListProps = {
+//   prototypes: Prototype[];
+// };
 
-export default function PrototypeList({ prototypes }: PrototypeListProps) {
+export default async function PrototypeList() {
+  const prototypes = await prototypeList();
+
   if (
     prototypes === null ||
     prototypes === undefined ||

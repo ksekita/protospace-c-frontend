@@ -1,12 +1,11 @@
 import Link from "next/link";
 import styles from "./Greeting.module.css";
+import { userInfo } from "@/lib/api/useGetPrototype";
 
-export type GreetingProps = {
-  userName?: string;
-  userId?: number;
-};
-
-export default function Greeting({ userName, userId }: GreetingProps) {
+export default async function Greeting() {
+  const user = await userInfo();
+  const userId = user.id;
+  const userName = user.name;
   if (userId === null || userId === undefined) {
     return null;
   } else {

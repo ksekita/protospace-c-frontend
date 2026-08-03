@@ -8,6 +8,7 @@ export type UserInfo = {
 };
 
 export async function prototypeList(): Promise<Prototype[]> {
+  "use cache";
   try {
     const response = await api.get<Prototype[]>("/prototypes/");
     return response.data;
