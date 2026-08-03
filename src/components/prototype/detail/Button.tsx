@@ -2,7 +2,6 @@ import Link from "next/link";
 import styles from "./PrototypeDetail.module.css";
 import { userInfo } from "@/lib/api/useGetPrototype";
 import { Delete } from "./Delete";
-import { Suspense } from "react";
 
 interface Props {
   prototypeId: number;
