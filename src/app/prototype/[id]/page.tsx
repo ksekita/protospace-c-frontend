@@ -9,10 +9,10 @@ export default async function PrototypeDetailPage({
 }) {
   return (
     <div className="inner">
-      <Suspense>
+      <Suspense fallback={<div>詳細を読み込み中...</div>}>
         <PrototypeDetail prototypeId={params} />
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<div>コメントを読み込み中...</div>}>
         <Comment prototypeId={params} />
       </Suspense>
     </div>
