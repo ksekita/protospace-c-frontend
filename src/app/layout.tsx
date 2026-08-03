@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { Suspense } from "react";
+import { HeaderAuthAction } from "@/components/layout/HeaderAuthAction";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +29,11 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <Header />
+        <Header>
+          <Suspense fallback={<div className="margin_reset"></div>}>
+            <HeaderAuthAction />
+          </Suspense>
+        </Header>
         {children}
         <Footer />
       </body>
