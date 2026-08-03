@@ -10,7 +10,6 @@ export type UserInfo = {
 export async function prototypeList(): Promise<Prototype[]> {
   try {
     const response = await api.get<Prototype[]>("/prototypes/");
-
     return response.data;
   } catch (error) {
     console.error("一覧情報の取得に失敗しました:", error);

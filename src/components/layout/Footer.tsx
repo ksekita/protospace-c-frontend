@@ -1,6 +1,7 @@
 import styles from "./Footer.module.css";
 
-export default function Footer() {
+export default async function Footer() {
+  "use cache";
   return (
     <footer className={styles.footer}>
       <small className={styles.copyright}>
