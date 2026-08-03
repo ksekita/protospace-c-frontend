@@ -18,14 +18,12 @@ export async function Button(props: Props) {
 
   return (
     <div className={styles.prototype_manage}>
-      <Suspense fallback={<></>}>
-        <Link
-          href={`/prototype/${props.prototypeId}/edit`}
-          className={styles.prototype_btn}
-        >
-          編集
-        </Link>
-      </Suspense>
+      <Link
+        href={`/prototype/${props.prototypeId}/edit`}
+        className={styles.prototype_btn}
+      >
+        編集
+      </Link>
       <Delete prototypeId={props.prototypeId} />
     </div>
   );
