@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
 import { userDetailProto } from "@/lib/api/userDetail";
+import { notFound } from "next/navigation";
 
 interface Props {
   userId: Promise<{ id: string }>;
@@ -13,14 +14,14 @@ export default async function PrototypeList(props: Props) {
   const userId = Number(id);
   const prototypeList = await userDetailProto(userId);
 
-  if (prototypeList.length == 0) {
-    return null;
+  if (!prototypeList || prototypeList.length === 0) {
+    return notFound();
   }
 
   const name = prototypeList[0].name;
 
-  if (name === null || name === undefined || name === "") {
-    return null;
+  if (!name) {
+    return notFound();
   }
 
   return (
