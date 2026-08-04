@@ -33,7 +33,7 @@ export default function Newprototype() {
         </div>
 
         <div className={styles.form_group}>
-          <label htmlFor="catchphrase" className={styles.label}>
+          <label htmlFor="catchCopy" className={styles.label}>
             キャッチコピー
           </label>
           <input

@@ -5,9 +5,12 @@ import { redirect } from "next/navigation";
 import axios from "axios";
 
 // 1. 外部モジュールのモック化
-vi.mock("./apiClient", () => ({
+vi.mock("@/lib/api/layout/apiClient", () => ({
   default: {
-    put: vi.fn(), // post から put に変更
+    get: vi.fn(),
+    post: vi.fn(),
+    put: vi.fn(),
+    delete: vi.fn(),
   },
 }));
 

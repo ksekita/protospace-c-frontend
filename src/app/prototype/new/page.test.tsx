@@ -9,6 +9,10 @@ vi.mock("@/lib/api/useCreatePrototype", () => ({
   CreatePrototypeAction: vi.fn(),
 }));
 
+vi.mock("@/lib/actions/cratatePrototypeAction", () => ({
+  CreatePrototypeAction: vi.fn(),
+}));
+
 describe("新規投稿画面 (NewPrototypePage)", () => {
   beforeEach(() => {
     vi.clearAllMocks();

@@ -5,10 +5,21 @@ import { redirect } from "next/navigation";
 import axios from "axios";
 
 // 外部モジュールのモック化
-vi.mock("./apiClient", () => ({
+vi.mock("@/lib/api/layout/apiClient", () => ({
   default: {
+    get: vi.fn(),
     post: vi.fn(),
+    put: vi.fn(),
+    delete: vi.fn(),
   },
+}));
+
+vi.mock("next/headers", () => ({
+  cookies: vi.fn(() => ({
+    get: vi.fn().mockReturnValue({ value: "mock-auth-token" }),
+    set: vi.fn(),
+    delete: vi.fn(),
+  })),
 }));
 
 vi.mock("next/navigation", () => ({
@@ -81,11 +92,11 @@ describe("CreatePrototypeAction", () => {
 
       await CreatePrototypeAction(null, formData);
 
-      expect(api.post).toHaveBeenCalledWith("prototypes/new", {
-        title: "新規アプリ",
-        catchCopy: "便利なアプリです",
-        concept: "開発効率化",
-        image: "app.png",
+      expect(api.post).toHaveBeenCalledWith("prototypes/", formData, {
+        headers: {
+          Authorization: "Bearer mock-auth-token",
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       expect(redirect).toHaveBeenCalledWith("/");
@@ -117,7 +128,9 @@ describe("CreatePrototypeAction", () => {
       expect(result).toEqual({
         title: "新規アプリ",
         catchCopy: "キャッチコピー",
-        concept: "投稿処理に失敗しました",
+        concept: "コンセプト",
+        image: "app.png",
+        error: "投稿処理に失敗しました",
       });
     });
   });
