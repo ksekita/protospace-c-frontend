@@ -92,12 +92,62 @@ export async function registerAction(
     };
   }
 
+  // name文字数チェック
+  if (name.length > 50)
+    return {
+      ...currentState,
+      error: "ユーザー名の文字数オーバー",
+      fieldErrors: {
+        name: "ユーザー名は50文字以内で入力してください",
+      },
+    };
+
+  // email文字数チェック
+  if (email.length > 255)
+    return {
+      ...currentState,
+      error: "メールアドレスの文字数オーバー",
+      fieldErrors: {
+        name: "メールアドレスは255文字以内で入力してください",
+      },
+    };
+
   // パスワードチェック
   if (password !== password_confirmation)
     return {
       ...currentState,
       error: "パスワードが一致しません",
       fieldErrors: { password: "確認用パスワードと一致しません" },
+    };
+
+  // プロフィルの文字数チェック
+  if (profile.length > 1000)
+    return {
+      ...currentState,
+      error: "プロフィールの文字数オーバー",
+      fieldErrors: {
+        profile: "プロフィールは1000文字以内で入力してください",
+      },
+    };
+
+  // 所属の文字数チェック
+  if (affiliation.length > 50)
+    return {
+      ...currentState,
+      error: "所属の文字数オーバー",
+      fieldErrors: {
+        affiliation: "所属は50文字以内で入力してください",
+      },
+    };
+
+  // 役職の文字数チェック
+  if (position.length > 50)
+    return {
+      ...currentState,
+      error: "役職の文字数オーバー",
+      fieldErrors: {
+        position: "役職は50文字以内で入力してください",
+      },
     };
 
   try {

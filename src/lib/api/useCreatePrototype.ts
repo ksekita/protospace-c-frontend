@@ -49,6 +49,39 @@ export async function CreatePrototypeAction(
     };
   }
 
+  // titleの文字数チェック
+  if (title.length > 50) {
+    return {
+      ...currentState,
+      error: "タイトルの文字数オーバー",
+      fieldErrors: {
+        title: "タイトルは50文字以内で入力してください",
+      },
+    };
+  }
+
+  // catchCopyの文字数チェック
+  if (catchCopy.length > 50) {
+    return {
+      ...currentState,
+      error: "キャッチコピーの文字数オーバー",
+      fieldErrors: {
+        catchCopy: "キャッチコピーは50文字以内で入力してください",
+      },
+    };
+  }
+
+  // conceptの文字数チェック
+  if (concept.length > 1000) {
+    return {
+      ...currentState,
+      error: "コンセプトの文字数オーバー",
+      fieldErrors: {
+        concept: "コンセプトは1000文字以内で入力してください",
+      },
+    };
+  }
+
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("jwt_token")?.value;

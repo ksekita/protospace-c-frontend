@@ -17,16 +17,18 @@ export default function PrototypeList({
   const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
   const baseUrl = new URL(backendUrl).origin;
 
-  return (
-    <>
-      {/* <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2> */}
-      <div className={styles.grid}>
-        {/* prototypesが配列かどうかをチェックしてからmapを回す */}
-        {Array.isArray(prototypes) ? (
-          prototypes.map((proto) => (
+  if (prototypes.length == 0) {
+    return <p>投稿がありません。</p>;
+  } else {
+    return (
+      <>
+        {/* <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2> */}
+        <div className={styles.grid}>
+          {/* prototypesが配列かどうかをチェックしてからmapを回す */}
+          {prototypes.map((proto) => (
             <div key={proto.id} className={styles.card}>
               <div className={styles.image_wrapper}>
-                <Link href={`/prototypes/${proto.id}`}>
+                <Link href={`/prototype/${proto.id}`}>
                   <div className={styles.image_placeholder}>
                     <Image
                       src={`${baseUrl}/images/${(proto as Prototype & { image?: string }).image ?? ""}`}
@@ -40,7 +42,7 @@ export default function PrototypeList({
               </div>
               <div className={styles.card_body}>
                 <h3 className={styles.card_title}>
-                  <Link href={`/prototypes/${proto.id}`}>{proto.title}</Link>
+                  <Link href={`/prototype/${proto.id}`}>{proto.title}</Link>
                 </h3>
                 <p className={styles.card_concept}>{proto.catchCopy}</p>
                 <div className={styles.card_author}>
@@ -53,12 +55,9 @@ export default function PrototypeList({
                 </div>
               </div>
             </div>
-          ))
-        ) : (
-          /* データが取得できなかった（配列ではない）場合の表示 */
-          <p>プロトタイプを読み込めませんでした。</p>
-        )}
-      </div>
-    </>
-  );
+          ))}
+        </div>
+      </>
+    );
+  }
 }
