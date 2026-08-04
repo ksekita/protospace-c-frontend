@@ -2,6 +2,7 @@ import PrototypeList from "@/components/users/detail/PrototypeList";
 import Detail from "@/components/users/detail/Detail";
 import styles from "./UserDetail.module.css";
 import { userDetailInfo } from "@/lib/api/userDetail";
+import { userInfo } from "@/lib/api/useGetPrototype";
 import { notFound } from "next/navigation";
 
 export default async function UserDetail({
@@ -13,16 +14,22 @@ export default async function UserDetail({
   const resultId = resolvedParams.id;
   // 型変換
   const userId = Number(resultId);
+
   const response = await userDetailInfo(userId);
 
   if ("error" in response) {
     return notFound();
   }
+
+  const userData = response.responseUserInfo;
+  const currentUserData = await userInfo();
+  // 箱の定義　どこからとってきた何なのか
+
   return (
     <div className="inner">
       <div className={styles.user_wrapper}>
-        {/* このresponse.userDetailとprototypeListは、受け取る変数はbackendによって変化する */}
-        <Detail user={response.responseUserInfo} />
+        <Detail user={userData} currentUser={currentUserData} />
+        {/* 今ログインしているユーザーは誰なのか？を渡す */}
         <PrototypeList
           prototypes={response.responsePrototypeList}
           username={response.responseUserInfo.name}

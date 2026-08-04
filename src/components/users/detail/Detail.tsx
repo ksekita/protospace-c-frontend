@@ -4,6 +4,7 @@ import Link from "next/link";
 
 type UserDetailProps = {
   user: ResponseUserInfo;
+  currentUser: ResponseUserInfo;
 };
 
 export default function Detail(props: UserDetailProps) {
@@ -11,12 +12,14 @@ export default function Detail(props: UserDetailProps) {
     <>
       <div className={styles.header_wrapper}>
         <h2 className={styles.page_heading}>{props.user.name} さんの情報</h2>
-        <Link
-          href={`/users/${props.user.id}/edit`}
-          className={styles.edit_button}
-        >
-          ユーザー編集
-        </Link>
+        {props.currentUser.id === props.user.id && (
+          <Link
+            href={`/users/${props.user.id}/edit`}
+            className={styles.edit_button}
+          >
+            ユーザー編集
+          </Link>
+        )}
       </div>
 
       <table className={styles.table}>
