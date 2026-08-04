@@ -57,6 +57,15 @@ export default function Greeting({ userName, userId }: GreetingProps) {
         />
         <button type="submit">検索</button>
       </form>
+      <select
+        name="prototypes"
+        id="prototype-select"
+        className={styles.order_form}
+      >
+        <option value="order-new">新着順</option>
+        <option value="order-old">古い順</option>
+        <option value="order-like">人気順</option>
+      </select>
     </div>
   );
 }
