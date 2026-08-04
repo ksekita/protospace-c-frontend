@@ -2,12 +2,13 @@
 
 import { redirect } from "next/navigation";
 import axios from "axios";
-import api from "./apiClient";
+import api from "../api/apiClient";
 import { cookies } from "next/headers";
+import { updateTag } from "next/cache";
 
 // エラー時に、入力した内容をそのまま画面に返すための記述
 export type EditPrototypeState = {
-  id?: string;
+  id: number;
   title?: string;
   catchCopy?: string;
   concept?: string;
@@ -20,12 +21,12 @@ export type EditPrototypeState = {
   };
 };
 
-export async function EditPrototypeAction(
+export async function editPrototypeAction(
+  id: number,
   prevState: EditPrototypeState | null,
   formData: FormData,
 ): Promise<EditPrototypeState> {
   // フォームの入力内容を取得
-  const id = formData.get("id") as string;
   const title = formData.get("title") as string;
   const catchCopy = formData.get("catchCopy") as string;
   const concept = formData.get("concept") as string;
@@ -61,7 +62,9 @@ export async function EditPrototypeAction(
         "Content-Type": "multipart/form-data",
       },
     });
+    updateTag(`prototype-${id}`);
   } catch (error) {
+    console.log("error", error);
     if (axios.isAxiosError(error) && error.response) {
       return {
         ...currentState,
