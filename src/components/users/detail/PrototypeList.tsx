@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
 import { userDetailProto } from "@/lib/api/user/userDetail";
-import { notFound } from "next/navigation";
 
 interface Props {
   userId: Promise<{ id: string }>;
@@ -15,18 +14,14 @@ export default async function PrototypeList(props: Props) {
   const prototypeList = await userDetailProto(userId);
 
   if (!prototypeList || prototypeList.length === 0) {
-    return notFound();
-  }
-
-  const name = prototypeList[0].name;
-
-  if (!name) {
-    return notFound();
+    return <h2>投稿がありません</h2>;
   }
 
   return (
     <>
-      <h2 className={styles.page_heading}>{name} さんのプロトタイプ</h2>
+      <h2 className={styles.page_heading}>
+        {prototypeList[0].name} さんのプロトタイプ
+      </h2>
       <div className={styles.grid}>
         {prototypeList.map((proto) => (
           <div key={proto.id} className={styles.card}>
@@ -50,11 +45,8 @@ export default async function PrototypeList(props: Props) {
               </h3>
               <p className={styles.card_concept}>{proto.catchCopy}</p>
               <div className={styles.card_author}>
-                <Link
-                  href={`/users/${props.userId}`}
-                  className={styles.author_link}
-                >
-                  by {name}
+                <Link href={`/users/${userId}`} className={styles.author_link}>
+                  by {prototypeList[0].name}
                 </Link>
               </div>
             </div>

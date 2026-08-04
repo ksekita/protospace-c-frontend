@@ -9,7 +9,7 @@ import { cacheLife } from "next/cache";
 // ユーザー詳細
 export async function userDetailInfo(id: number): Promise<ResponseUserInfo> {
   "use cache";
-
+  cacheLife("seconds");
   try {
     const response = await api.get(`users/${id}`);
 
