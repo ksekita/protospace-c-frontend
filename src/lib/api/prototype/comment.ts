@@ -1,4 +1,4 @@
-import { CommentListType } from "@/types/CommentListType";
+import { CommentListType } from "@/types/comment/comment.type";
 import api from "../layout/apiClient";
 import { cacheLife } from "next/cache";
 
