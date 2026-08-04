@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "./Greeting.module.css";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export type GreetingProps = {
   userName?: string;
@@ -11,17 +11,44 @@ export type GreetingProps = {
 };
 
 export default function Greeting({ userName, userId }: GreetingProps) {
-  // searchTerm を状態管理として扱う
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  //for changing the page
+  // useRouter for navigation
   const router = useRouter();
 
+  // for getting the search params from the URL
+  const searchParams = useSearchParams();
+
+  // for not changing when reload
+  const currentKeyword = searchParams.get("keyword") || "";
+  const currentSort = searchParams.get("sort") || "latest";
+
+  // useState for searchTerm and sort
+  const [searchTerm, setSearchTerm] = useState<string>(currentKeyword);
+  const [sort, setSort] = useState<string>(currentSort);
+
+  // serach function
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!searchTerm.trim()) return;
-    // このリンクのページへ移動
-    router.push(`/prototypes?keyword=${encodeURIComponent(searchTerm.trim())}`);
+    updateUrl(searchTerm, sort);
+  };
+
+  // order change function
+  const handleOrderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedSort = e.target.value;
+    setSort(selectedSort);
+    updateUrl(searchTerm, selectedSort);
+  };
+
+  // URL update function(for using searchTerm and order)
+  const updateUrl = (keyword: string, sortOrder: string) => {
+    // Create a new URLSearchParams object to build the query string
+    const params = new URLSearchParams();
+
+    // Add the keyword and sortOrder to the query string if they are not empty
+    if (keyword.trim()) params.set("keyword", keyword.trim());
+    if (sortOrder) params.set("sort", sortOrder);
+
+    router.push(`/prototypes?${params.toString()}`);
   };
 
   return (
@@ -51,20 +78,23 @@ export default function Greeting({ userName, userId }: GreetingProps) {
           type="search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          // serachTermという状態に代入
           placeholder="記事を検索..."
           className={styles.input_style}
         />
         <button type="submit">検索</button>
       </form>
+
+      {/* order select area */}
       <select
         name="prototypes"
         id="prototype-select"
+        value={sort}
+        onChange={handleOrderChange}
         className={styles.order_form}
       >
-        <option value="order-new">新着順</option>
-        <option value="order-old">古い順</option>
-        <option value="order-like">人気順</option>
+        <option value="latest">新着順</option>
+        <option value="oldest">古い順</option>
+        <option value="likes">人気順</option>
       </select>
     </div>
   );
