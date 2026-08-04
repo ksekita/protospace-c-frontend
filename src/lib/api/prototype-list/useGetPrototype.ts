@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import api from "../layout/apiClient";
 import { Prototype } from "@/types/prototype/prototype";
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 
 export type UserInfo = {
   id?: number;
@@ -10,7 +10,8 @@ export type UserInfo = {
 
 export async function prototypeList(): Promise<Prototype[]> {
   "use cache";
-  cacheLife("seconds");
+  cacheLife("minutes");
+  cacheTag("prototype-list");
   try {
     const response = await api.get<Prototype[]>("/prototypes/");
     return response.data;
@@ -32,6 +33,7 @@ export async function userInfo(): Promise<UserInfo> {
     });
     return response.data;
   } catch (error) {
+    console.error("ユーザー情報取得エラー", error);
     return {};
   }
 }

@@ -63,6 +63,7 @@ export async function editPrototypeAction(
       },
     });
     updateTag(`prototype-${id}`);
+    updateTag("prototype-list");
   } catch (error) {
     console.log("error", error);
     if (axios.isAxiosError(error) && error.response) {

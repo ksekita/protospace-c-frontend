@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import axios from "axios";
 import api from "../api/layout/apiClient";
 import { cookies } from "next/headers";
+import { updateTag } from "next/cache";
 
 export type RegisterPrototypeState = {
   title?: string;
@@ -58,6 +59,7 @@ export async function CreatePrototypeAction(
         "Content-Type": "multipart/form-data",
       },
     });
+    updateTag("prototype-list");
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       console.error("🔥 バックエンドからのエラー詳細:", error.response.data);
