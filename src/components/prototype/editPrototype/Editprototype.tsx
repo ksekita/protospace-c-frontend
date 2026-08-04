@@ -1,29 +1,29 @@
 "use client";
 // h編集画面
 import styles from "@/app/prototype/new/page.module.css";
-import { EditPrototypeAction } from "@/lib/api/useUpdatePrototype";
+import { editPrototypeAction } from "@/lib/actions/updatePrototypeAction";
+import { EditPrototype } from "@/types/prototype";
 import { useActionState } from "react";
 
 export type EditPrototypeProps = {
-  initialData: {
-    id: number;
-    title: string;
-    catchCopy: string;
-    concept: string;
-    image?: string;
-  };
+  initialData?: EditPrototype;
+  prototypeId: number;
 };
 
-export default function Editprototype({ initialData }: EditPrototypeProps) {
+export default function Editprototype({
+  initialData,
+  prototypeId,
+}: EditPrototypeProps) {
+  const editPrototypeActionWithId = editPrototypeAction.bind(null, prototypeId);
+
   const [state, formAction, isPending] = useActionState(
-    EditPrototypeAction,
+    editPrototypeActionWithId,
     null,
   );
 
   return (
     <div className={styles.container}>
       <form action={formAction}>
-        <input type="hidden" name="id" value={initialData.id} />
         {/* {全体エラー} */}
         {state?.error && (
           <p role="alert" className={styles.error_alert}>
@@ -39,7 +39,7 @@ export default function Editprototype({ initialData }: EditPrototypeProps) {
             type="text"
             name="title"
             className={styles.input}
-            defaultValue={state?.title || initialData.title}
+            defaultValue={state?.title || initialData?.title}
           />
         </div>
 
@@ -52,7 +52,7 @@ export default function Editprototype({ initialData }: EditPrototypeProps) {
             name="catchCopy"
             type="text"
             className={styles.textarea}
-            defaultValue={state?.catchCopy || initialData.catchCopy}
+            defaultValue={state?.catchCopy || initialData?.catchCopy}
           />
         </div>
 
@@ -65,7 +65,7 @@ export default function Editprototype({ initialData }: EditPrototypeProps) {
             name="concept"
             rows={4}
             className={styles.textarea}
-            defaultValue={state?.concept || initialData.concept}
+            defaultValue={state?.concept || initialData?.concept}
           />
         </div>
 

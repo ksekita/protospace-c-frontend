@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import axios from "axios";
 import api from "../api/apiClient";
-import { revalidatePath, updateTag } from "next/cache";
+import { updateTag } from "next/cache";
 
 export type CommentActionState = {
   id: number;
@@ -33,9 +33,7 @@ export async function commentAction(
       },
     );
 
-    updateTag("prototype");
-    // キャッシュをアップデート
-    revalidatePath(`/prototype/${id}`);
+    updateTag(`prototype-${id}`);
 
     return { id, content: response.data.content || content, error: undefined };
   } catch (error) {
