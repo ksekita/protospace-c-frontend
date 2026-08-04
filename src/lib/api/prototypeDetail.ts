@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 // プロトタイプ詳細
 export async function prototypeDetail(id: number): Promise<Prototype> {
   "use cache";
-  cacheLife("seconds");
+  cacheLife("hours");
   try {
     const response = await api.get<Prototype>(`prototypes/${id}`);
 
