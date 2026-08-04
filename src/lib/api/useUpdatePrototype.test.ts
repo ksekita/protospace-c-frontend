@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { EditPrototypeAction } from "./useUpdatePrototype"; // アクション関数のパス
+import { editPrototypeAction } from "@/lib/actions/updatePrototypeAction"; // アクション関数のパス
 import api from "./apiClient";
 import { redirect } from "next/navigation";
 import axios from "axios";
@@ -7,12 +7,23 @@ import axios from "axios";
 // 1. 外部モジュールのモック化
 vi.mock("./apiClient", () => ({
   default: {
-    post: vi.fn(),
+    put: vi.fn(), // post から put に変更
   },
 }));
 
 vi.mock("next/navigation", () => ({
   redirect: vi.fn(),
+}));
+
+// Next.js のサーバー側機能のモックを追加
+vi.mock("next/headers", () => ({
+  cookies: vi.fn().mockResolvedValue({
+    get: vi.fn().mockReturnValue({ value: "mocked-token" }),
+  }),
+}));
+
+vi.mock("next/cache", () => ({
+  updateTag: vi.fn(),
 }));
 
 // axios.isAxiosError が確実にモック関数（vi.fn）として認識されるよう修正
@@ -35,7 +46,7 @@ function createFormData(data: Record<string, string>): FormData {
   return formData;
 }
 
-describe("EditPrototypeAction", () => {
+describe("editPrototypeAction", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -43,18 +54,18 @@ describe("EditPrototypeAction", () => {
   describe("バリデーションの検証", () => {
     it("未入力の項目がある場合、エラーとfieldErrorsを返すこと", async () => {
       // タイトルのみ入力し、キャッチコピーとコンセプトを空にする
+      const id = 1;
       const formData = createFormData({
-        id: "1",
         title: "テストタイトル",
         catchCopy: "",
         concept: "",
         image: "",
       });
 
-      const result = await EditPrototypeAction(null, formData);
+      const result = await editPrototypeAction(id, null, formData);
 
       expect(result).toEqual({
-        id: "1",
+        id: 1, // 数値型（number）に修正
         title: "テストタイトル",
         catchCopy: "",
         concept: "",
@@ -68,42 +79,46 @@ describe("EditPrototypeAction", () => {
       });
 
       // API通信が呼ばれていないことを確認
-      expect(api.post).not.toHaveBeenCalled();
+      expect(api.put).not.toHaveBeenCalled();
     });
   });
 
   describe("正常系の検証", () => {
     it("入力データが正常な場合、APIが呼ばれてリダイレクトされること", async () => {
+      const id = 10;
       const formData = createFormData({
-        id: "10",
         title: "新しいタイトル",
         catchCopy: "新しいキャッチコピー",
         concept: "新しいコンセプト",
         image: "sample.jpg",
       });
 
-      // api.post の成功をモック
-      vi.mocked(api.post).mockResolvedValueOnce({ data: {} });
+      // api.put の成功をモック
+      vi.mocked(api.put).mockResolvedValueOnce({ data: {} });
 
-      await EditPrototypeAction(null, formData);
+      await editPrototypeAction(id, null, formData);
 
-      // 正しいURLとデータで api.post が呼ばれたか検証
-      expect(api.post).toHaveBeenCalledWith("prototypes/10/edit", {
-        title: "新しいタイトル",
-        catchCopy: "新しいキャッチコピー",
-        concept: "新しいコンセプト",
-        image: "sample.jpg",
-      });
+      // 正しいURL・FormData・ヘッダーで api.put が呼ばれたか検証
+      expect(api.put).toHaveBeenCalledWith(
+        "prototypes/10",
+        formData,
+        expect.objectContaining({
+          headers: {
+            Authorization: "Bearer mocked-token",
+            "Content-Type": "multipart/form-data",
+          },
+        }),
+      );
 
-      // リダイレクトが実行されたか検証
-      expect(redirect).toHaveBeenCalledWith("/");
+      // リダイレクト先URLの検証
+      expect(redirect).toHaveBeenCalledWith("/prototype/10");
     });
   });
 
   describe("異常系（APIエラー）の検証", () => {
     it("Axiosエラーが発生した場合、レスポンスのメッセージを返すこと", async () => {
+      const id = 10;
       const formData = createFormData({
-        id: "10",
         title: "タイトル",
         catchCopy: "キャッチコピー",
         concept: "コンセプト",
@@ -118,15 +133,15 @@ describe("EditPrototypeAction", () => {
         },
       };
 
-      // api.post がエラーを投げるよう設定
-      vi.mocked(api.post).mockRejectedValueOnce(mockError);
+      // api.put がエラーを投げるよう設定
+      vi.mocked(api.put).mockRejectedValueOnce(mockError);
       // axios.isAxiosError が true を返すよう設定
       vi.mocked(axios.isAxiosError).mockReturnValueOnce(true);
 
-      const result = await EditPrototypeAction(null, formData);
+      const result = await editPrototypeAction(id, null, formData);
 
       expect(result).toEqual({
-        id: "10",
+        id: 10, // 返り値に含まれる id を追加
         title: "タイトル",
         catchCopy: "キャッチコピー",
         concept: "コンセプト",
@@ -136,21 +151,21 @@ describe("EditPrototypeAction", () => {
     });
 
     it("一般的な通信エラーが発生した場合、デフォルトの通信エラーメッセージを返すこと", async () => {
+      const id = 10;
       const formData = createFormData({
-        id: "10",
         title: "タイトル",
         catchCopy: "キャッチコピー",
         concept: "コンセプト",
         image: "",
       });
 
-      vi.mocked(api.post).mockRejectedValueOnce(new Error("Network Error"));
+      vi.mocked(api.put).mockRejectedValueOnce(new Error("Network Error"));
       vi.mocked(axios.isAxiosError).mockReturnValueOnce(false);
 
-      const result = await EditPrototypeAction(null, formData);
+      const result = await editPrototypeAction(id, null, formData);
 
       expect(result).toEqual({
-        id: "10",
+        id: 10, // 返り値に含まれる id を追加
         title: "タイトル",
         catchCopy: "キャッチコピー",
         concept: "コンセプト",
