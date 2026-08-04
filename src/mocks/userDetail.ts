@@ -1,4 +1,4 @@
-import { UserDetailType } from "@/types/UserDetailType";
+import {} from "@/types/user/detail.type";
 
 // 2. コンポーネントやテストで使えるモックデータ
 export const mockUserDetailResponse: UserDetailType = {

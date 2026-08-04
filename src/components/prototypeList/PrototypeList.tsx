@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./PrototypeList.module.css";
-import { Prototype } from "@/types/prototype";
+import { Prototype } from "@/types/prototype/prototype";
 import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
 import { prototypeList } from "@/lib/api/prototype-list/useGetPrototype";
 

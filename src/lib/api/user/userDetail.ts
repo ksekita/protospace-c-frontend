@@ -3,7 +3,7 @@ import api from "../layout/apiClient";
 import {
   ResponseUserInfo,
   ResponsePrototypeList,
-} from "@/types/UserDetailType";
+} from "@/types/user/detail.type";
 import { cacheLife } from "next/cache";
 
 // ユーザー詳細

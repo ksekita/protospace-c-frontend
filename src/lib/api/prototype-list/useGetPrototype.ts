@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import api from "../layout/apiClient";
-import { Prototype } from "@/types/prototype";
+import { Prototype } from "@/types/prototype/prototype";
 import { cacheLife } from "next/cache";
 
 export type UserInfo = {

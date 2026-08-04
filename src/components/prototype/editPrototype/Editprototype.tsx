@@ -2,7 +2,7 @@
 // h編集画面
 import styles from "@/app/prototype/new/page.module.css";
 import { editPrototypeAction } from "@/lib/actions/updatePrototypeAction";
-import { EditPrototype } from "@/types/prototype";
+import { EditPrototype } from "@/types/prototype/prototype";
 import { useActionState } from "react";
 
 export type EditPrototypeProps = {

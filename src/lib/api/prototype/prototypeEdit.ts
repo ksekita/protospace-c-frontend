@@ -1,4 +1,4 @@
-import { EditPrototype, Prototype } from "@/types/prototype";
+import { EditPrototype, Prototype } from "@/types/prototype/prototype";
 import api from "../layout/apiClient";
 import { UserInfo } from "../prototype-list/useGetPrototype";
 import { cookies } from "next/headers";

@@ -1,5 +1,5 @@
 import api from "../layout/apiClient";
-import { Prototype } from "@/types/prototype";
+import { Prototype } from "@/types/prototype/prototype";
 import { cacheLife, cacheTag } from "next/cache";
 import { redirect } from "next/navigation";
 
