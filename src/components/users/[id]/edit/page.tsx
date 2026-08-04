@@ -1,4 +1,3 @@
-// 子です　親で呼び出して使います
 "use client";
 import { useActionState } from "react";
 import styles from "./page.module.css";
@@ -28,7 +27,7 @@ export default function Useredit({
   };
   userId: string;
 }) {
-  // ここからはユーザー新規登録画面の使いまわしです
+  // ここからはユーザー新規登録画面の使いまわし
   const [state, formAction, isPending] = useActionState<FormState, FormData>(
     editUser,
     null,
@@ -44,34 +43,6 @@ export default function Useredit({
             {state.error}
           </p>
         )}
-        <div className={styles.field}>
-          <label htmlFor="password" className={styles.label}>
-            現在のパスワード (6文字以上)
-          </label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            defaultValue={""}
-          />
-          {state?.fieldErrors?.password && (
-            <p role="alert" className={styles.error}>
-              {state.fieldErrors.password}
-            </p>
-          )}
-        </div>
-
-        <div className={styles.field}>
-          <label htmlFor="password-conf" className={styles.label}>
-            新しいパスワード
-          </label>
-          <input
-            id="password-conf"
-            type="password"
-            name="password_confirmation"
-            defaultValue={""}
-          />
-        </div>
 
         <div className={styles.field}>
           <label htmlFor="username" className={styles.label}>

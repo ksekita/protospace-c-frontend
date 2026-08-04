@@ -1,4 +1,4 @@
-// ユーザー編集ページの親です
+// ユーザー編集ページ
 import Useredit from "@/components/users/[id]/edit/page";
 import style from "./page.module.css";
 import api from "@/lib/api/apiClient";
@@ -8,7 +8,7 @@ export type PageProps = {
 };
 
 export default async function EdituserInfo({
-  //ここに編集前の内容を取得する処理を記述
+  //編集前の内容を取得する処理
   params,
 }: {
   params: Promise<{ id: string }>;

@@ -31,10 +31,6 @@ export async function editUser(
   const affiliation = formData.get("affiliation") as string;
   const position = formData.get("position") as string;
 
-  // パスワードもフォームに含まれているため取得します
-  const password = formData.get("password") as string;
-  const password_confirmation = formData.get("password_confirmation") as string;
-
   const currentState: EditUserState = {
     id,
     name,
@@ -61,8 +57,6 @@ export async function editUser(
     profile,
     affiliation,
     position,
-    currentPassword: password,
-    newPassword: password_confirmation,
   };
 
   try {
