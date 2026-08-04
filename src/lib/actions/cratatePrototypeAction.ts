@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import axios from "axios";
-import api from "./apiClient";
+import api from "../api/layout/apiClient";
 import { cookies } from "next/headers";
 
 export type RegisterPrototypeState = {

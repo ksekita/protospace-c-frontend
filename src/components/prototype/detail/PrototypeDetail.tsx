@@ -2,8 +2,8 @@ import Link from "next/link";
 import styles from "./PrototypeDetail.module.css";
 import Image from "next/image";
 import { Button } from "./Button";
-import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
-import { prototypeDetail } from "@/lib/api/prototypeDetail";
+import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
+import { prototypeDetail } from "@/lib/api/prototype/prototypeDetail";
 import { Suspense } from "react";
 
 interface Props {

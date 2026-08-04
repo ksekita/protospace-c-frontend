@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import axios from "axios";
-import api from "../api/apiClient";
+import api from "../api/layout/apiClient";
 import { cookies } from "next/headers";
 import { updateTag } from "next/cache";
 

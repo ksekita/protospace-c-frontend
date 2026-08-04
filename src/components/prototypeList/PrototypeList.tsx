@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./PrototypeList.module.css";
 import { Prototype } from "@/types/prototype";
-import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
-import { prototypeList } from "@/lib/api/useGetPrototype";
+import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
+import { prototypeList } from "@/lib/api/prototype-list/useGetPrototype";
 
 export default async function PrototypeList() {
   const prototypes = await prototypeList();

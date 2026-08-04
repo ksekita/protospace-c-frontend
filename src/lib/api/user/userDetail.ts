@@ -1,5 +1,5 @@
 import axios from "axios";
-import api from "./apiClient";
+import api from "../layout/apiClient";
 import {
   ResponseUserInfo,
   ResponsePrototypeList,

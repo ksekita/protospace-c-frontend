@@ -1,6 +1,6 @@
 "use server";
 import { redirect } from "next/navigation";
-import api from "../api/apiClient";
+import api from "../api/layout/apiClient";
 import { cookies } from "next/headers";
 
 export async function prototypeDelete(id: number) {

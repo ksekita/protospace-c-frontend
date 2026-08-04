@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { editPrototypeAction } from "@/lib/actions/updatePrototypeAction"; // アクション関数のパス
-import api from "./apiClient";
+import api from "../api/layout/apiClient";
 import { redirect } from "next/navigation";
 import axios from "axios";
 

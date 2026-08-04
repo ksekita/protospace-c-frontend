@@ -1,6 +1,6 @@
 import { EditPrototype, Prototype } from "@/types/prototype";
-import api from "./apiClient";
-import { UserInfo } from "./useGetPrototype";
+import api from "../layout/apiClient";
+import { UserInfo } from "../prototype-list/useGetPrototype";
 import { cookies } from "next/headers";
 import axios from "axios";
 import { redirect } from "next/navigation";

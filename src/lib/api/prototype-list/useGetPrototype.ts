@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import api from "./apiClient";
+import api from "../layout/apiClient";
 import { Prototype } from "@/types/prototype";
 import { cacheLife } from "next/cache";
 

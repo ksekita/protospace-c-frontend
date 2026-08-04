@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./PrototypeDetail.module.css";
-import { userInfo } from "@/lib/api/useGetPrototype";
+import { userInfo } from "@/lib/api/prototype-list/useGetPrototype";
 import { Delete } from "./Delete";
 
 interface Props {

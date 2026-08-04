@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./Greeting.module.css";
-import { userInfo } from "@/lib/api/useGetPrototype";
+import { userInfo } from "@/lib/api/prototype-list/useGetPrototype";
 
 export default async function Greeting() {
   const user = await userInfo();

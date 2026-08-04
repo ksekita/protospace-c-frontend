@@ -1,5 +1,5 @@
 import { CommentListType } from "@/types/CommentListType";
-import api from "./apiClient";
+import api from "../layout/apiClient";
 import { cacheLife } from "next/cache";
 
 // コメント一覧

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { CreatePrototypeAction } from "./useCreatePrototype";
-import api from "./apiClient";
+import { CreatePrototypeAction } from "./cratatePrototypeAction";
+import api from "../api/layout/apiClient";
 import { redirect } from "next/navigation";
 import axios from "axios";
 

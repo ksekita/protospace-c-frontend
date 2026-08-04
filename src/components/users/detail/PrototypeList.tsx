@@ -1,8 +1,8 @@
 import styles from "./PrototypeList.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
-import { userDetailProto } from "@/lib/api/userDetail";
+import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
+import { userDetailProto } from "@/lib/api/user/userDetail";
 import { notFound } from "next/navigation";
 
 interface Props {

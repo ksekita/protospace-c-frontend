@@ -1,6 +1,6 @@
 import styles from "./CommentList.module.css";
 import Link from "next/link";
-import { allCommentList } from "@/lib/api/comment";
+import { allCommentList } from "@/lib/api/prototype/comment";
 
 interface Props {
   prototypeId: number;

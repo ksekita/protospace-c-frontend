@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import styles from "./Detail.module.css";
-import { userDetailInfo } from "@/lib/api/userDetail";
+import { userDetailInfo } from "@/lib/api/user/userDetail";
 
 type Props = {
   userId: Promise<{ id: string }>;

@@ -1,7 +1,7 @@
 import styles from "./edit.module.css";
 import Editprototype from "@/components/prototype/editPrototype/Editprototype";
 import { redirect } from "next/navigation";
-import { prototypeEdit } from "@/lib/api/prototypeEdit";
+import { prototypeEdit } from "@/lib/api/prototype/prototypeEdit";
 
 export default async function EditPrototypePage({
   params,
