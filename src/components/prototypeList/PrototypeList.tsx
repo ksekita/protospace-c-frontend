@@ -5,10 +5,6 @@ import { Prototype } from "@/types/prototype";
 import { imageBaseUrl } from "@/lib/api/imageBaseUrl";
 import { prototypeList } from "@/lib/api/useGetPrototype";
 
-// type PrototypeListProps = {
-//   prototypes: Prototype[];
-// };
-
 export default async function PrototypeList() {
   const prototypes = await prototypeList();
 
