@@ -21,3 +21,11 @@ export interface UpdatePrototypeInput {
   concept: string;
   image?: File | null;
 }
+
+export interface EditPrototype {
+  id: number;
+  title: string;
+  catchCopy: string;
+  concept: string;
+  image: string;
+}
