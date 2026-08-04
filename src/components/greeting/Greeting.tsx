@@ -17,7 +17,7 @@ export default function Greeting({ userName, userId }: GreetingProps) {
   // for getting the search params from the URL
   const searchParams = useSearchParams();
 
-  // for not changing when reload
+  // get the current keyword and sort from the search params
   const currentKeyword = searchParams.get("keyword") || "";
   const currentSort = searchParams.get("sort") || "latest";
 
