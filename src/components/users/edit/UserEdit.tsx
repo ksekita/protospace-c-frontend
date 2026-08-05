@@ -1,7 +1,7 @@
 "use client";
 import { useActionState } from "react";
-import styles from "./page.module.css";
-import { editUserAction } from "@/lib/api/editUserAction";
+import styles from "./UserEdit.module.css";
+import { editUserAction } from "@/lib/actions/editUserAction";
 
 export type FormState = {
   error?: string;
