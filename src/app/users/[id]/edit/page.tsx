@@ -16,17 +16,19 @@ export default async function EdituserInfo({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const userId = Number(id);
+
   const currentUser = await userInfo();
-  if (String(currentUser.id) !== String(id)) {
-    redirect(`/users/${id}`);
+  if (Number(currentUser.id) != userId) {
+    redirect(`/users/${userId}`);
   }
-  const response = await api.get(`/users/${id}`);
+  const response = await api.get(`/users/${userId}`);
   const userData = response.data;
 
   return (
     <>
       <h1 className={style.title}>ユーザー情報編集ページ✍</h1>
-      <Useredit userData={userData} userId={id} />
+      <Useredit userData={userData} userId={userId} />
     </>
   );
 }

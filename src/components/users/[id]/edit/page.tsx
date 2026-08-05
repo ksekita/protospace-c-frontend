@@ -1,7 +1,7 @@
 "use client";
 import { useActionState } from "react";
 import styles from "./page.module.css";
-import { editUser } from "@/lib/api/editUser";
+import { editUserAction } from "@/lib/api/editUserAction";
 
 export type FormState = {
   error?: string;
@@ -25,18 +25,14 @@ export default function Useredit({
     position?: string;
     name?: string;
   };
-  userId: string;
+  userId: number;
 }) {
-  // ここからはユーザー新規登録画面の使いまわし
-  const [state, formAction, isPending] = useActionState<FormState, FormData>(
-    editUser,
-    null,
-  );
+  const editUserWithId = editUserAction.bind(null, userId);
+  const [state, formAction, isPending] = useActionState(editUserWithId, null);
 
   return (
     <>
       <form action={formAction}>
-        <input type="hidden" name="userId" value={userId} />
         {/* 全体エラー */}
         {state?.error && (
           <p role="alert" className={styles.error_alert}>
