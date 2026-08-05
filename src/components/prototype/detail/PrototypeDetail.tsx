@@ -38,6 +38,7 @@ export default async function PrototypeDetail(props: Props) {
           width={300}
           height={300}
           alt={responseProtodetail.title}
+          className={styles.image_content}
         />
       </div>
       <div>
