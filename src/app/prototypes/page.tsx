@@ -4,17 +4,18 @@ import PrototypeList from "@/components/prototypeList/PrototypeList";
 import { prototypeList, userInfo } from "@/lib/api/useGetPrototype";
 
 type HomeProps = {
-  searchParams: Promise<{ search?: string; keyword?: string }>;
+  searchParams: Promise<{ keyword?: string; sort?: string }>;
 };
 
 export default async function Home({ searchParams }: HomeProps) {
-  //URL's query
+  // Resolve the searchParams promise to get the actual parameters
   const resolvedParams = await searchParams;
 
-  // query's name from Greeting Component
-  const keyword = resolvedParams.search || resolvedParams.keyword;
+  // Extract keyword and sort from the resolved parameters
+  const keyword = resolvedParams.keyword;
+  const sort = resolvedParams.sort;
 
-  const prototypes = await prototypeList(keyword);
+  const prototypes = await prototypeList(keyword, sort);
   const user = await userInfo();
 
   return (

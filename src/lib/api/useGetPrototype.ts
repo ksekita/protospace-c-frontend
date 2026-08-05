@@ -8,12 +8,16 @@ export type UserInfo = {
   name?: string;
 };
 
-export async function prototypeList(keyword?: string): Promise<Prototype[]> {
+export async function prototypeList(
+  keyword?: string,
+  sort?: string,
+): Promise<Prototype[]> {
   try {
     // APIからプロトタイプの一覧情報を取得する
     const response = await api.get<Prototype[]>("/prototypes/", {
       params: {
         keyword: keyword || undefined,
+        sort: sort || undefined,
       },
     });
 
