@@ -5,13 +5,13 @@ import { Delete } from "./Delete";
 
 interface Props {
   prototypeId: number;
-  prototypeUseeId?: number;
+  prototypeUserId?: number;
 }
 
 export async function Button(props: Props) {
   const user = await userInfo();
 
-  if (user.id !== props.prototypeUseeId) {
+  if (user.id !== props.prototypeUserId) {
     return null;
   }
 

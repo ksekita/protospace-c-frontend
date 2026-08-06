@@ -2,14 +2,14 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import NewPrototypePage from "./page";
-import { CreatePrototypeAction } from "@/lib/actions/cratatePrototypeAction";
+import { CreatePrototypeAction } from "@/lib/actions/createPrototypeAction";
 
 // Server Action のモック化
 vi.mock("@/lib/api/useCreatePrototype", () => ({
   CreatePrototypeAction: vi.fn(),
 }));
 
-vi.mock("@/lib/actions/cratatePrototypeAction", () => ({
+vi.mock("@/lib/actions/createPrototypeAction", () => ({
   CreatePrototypeAction: vi.fn(),
 }));
 

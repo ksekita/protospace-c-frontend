@@ -33,7 +33,7 @@ export default async function CommentList(props: Props) {
             </Link>
             {comment.userId === user.id && (
               <CommentDeleteForm
-                commnetId={comment.id}
+                commentId={comment.id}
                 prototypeId={props.prototypeId}
               />
             )}

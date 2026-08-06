@@ -28,7 +28,7 @@ export default async function PrototypeDetail(props: Props) {
       <Suspense>
         <Button
           prototypeId={prototypeId}
-          prototypeUseeId={responseProtodetail.userId}
+          prototypeUserId={responseProtodetail.userId}
         />
       </Suspense>
       {/* 画像 */}
