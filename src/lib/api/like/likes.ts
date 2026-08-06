@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import api from "../layout/apiClient";
 import axios from "axios";
-import { cacheTag, updateTag } from "next/cache";
+import { updateTag } from "next/cache";
 
 interface ProtoLikeType {
   likeCount?: number;
@@ -45,7 +45,6 @@ export async function likeAllCount(
 ): Promise<ProtoLikeType> {
   const cookieStore = await cookies();
   const token = cookieStore.get("jwt_token")?.value;
-  console.log("プロｔId", prototypeId);
   try {
     const response = await api.get<ProtoLikeType>(
       `/prototypes/${prototypeId}/like`,
@@ -55,7 +54,6 @@ export async function likeAllCount(
         },
       },
     );
-    console.log("いいね結果", response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

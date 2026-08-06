@@ -10,7 +10,7 @@ interface Props {
 
 export function LikeButton(props: Props) {
   const likeBtn = async () => {
-    // 後日ここにボタンをdisabedを無効にし、setTimeoutで1s後に有効にする
+    // 後日ここにボタンをdisabledを無効にし、setTimeoutで1s後に有効にする
     await likeBtnPost(props.prototypeId);
     const btn = document.getElementById("likeBtn");
     btn?.addEventListener("click", (e: MouseEvent) => {
@@ -22,8 +22,6 @@ export function LikeButton(props: Props) {
       }, 1500);
     });
   };
-
-  console.log("押してるかいなか", props.isLiked);
 
   return (
     <div>
