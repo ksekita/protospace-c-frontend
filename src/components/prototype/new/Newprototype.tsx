@@ -2,7 +2,6 @@
 // 新規投稿画面
 import styles from "@/app/prototype/new/page.module.css";
 import { CreatePrototypeAction } from "@/lib/actions/cratatePrototypeAction";
-
 import { useActionState } from "react";
 
 export default function Newprototype() {

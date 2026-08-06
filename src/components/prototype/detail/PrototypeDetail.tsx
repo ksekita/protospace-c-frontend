@@ -5,6 +5,7 @@ import { Button } from "./Button";
 import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
 import { prototypeDetail } from "@/lib/api/prototype/prototypeDetail";
 import { Suspense } from "react";
+import Like from "@/components/like/Like";
 
 interface Props {
   prototypeId: Promise<{ id: string }>;
@@ -51,6 +52,9 @@ export default async function PrototypeDetail(props: Props) {
           <p className={styles.detail_title}>コンセプト</p>
           {/* コンセプト */}
           <p>{responseProtodetail.concept}</p>
+        </div>
+        <div className={styles.like}>
+          <Like prototypeId={prototypeId} />
         </div>
       </div>
     </>

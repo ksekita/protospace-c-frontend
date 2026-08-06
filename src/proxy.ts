@@ -13,10 +13,9 @@ const PUBLIC_ROUTES = [
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get("jwt_token")?.value;
 
   // トークンが存在し、かつ有効かどうかを判定
-  const isLoggedIn = await isTokenValid(token);
+  const isLoggedIn = await isTokenValid();
 
   // "/"にアクセスしようとしたらprototypesに飛ばす
   if (pathname === "/" || pathname === "" || pathname === "/prototype") {
