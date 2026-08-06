@@ -14,7 +14,7 @@ export default function CommentDeleteForm(props: Props) {
         className={styles.commentdelete_btn}
         onClick={() => commentDelete(props.commnetId, props.prototypeId)}
       >
-        コメント削除
+        削除
       </button>
     </div>
   );
