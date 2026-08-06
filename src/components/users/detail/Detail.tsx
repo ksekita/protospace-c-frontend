@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import styles from "./Detail.module.css";
 import { userDetailInfo } from "@/lib/api/user/userDetail";
 import Link from "next/link";
+import { userInfo } from "@/lib/api/prototype-list/useGetPrototype";
 
 type Props = {
   userId: Promise<{ id: string }>;
@@ -11,7 +12,10 @@ export default async function Detail(props: Props) {
   const { id } = await props.userId;
   const userId = Number(id);
 
-  const response = await userDetailInfo(userId);
+  const [response, user] = await Promise.all([
+    await userDetailInfo(userId),
+    await userInfo(),
+  ]);
 
   if (response.error || !response.name) {
     return notFound();
@@ -21,7 +25,7 @@ export default async function Detail(props: Props) {
     <>
       <div className={styles.header_wrapper}>
         <h2 className={styles.page_heading}>{response.name} さんの情報</h2>
-        {userId === response.id && (
+        {userId === user.id && (
           <Link href={`/users/${userId}/edit`} className={styles.edit_button}>
             ユーザー編集
           </Link>
