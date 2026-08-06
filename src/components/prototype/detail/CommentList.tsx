@@ -32,7 +32,10 @@ export default async function CommentList(props: Props) {
               {comment.name}
             </Link>
             {comment.userId === user.id && (
-              <CommentDeleteForm commnetId={comment.id} />
+              <CommentDeleteForm
+                commnetId={comment.id}
+                prototypeId={props.prototypeId}
+              />
             )}
           </li>
         ))}

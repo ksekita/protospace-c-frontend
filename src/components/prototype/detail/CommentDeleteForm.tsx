@@ -4,6 +4,7 @@ import styles from "./CommentForm.module.css";
 
 interface Props {
   commnetId: number;
+  prototypeId: number;
 }
 
 export default function CommentDeleteForm(props: Props) {
@@ -11,7 +12,7 @@ export default function CommentDeleteForm(props: Props) {
     <div className={styles.delete_comment}>
       <button
         className={styles.commentdelete_btn}
-        onClick={() => commentDelete(props.commnetId)}
+        onClick={() => commentDelete(props.commnetId, props.prototypeId)}
       >
         コメント削除
       </button>

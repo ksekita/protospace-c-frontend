@@ -34,7 +34,7 @@ export async function commentAction(
       },
     );
 
-    updateTag(`proto-commnet`);
+    updateTag(`proto-commnet-${id}`);
 
     return { id, content: response.data.content || content, error: undefined };
   } catch (error) {
@@ -50,7 +50,7 @@ export async function commentAction(
   }
 }
 // コメント削除
-export async function commentDelete(id: number) {
+export async function commentDelete(id: number, prototypeId: number) {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("jwt_token")?.value;
@@ -60,7 +60,7 @@ export async function commentDelete(id: number) {
         Authorization: `Bearer ${token}`,
       },
     });
-    updateTag(`proto-commnet`);
+    updateTag(`proto-commnet-${prototypeId}`);
   } catch (error) {
     console.error("コメント削除に失敗しました:", error);
   }

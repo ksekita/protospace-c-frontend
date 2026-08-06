@@ -8,7 +8,7 @@ export async function allCommentList(
 ): Promise<CommentListType[] | null> {
   "use cache";
   cacheLife("seconds");
-  cacheTag(`proto-commnet`);
+  cacheTag(`proto-commnet-${id}`);
   try {
     const response = await api.get<CommentListType[]>(
       `prototypes/${id}/comments`,
