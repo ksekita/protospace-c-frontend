@@ -1,33 +1,17 @@
-import Image from "next/image";
 import styles from "./Header.module.css";
-import AuthNav from "./AuthNav";
-import { cookies } from "next/headers";
-import { isTokenValid } from "@/lib/utils/auth";
-import Link from "next/link";
+import { ReactNode } from "react";
+import Logo from "./Logo";
 
-export default async function Header() {
-  const cookieStore = await cookies();
+type HeaderProps = {
+  children: ReactNode;
+};
 
-  const token = cookieStore.get("jwt_token")?.value;
-
-  const isLoggedIn = await isTokenValid(token);
-
+export function Header({ children }: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={`${styles.flex} ${styles.inner}`}>
-        <Link href={"/prototypes"} className={styles.image_box}>
-          <Image
-            src={"/images/logo.png"}
-            width={200}
-            height={40}
-            alt="logo"
-            priority
-            className={styles.image}
-          />
-        </Link>
-        <div className={styles.margin_reset}>
-          <AuthNav isLoggedIn={isLoggedIn} />
-        </div>
+        <Logo />
+        {children}
       </div>
     </header>
   );

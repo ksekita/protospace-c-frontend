@@ -1,36 +1,38 @@
 import styles from "./PrototypeList.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { ResponsePrototypeList } from "@/types/UserDetailType";
+import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
+import { userDetailProto } from "@/lib/api/user/userDetail";
 
-type PrototypeListProps = {
-  prototypes: ResponsePrototypeList[];
-  username: string;
-  userId: number;
-};
+interface Props {
+  userId: Promise<{ id: string }>;
+}
 
-export default function PrototypeList({
-  prototypes,
-  username,
-  userId,
-}: PrototypeListProps) {
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-  const baseUrl = new URL(backendUrl).origin;
+export default async function PrototypeList(props: Props) {
+  const { id } = await props.userId;
+  const userId = Number(id);
+  const prototypeList = await userDetailProto(userId);
+
+  if (!prototypeList || prototypeList.length === 0) {
+    return <h2>投稿がありません</h2>;
+  }
 
   return (
     <>
-      <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2>
+      <h2 className={styles.page_heading}>
+        {prototypeList[0].name} さんのプロトタイプ
+      </h2>
       <div className={styles.grid}>
-        {prototypes.map((proto) => (
+        {prototypeList.map((proto) => (
           <div key={proto.id} className={styles.card}>
             <div className={styles.image_wrapper}>
               <Link href={`/prototype/${proto.id}`}>
                 <div className={styles.image_placeholder}>
                   <Image
-                    src={`${baseUrl}/images/${proto.image}`}
+                    src={`${imageBaseUrl}/images/${proto.image}`}
                     width={300}
                     height={300}
-                    alt={proto.title}
+                    alt={proto.title || "画像"}
                     className={styles.image}
                   />
                 </div>
@@ -44,7 +46,7 @@ export default function PrototypeList({
               <p className={styles.card_concept}>{proto.catchCopy}</p>
               <div className={styles.card_author}>
                 <Link href={`/users/${userId}`} className={styles.author_link}>
-                  by {username}
+                  by {prototypeList[0].name}
                 </Link>
               </div>
             </div>

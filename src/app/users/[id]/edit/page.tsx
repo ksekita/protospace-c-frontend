@@ -1,9 +1,9 @@
 // ユーザー編集ページ
-import Useredit from "@/components/users/[id]/edit/page";
+import Useredit from "@/components/users/edit/UserEdit";
 import style from "./page.module.css";
-import api from "@/lib/api/apiClient";
+import api from "@/lib/api/layout/apiClient";
 import { redirect } from "next/navigation";
-import { userInfo } from "@/lib/api/useGetPrototype";
+import { userInfo } from "@/lib/api/prototype-list/useGetPrototype";
 
 export type PageProps = {
   params: { id: string };

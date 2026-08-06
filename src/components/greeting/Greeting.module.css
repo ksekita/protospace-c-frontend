@@ -17,18 +17,3 @@
   color: #333;
   text-align: left;
 }
-
-.search_form {
-  display: flex;
-  align-items: center;
-  justify-self: center;
-}
-
-.input_style {
-  font-size: 16px;
-}
-
-.order_form {
-  justify-self: end;
-  font-size: 16px;
-}

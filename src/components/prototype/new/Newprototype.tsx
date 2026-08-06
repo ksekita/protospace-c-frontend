@@ -1,7 +1,7 @@
 "use client";
 // 新規投稿画面
 import styles from "@/app/prototype/new/page.module.css";
-import { CreatePrototypeAction } from "@/lib/api/useCreatePrototype";
+import { CreatePrototypeAction } from "@/lib/actions/createPrototypeAction";
 import { useActionState } from "react";
 
 export default function Newprototype() {
@@ -33,7 +33,7 @@ export default function Newprototype() {
         </div>
 
         <div className={styles.form_group}>
-          <label htmlFor="catchphrase" className={styles.label}>
+          <label htmlFor="catchCopy" className={styles.label}>
             キャッチコピー
           </label>
           <input

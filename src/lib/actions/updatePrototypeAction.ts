@@ -2,10 +2,13 @@
 
 import { redirect } from "next/navigation";
 import axios from "axios";
-import api from "./apiClient";
+import api from "../api/layout/apiClient";
 import { cookies } from "next/headers";
+import { updateTag } from "next/cache";
 
-export type RegisterPrototypeState = {
+// エラー時に、入力した内容をそのまま画面に返すための記述
+export type EditPrototypeState = {
+  id: number;
   title?: string;
   catchCopy?: string;
   concept?: string;
@@ -15,28 +18,29 @@ export type RegisterPrototypeState = {
     title?: string;
     catchCopy?: string;
     concept?: string;
-    image?: string;
   };
 };
-// 新規投稿
-export async function CreatePrototypeAction(
-  prevState: RegisterPrototypeState | null,
+
+export async function editPrototypeAction(
+  id: number,
+  prevState: EditPrototypeState | null,
   formData: FormData,
-): Promise<RegisterPrototypeState> {
-  // フォームに入力されたデータを取得↓
+): Promise<EditPrototypeState> {
+  // フォームの入力内容を取得
   const title = formData.get("title") as string;
   const catchCopy = formData.get("catchCopy") as string;
   const concept = formData.get("concept") as string;
   const image = formData.get("image") as File;
 
-  const currentState: RegisterPrototypeState = {
+  const currentState: EditPrototypeState = {
+    id,
     title,
     catchCopy,
     concept,
     image,
   };
 
-  if (!title || !catchCopy || !concept || !image) {
+  if (!title || !catchCopy || !concept) {
     return {
       ...currentState,
       error: "未入力の項目があります",
@@ -44,7 +48,6 @@ export async function CreatePrototypeAction(
         title: !title ? "タイトルを入力してください" : undefined,
         catchCopy: !catchCopy ? "キャッチコピーを入力してください" : undefined,
         concept: !concept ? "コンセプトを入力してください" : undefined,
-        image: !image ? "画像を入力してください" : undefined,
       },
     };
   }
@@ -85,23 +88,24 @@ export async function CreatePrototypeAction(
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("jwt_token")?.value;
-    await api.post("prototypes/", formData, {
+    console.log(formData);
+    await api.put(`prototypes/${id}`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "multipart/form-data",
       },
     });
+    updateTag(`prototype-${id}`);
+    updateTag("prototype-list");
   } catch (error) {
+    console.log("error", error);
     if (axios.isAxiosError(error) && error.response) {
-      console.error("🔥 バックエンドからのエラー詳細:", error.response.data);
-      console.error("🔥 ステータスコード:", error.response.status);
       return {
         ...currentState,
-        error: error.response.data.message || "投稿に失敗しました",
+        error: error.response.data.message || "更新に失敗しました",
       };
     }
-    console.error("error", error);
     return { ...currentState, error: "通信エラーが発生しました" };
   }
-  redirect("/");
+  redirect(`/prototype/${id}`);
 }

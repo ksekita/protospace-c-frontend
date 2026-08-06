@@ -1,31 +1,29 @@
-"use client";
-
 import Link from "next/link";
 import styles from "./PrototypeDetail.module.css";
-import { prototypeDelete } from "@/lib/actions/prototypeDelete";
-import { Prototype } from "@/types/prototype";
+import { userInfo } from "@/lib/api/prototype-list/useGetPrototype";
+import { Delete } from "./Delete";
 
 interface Props {
-  prototypeDetail: Prototype;
+  prototypeId: number;
+  prototypeUserId?: number;
 }
 
-export default function Button(props: Props) {
+export async function Button(props: Props) {
+  const user = await userInfo();
+
+  if (user.id !== props.prototypeUserId) {
+    return null;
+  }
+
   return (
     <div className={styles.prototype_manage}>
       <Link
-        href={`/prototype/${props.prototypeDetail.id}/edit`}
+        href={`/prototype/${props.prototypeId}/edit`}
         className={styles.prototype_btn}
       >
         編集
       </Link>
-      <div>
-        <button
-          className={styles.delete_btn}
-          onClick={() => prototypeDelete(props.prototypeDetail.id)}
-        >
-          削除
-        </button>
-      </div>
+      <Delete prototypeId={props.prototypeId} />
     </div>
   );
 }

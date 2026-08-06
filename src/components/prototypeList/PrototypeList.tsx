@@ -1,37 +1,48 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./PrototypeList.module.css";
-import { Prototype } from "@/types/prototype";
+import { Prototype } from "@/types/prototype/prototype";
+import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
+import { prototypeList } from "@/lib/api/prototype-list/useGetPrototype";
 
-type PrototypeListProps = {
-  prototypes: Prototype[];
-  username?: string;
-  userId?: number;
-};
+export default async function PrototypeList({
+  searchParams,
+}: {
+  searchParams?: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
+}) {
+  const params = await searchParams;
+  // もしkeywordがstringだったらそのままkeywordを返し、違うならundefinedを返す
+  const keyword =
+    typeof params?.keyword === "string" ? params.keyword : undefined;
 
-export default function PrototypeList({
-  prototypes,
-  userId,
-  username,
-}: PrototypeListProps) {
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-  const baseUrl = new URL(backendUrl).origin;
+  // sortも同じように比べる
+  const sort = typeof params?.sort === "string" ? params.sort : undefined;
 
-  if (prototypes.length == 0) {
-    return <p>投稿がありません。</p>;
-  } else {
-    return (
-      <>
-        {/* <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2> */}
-        <div className={styles.grid}>
-          {/* prototypesが配列かどうかをチェックしてからmapを回す */}
-          {prototypes.map((proto) => (
+  const prototypes = await prototypeList(keyword, sort);
+
+  if (
+    prototypes === null ||
+    prototypes === undefined ||
+    prototypes.length === 0
+  ) {
+    return <div>投稿された記事がありません</div>;
+  }
+
+  return (
+    <>
+      {/* <h2 className={styles.page_heading}>{username} さんのプロトタイプ</h2> */}
+      <div className={styles.grid}>
+        {/* prototypesが配列かどうかをチェックしてからmapを回す */}
+        {Array.isArray(prototypes) ? (
+          prototypes.map((proto) => (
             <div key={proto.id} className={styles.card}>
               <div className={styles.image_wrapper}>
                 <Link href={`/prototype/${proto.id}`}>
                   <div className={styles.image_placeholder}>
                     <Image
-                      src={`${baseUrl}/images/${(proto as Prototype & { image?: string }).image ?? ""}`}
+                      src={`${imageBaseUrl}/images/${(proto as Prototype & { image?: string }).image ?? ""}`}
                       width={300}
                       height={300}
                       alt="Picture of the author"
@@ -55,9 +66,12 @@ export default function PrototypeList({
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </>
-    );
-  }
+          ))
+        ) : (
+          /* データが取得できなかった（配列ではない）場合の表示 */
+          <p>プロトタイプを読み込めませんでした。</p>
+        )}
+      </div>
+    </>
+  );
 }

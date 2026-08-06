@@ -2,8 +2,8 @@
 
 import { cookies } from "next/headers";
 import axios from "axios";
-import api from "../api/apiClient";
-import { revalidatePath } from "next/cache";
+import api from "../api/layout/apiClient";
+import { updateTag } from "next/cache";
 
 export type CommentActionState = {
   id: number;
@@ -11,13 +11,13 @@ export type CommentActionState = {
   error?: string;
 };
 
+// コメントする
 export async function commentAction(
   id: number, // bind された引数
   prevState: CommentActionState | null, // 第2引数を prevState にする
   formData: FormData, // 第3引数に formData を持ってくる
 ): Promise<CommentActionState> {
   const content = formData.get("content") as string;
-
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("jwt_token")?.value;
@@ -34,10 +34,11 @@ export async function commentAction(
       },
     );
 
-    revalidatePath(`/prototype/${id}`);
+    updateTag(`proto-comment-${id}`);
 
-    return response.data;
+    return { id, content: response.data.content || content, error: undefined };
   } catch (error) {
+    console.log(error);
     if (axios.isAxiosError(error) && error.response) {
       return {
         id,
@@ -49,7 +50,7 @@ export async function commentAction(
   }
 }
 // コメント削除
-export async function commentDelete(id: number) {
+export async function commentDelete(id: number, prototypeId: number) {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("jwt_token")?.value;
@@ -59,6 +60,7 @@ export async function commentDelete(id: number) {
         Authorization: `Bearer ${token}`,
       },
     });
+    updateTag(`proto-comment-${prototypeId}`);
   } catch (error) {
     console.error("コメント削除に失敗しました:", error);
   }

@@ -5,11 +5,15 @@
 .comments_list {
   list-style-type: square;
   padding-bottom: 5px;
+  width: fit-content;
+  min-width: 300px;
+  max-width: 100%;
   display: flex;
+  align-items: center;
 }
 
 .comment_user {
-  margin-left: 20px;
+  margin-left: auto;
   font-size: 16px;
   color: #999;
   text-decoration: underline;

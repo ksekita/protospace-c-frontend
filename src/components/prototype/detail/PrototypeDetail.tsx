@@ -1,39 +1,43 @@
 import Link from "next/link";
 import styles from "./PrototypeDetail.module.css";
 import Image from "next/image";
-import { Prototype } from "@/types/prototype";
-import Button from "./Button";
+import { Button } from "./Button";
+import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
+import { prototypeDetail } from "@/lib/api/prototype/prototypeDetail";
+import { Suspense } from "react";
 
 interface Props {
-  prototypeDetail: Prototype;
-  userId?: number;
+  prototypeId: Promise<{ id: string }>;
 }
 
-export default function PrototypeDetail(props: Props) {
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-  const baseUrl = new URL(backendUrl).origin;
-
+export default async function PrototypeDetail(props: Props) {
+  const { id } = await props.prototypeId;
+  const prototypeId = Number(id);
+  const responseProtodetail = await prototypeDetail(prototypeId);
   return (
     <>
       {/* タイトル */}
-      <p className={styles.title}>{props.prototypeDetail.title}</p>
+      <p className={styles.title}>{responseProtodetail.title}</p>
       {/* ユーザー名 */}
       <Link
-        href={`/users/${props.prototypeDetail.userId}`}
+        href={`/users/${responseProtodetail.userId}`}
         className={styles.prototype_user}
       >
-        by {props.prototypeDetail.name}
+        by {responseProtodetail.name}
       </Link>
-      {props.userId === props.prototypeDetail.userId && (
-        <Button prototypeDetail={props.prototypeDetail} />
-      )}
+      <Suspense>
+        <Button
+          prototypeId={prototypeId}
+          prototypeUserId={responseProtodetail.userId}
+        />
+      </Suspense>
       {/* 画像 */}
       <div className={styles.prototype_image}>
         <Image
-          src={`${baseUrl}/images/${props.prototypeDetail.image}`}
+          src={`${imageBaseUrl}/images/${responseProtodetail.image}`}
           width={300}
           height={300}
-          alt={props.prototypeDetail.title}
+          alt={responseProtodetail.title}
           className={styles.image_content}
         />
       </div>
@@ -41,12 +45,12 @@ export default function PrototypeDetail(props: Props) {
         <div className={styles.prototype_detail}>
           <p className={styles.detail_title}>キャッチコピー</p>
           {/* キャッチコピー */}
-          <p>{props.prototypeDetail.catchCopy}</p>
+          <p>{responseProtodetail.catchCopy}</p>
         </div>
         <div className={styles.prototype_detail}>
           <p className={styles.detail_title}>コンセプト</p>
           {/* コンセプト */}
-          <p>{props.prototypeDetail.concept}</p>
+          <p>{responseProtodetail.concept}</p>
         </div>
       </div>
     </>

@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-const backendHost = process.env.BACKEND_HOST_NAME || "placeholder.onrender.com";
-
 const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
@@ -26,6 +24,8 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "10mb",
     },
   },
+  // cache の導入
+  cacheComponents: true,
 };
 
 export default nextConfig;

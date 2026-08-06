@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import api from "./apiClient";
-import { Prototype } from "@/types/prototype";
-import { keyboard } from "@testing-library/user-event/dist/cjs/keyboard/index.js";
+import api from "../layout/apiClient";
+import { Prototype } from "@/types/prototype/prototype";
+import { cacheLife, cacheTag } from "next/cache";
 
 export type UserInfo = {
   id?: number;
@@ -9,18 +9,19 @@ export type UserInfo = {
 };
 
 export async function prototypeList(
-  keyword?: string,
-  sort?: string,
+  keyword: string | string[] | undefined,
+  sort: string | undefined,
 ): Promise<Prototype[]> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag("prototype-list");
   try {
-    // APIからプロトタイプの一覧情報を取得する
     const response = await api.get<Prototype[]>("/prototypes/", {
       params: {
-        keyword: keyword || undefined,
-        sort: sort || undefined,
+        keyword,
+        sort,
       },
     });
-
     return response.data;
   } catch (error) {
     console.error("一覧情報の取得に失敗しました:", error);
@@ -40,6 +41,7 @@ export async function userInfo(): Promise<UserInfo> {
     });
     return response.data;
   } catch (error) {
+    console.error("ユーザー情報取得エラー", error);
     return {};
   }
 }

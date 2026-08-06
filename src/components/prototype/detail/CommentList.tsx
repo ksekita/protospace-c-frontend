@@ -1,16 +1,20 @@
-"use client";
-import { CommentListType } from "@/types/CommentListType";
-import CommentDeleteForm from "./CommentDeleteForm";
 import styles from "./CommentList.module.css";
 import Link from "next/link";
+import { allCommentList } from "@/lib/api/prototype/comment";
+import CommentDeleteForm from "./CommentDeleteForm";
+import { userInfo } from "@/lib/api/prototype-list/useGetPrototype";
 
 interface Props {
-  commentList: CommentListType[] | null;
-  currentUserId: number;
+  prototypeId: number;
 }
 
-export default function CommentList(props: Props) {
-  if (props.commentList === null) {
+export default async function CommentList(props: Props) {
+  const [commentList, user] = await Promise.all([
+    await allCommentList(props.prototypeId),
+    await userInfo(),
+  ]);
+
+  if (commentList === null) {
     return null;
   }
 
@@ -18,7 +22,7 @@ export default function CommentList(props: Props) {
     <>
       {/* コメント一覧 propsを配列で取ってきてmapで回す*/}
       <ul className={styles.comments_lists}>
-        {props.commentList.map((comment) => (
+        {commentList.map((comment) => (
           <li key={comment.id} className={styles.comments_list}>
             {comment.content}
             <Link
@@ -27,8 +31,11 @@ export default function CommentList(props: Props) {
             >
               {comment.name}
             </Link>
-            {comment.userId === props.currentUserId && (
-              <CommentDeleteForm comment={comment} />
+            {comment.userId === user.id && (
+              <CommentDeleteForm
+                commentId={comment.id}
+                prototypeId={props.prototypeId}
+              />
             )}
           </li>
         ))}

@@ -14,10 +14,11 @@ describe("Editprototype コンポーネント", () => {
     title: "既存のタイトル",
     catchCopy: "既存のキャッチコピー",
     concept: "既存のコンセプト",
+    image: "/imagge.png",
   };
 
   it("親から渡された initialData が各入力欄の初期値（defaultValue）として表示されること", () => {
-    render(<Editprototype initialData={mockInitialData} />);
+    render(<Editprototype initialData={mockInitialData} prototypeId={10} />);
 
     // 各 input / textarea の値を取得して検証
     expect(screen.getByLabelText("プロトタイプの名称")).toHaveValue(
@@ -29,18 +30,8 @@ describe("Editprototype コンポーネント", () => {
     expect(screen.getByLabelText("コンセプト")).toHaveValue("既存のコンセプト");
   });
 
-  it("隠しフィールド（hidden input）に正しい ID がセットされていること", () => {
-    const { container } = render(
-      <Editprototype initialData={mockInitialData} />,
-    );
-
-    // name="id" の input 要素を取得
-    const hiddenIdInput = container.querySelector('input[name="id"]');
-    expect(hiddenIdInput).toHaveValue("10");
-  });
-
   it("「保存する」ボタンが表示されていること", () => {
-    render(<Editprototype initialData={mockInitialData} />);
+    render(<Editprototype initialData={mockInitialData} prototypeId={10} />);
 
     const submitButton = screen.getByRole("button", { name: "保存する" });
     expect(submitButton).toBeInTheDocument();

@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import axios from "axios";
-import api from "../api/apiClient";
+import api from "../api/layout/apiClient";
 import { createSession } from "./sessionActions";
 
 export type LoginActionState = {

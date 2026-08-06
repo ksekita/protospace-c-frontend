@@ -1,8 +1,8 @@
 "use server";
 import { redirect } from "next/navigation";
-import api from "./apiClient";
 import axios from "axios";
 import { cookies } from "next/headers";
+import api from "../api/layout/apiClient";
 
 // エラー時に、入力した内容をそのまま画面に返すための記述
 export type EditUserState = {

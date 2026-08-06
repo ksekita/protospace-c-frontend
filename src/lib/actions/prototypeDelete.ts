@@ -1,7 +1,8 @@
 "use server";
 import { redirect } from "next/navigation";
-import api from "../api/apiClient";
+import api from "../api/layout/apiClient";
 import { cookies } from "next/headers";
+import { updateTag } from "next/cache";
 
 export async function prototypeDelete(id: number) {
   try {
@@ -12,6 +13,8 @@ export async function prototypeDelete(id: number) {
         Authorization: `Bearer ${token}`,
       },
     });
+    updateTag(`prototype-${id}`);
+    updateTag("prototype-list");
   } catch (error) {
     console.error("一覧情報の取得に失敗しました:", error);
   }
