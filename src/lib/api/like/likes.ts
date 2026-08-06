@@ -43,12 +43,17 @@ export async function likeBtnPost(prototypeId: number) {
 export async function likeAllCount(
   prototypeId: number,
 ): Promise<ProtoLikeType> {
-  "use cache";
-  cacheTag(`like-${prototypeId}`);
+  const cookieStore = await cookies();
+  const token = cookieStore.get("jwt_token")?.value;
   console.log("プロｔId", prototypeId);
   try {
     const response = await api.get<ProtoLikeType>(
       `/prototypes/${prototypeId}/like`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
     );
     console.log("いいね結果", response.data);
     return response.data;
