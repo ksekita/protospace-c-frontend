@@ -15,6 +15,7 @@ export function LikeButton(props: Props) {
     const btn = document.getElementById("likeBtn");
     btn?.addEventListener("click", (e: MouseEvent) => {
       const target = e.currentTarget as HTMLButtonElement;
+
       target.disabled = true;
       setTimeout(() => {
         target.disabled = false;

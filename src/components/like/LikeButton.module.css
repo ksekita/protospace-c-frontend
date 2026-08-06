@@ -22,7 +22,7 @@
 
 .heart_icon {
   fill: none; /* 中身は透明 */
-  stroke: #292929; /* 輪郭の色 */
+  stroke: #e0245e; /* 輪郭の色 */
   stroke-width: 2; /* 輪郭の太さ */
   transition: all 0.2s ease;
   cursor: pointer;
@@ -34,7 +34,6 @@
 
 /* いいね済み状態 (.active) */
 .active {
-  background: #e0245e;
   fill: #e0245e; /* 赤〜ピンクで塗りつぶし */
   stroke: #e0245e; /* 輪郭も同色 */
   animation: pop 0.3s ease; /* ポップするアニメーション */
