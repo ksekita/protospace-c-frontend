@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
 import { userDetailProto } from "@/lib/api/user/userDetail";
+import Like from "@/components/like/Like";
 
 interface Props {
   userId: Promise<{ id: string }>;
@@ -42,6 +43,7 @@ export default async function PrototypeList(props: Props) {
             <div className={styles.card_body}>
               <h3 className={styles.card_title}>
                 <Link href={`/prototype/${proto.id}`}>{proto.title}</Link>
+                {proto.id !== undefined && <Like prototypeId={proto.id} />}
               </h3>
               <p className={styles.card_concept}>{proto.catchCopy}</p>
               <div className={styles.card_author}>
