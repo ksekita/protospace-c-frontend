@@ -8,22 +8,20 @@ export type UserInfo = {
   name?: string;
 };
 
-export async function prototypeList(): Promise<Prototype[]> {
+export async function prototypeList(
+  keyword: string | string[] | undefined,
+  sort: string | undefined,
+): Promise<Prototype[]> {
   "use cache";
   cacheLife("minutes");
   cacheTag("prototype-list");
   try {
-    const response = await api.get<Prototype[]>(
-      "/prototypes/",
-      /**
-       * , {
+    const response = await api.get<Prototype[]>("/prototypes/", {
       params: {
-        keyword: keyword || undefined,
-        sort: sort || undefined,
+        keyword,
+        sort,
       },
-    }
-       */
-    );
+    });
     return response.data;
   } catch (error) {
     console.error("一覧情報の取得に失敗しました:", error);

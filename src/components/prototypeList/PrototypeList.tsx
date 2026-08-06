@@ -5,8 +5,22 @@ import { Prototype } from "@/types/prototype/prototype";
 import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
 import { prototypeList } from "@/lib/api/prototype-list/useGetPrototype";
 
-export default async function PrototypeList() {
-  const prototypes = await prototypeList();
+export default async function PrototypeList({
+  searchParams,
+}: {
+  searchParams?: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
+}) {
+  const params = await searchParams;
+  // もしkeywordがstringだったらそのままkeywordを返し、違うならundefinedを返す
+  const keyword =
+    typeof params?.keyword === "string" ? params.keyword : undefined;
+
+  // sortも同じように比べる
+  const sort = typeof params?.sort === "string" ? params.sort : undefined;
+
+  const prototypes = await prototypeList(keyword, sort);
 
   if (
     prototypes === null ||
