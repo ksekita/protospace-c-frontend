@@ -1,4 +1,6 @@
+"use client";
 import { CommentListType } from "@/types/CommentListType";
+import CommentDeleteForm from "./CommentDeleteForm";
 import styles from "./CommentList.module.css";
 import Link from "next/link";
 
@@ -24,6 +26,7 @@ export default function CommentList(props: Props) {
             >
               {comment.name}
             </Link>
+            <CommentDeleteForm comment={comment} />
           </li>
         ))}
       </ul>

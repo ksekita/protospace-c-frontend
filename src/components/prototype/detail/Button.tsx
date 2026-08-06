@@ -20,7 +20,7 @@ export default function Button(props: Props) {
       </Link>
       <div>
         <button
-          className={styles.prototype_btn}
+          className={styles.delete_btn}
           onClick={() => prototypeDelete(props.prototypeDetail.id)}
         >
           削除

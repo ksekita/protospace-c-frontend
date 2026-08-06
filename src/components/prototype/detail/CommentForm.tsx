@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import styles from "./CommentForm.module.css";
-import { commentAction } from "@/lib/actions/commentActions";
+import { commentAction, commentDelete } from "@/lib/actions/commentActions";
 
 type Props = {
   isLoggedIn: boolean;

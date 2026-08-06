@@ -48,3 +48,19 @@ export async function commentAction(
     return { id, content, error: "通信エラーが発生しました" };
   }
 }
+// コメント削除
+export async function commentDelete(id: number) {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("jwt_token")?.value;
+    console.log("こめんと", id);
+    await api.delete(`comments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("コメント削除完了");
+  } catch (error) {
+    console.error("コメント削除に失敗しました:", error);
+  }
+}
