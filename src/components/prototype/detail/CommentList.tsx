@@ -1,13 +1,19 @@
 import styles from "./CommentList.module.css";
 import Link from "next/link";
 import { allCommentList } from "@/lib/api/prototype/comment";
+import CommentDeleteForm from "./CommentDeleteForm";
+import { userInfo } from "@/lib/api/prototype-list/useGetPrototype";
 
 interface Props {
   prototypeId: number;
 }
 
 export default async function CommentList(props: Props) {
-  const commentList = await allCommentList(props.prototypeId);
+  const [commentList, user] = await Promise.all([
+    await allCommentList(props.prototypeId),
+    await userInfo(),
+  ]);
+
   if (commentList === null) {
     return null;
   }
@@ -25,6 +31,9 @@ export default async function CommentList(props: Props) {
             >
               {comment.name}
             </Link>
+            {comment.userId === user.id && (
+              <CommentDeleteForm comment={props.prototypeId} />
+            )}
           </li>
         ))}
       </ul>

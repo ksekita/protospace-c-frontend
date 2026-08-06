@@ -28,7 +28,10 @@ export default function Useredit({
   userId: number;
 }) {
   const editUserWithId = editUserAction.bind(null, userId);
-  const [state, formAction, isPending] = useActionState(editUserWithId, null);
+  const [state, formAction, isPending] = useActionState<FormState, FormData>(
+    editUserWithId,
+    null,
+  );
 
   return (
     <>

@@ -62,6 +62,7 @@ export async function registerAction(
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const password_confirmation = formData.get("password_confirmation") as string;
+
   const name = formData.get("name") as string;
   const profile = formData.get("profile") as string;
   const affiliation = formData.get("affiliation") as string;
