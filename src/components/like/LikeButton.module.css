@@ -1,0 +1,54 @@
+.btn_wrapper {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.result {
+  height: 100%;
+  margin: auto 0 auto 5px;
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  border: none;
+  background: none;
+  width: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.heart_icon {
+  fill: none; /* 中身は透明 */
+  stroke: #292929; /* 輪郭の色 */
+  stroke-width: 2; /* 輪郭の太さ */
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.heart_icon:hover {
+  transform: scale(1.1);
+}
+
+/* いいね済み状態 (.active) */
+.active {
+  background: #e0245e;
+  fill: #e0245e; /* 赤〜ピンクで塗りつぶし */
+  stroke: #e0245e; /* 輪郭も同色 */
+  animation: pop 0.3s ease; /* ポップするアニメーション */
+}
+
+/* 押した時にぽよんと跳ねる効果 */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -4,6 +4,7 @@ import styles from "./PrototypeList.module.css";
 import { Prototype } from "@/types/prototype/prototype";
 import { imageBaseUrl } from "@/lib/api/layout/imageBaseUrl";
 import { prototypeList } from "@/lib/api/prototype-list/useGetPrototype";
+import Like from "../like/Like";
 
 export default async function PrototypeList({
   searchParams,
@@ -54,6 +55,7 @@ export default async function PrototypeList({
               <div className={styles.card_body}>
                 <h3 className={styles.card_title}>
                   <Link href={`/prototype/${proto.id}`}>{proto.title}</Link>
+                  <Like prototypeId={proto.id} />
                 </h3>
                 <p className={styles.card_concept}>{proto.catchCopy}</p>
                 <div className={styles.card_author}>
