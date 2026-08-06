@@ -1,9 +1,12 @@
+"use client";
 import { CommentListType } from "@/types/CommentListType";
+import CommentDeleteForm from "./CommentDeleteForm";
 import styles from "./CommentList.module.css";
 import Link from "next/link";
 
 interface Props {
   commentList: CommentListType[] | null;
+  currentUserId: number;
 }
 
 export default function CommentList(props: Props) {
@@ -24,6 +27,9 @@ export default function CommentList(props: Props) {
             >
               {comment.name}
             </Link>
+            {comment.userId === props.currentUserId && (
+              <CommentDeleteForm comment={comment} />
+            )}
           </li>
         ))}
       </ul>

@@ -5,6 +5,7 @@
 .comments_list {
   list-style-type: square;
   padding-bottom: 5px;
+  display: flex;
 }
 
 .comment_user {
