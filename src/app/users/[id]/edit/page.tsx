@@ -1,9 +1,6 @@
 // ユーザー編集ページ
-import Useredit from "@/components/users/edit/UserEdit";
+import { Suspense } from "react";
 import style from "./page.module.css";
-import api from "@/lib/api/layout/apiClient";
-import { redirect } from "next/navigation";
-import { userInfo } from "@/lib/api/prototype-list/useGetPrototype";
 
 export type PageProps = {
   params: { id: string };
@@ -15,20 +12,12 @@ export default async function EdituserInfo({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-  const userId = Number(id);
-
-  const currentUser = await userInfo();
-  if (Number(currentUser.id) != userId) {
-    redirect(`/users/${userId}`);
-  }
-  const response = await api.get(`/users/${userId}`);
-  const userData = response.data;
-
   return (
     <>
       <h1 className={style.title}>ユーザー情報編集ページ✍</h1>
-      <Useredit userData={userData} userId={userId} />
+      <Suspense>
+        <EdituserInfo params={params} />
+      </Suspense>
     </>
   );
 }
