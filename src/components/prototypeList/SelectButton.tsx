@@ -2,13 +2,7 @@
 
 import styles from "./Search.module.css";
 
-interface Props {
-  sort: string | undefined;
-}
-
-export default function SelectButton({ sort }: Props) {
-  console.log("sort", sort);
-
+export default function SelectButton() {
   const kinds = new Map<string | undefined, string>();
   kinds.set("latest", "新着順");
   kinds.set("oldest", "古い順");

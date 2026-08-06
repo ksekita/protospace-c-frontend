@@ -35,7 +35,7 @@ export default async function SerachForm({
           </button>
         </div>
 
-        <SelectButton sort={sort} />
+        <SelectButton />
       </Form>
     </div>
   );
