@@ -6,6 +6,7 @@ import Link from "next/link";
 
 interface Props {
   commentList: CommentListType[] | null;
+  currentUserId: number;
 }
 
 export default function CommentList(props: Props) {
@@ -26,7 +27,9 @@ export default function CommentList(props: Props) {
             >
               {comment.name}
             </Link>
-            <CommentDeleteForm comment={comment} />
+            {comment.userId === props.currentUserId && (
+              <CommentDeleteForm comment={comment} />
+            )}
           </li>
         ))}
       </ul>

@@ -1,3 +1,4 @@
+"use client";
 import { commentDelete } from "@/lib/actions/commentActions";
 import styles from "./CommentForm.module.css";
 import { CommentListType } from "@/types/CommentListType";
