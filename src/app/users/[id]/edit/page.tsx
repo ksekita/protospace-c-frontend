@@ -1,6 +1,7 @@
 // ユーザー編集ページ
 import { Suspense } from "react";
 import style from "./page.module.css";
+import EditUserForm from "./EditUserForm";
 
 export type PageProps = {
   params: { id: string };
@@ -16,7 +17,7 @@ export default async function EdituserInfo({
     <>
       <h1 className={style.title}>ユーザー情報編集ページ✍</h1>
       <Suspense>
-        <EdituserInfo params={params} />
+        <EditUserForm params={params} />
       </Suspense>
     </>
   );
