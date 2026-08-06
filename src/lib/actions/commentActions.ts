@@ -11,6 +11,7 @@ export type CommentActionState = {
   error?: string;
 };
 
+// コメントする
 export async function commentAction(
   id: number, // bind された引数
   prevState: CommentActionState | null, // 第2引数を prevState にする
@@ -33,7 +34,7 @@ export async function commentAction(
       },
     );
 
-    updateTag(`prototype-${id}`);
+    updateTag(`proto-commnet`);
 
     return { id, content: response.data.content || content, error: undefined };
   } catch (error) {
@@ -59,6 +60,7 @@ export async function commentDelete(id: number) {
         Authorization: `Bearer ${token}`,
       },
     });
+    updateTag(`proto-commnet`);
   } catch (error) {
     console.error("コメント削除に失敗しました:", error);
   }
