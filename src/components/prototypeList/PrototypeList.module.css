@@ -38,6 +38,8 @@
   font-weight: bold;
   margin: 0 0 6px 0;
   text-align: left;
+  display: flex;
+  justify-content: space-between;
 }
 
 .card_title a {
